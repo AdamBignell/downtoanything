@@ -5,11 +5,15 @@ class ChallengesController < ApplicationController
   # GET /challenges.json
   def index
     @challenges = Challenge.all
+    @users = User.all
   end
 
   # GET /challenges/1
   # GET /challenges/1.json
   def show
+    @challenge = Challenge.find(params[:id])
+    @users = User.all
+    @user = User.find(@challenge.user_id)
   end
 
   # GET /challenges/new
@@ -35,6 +39,8 @@ class ChallengesController < ApplicationController
         format.json { render json: @challenge.errors, status: :unprocessable_entity }
       end
     end
+    @user = User.find(@challenge.user_id)
+    @user.challenge << @challenge
   end
 
   # PATCH/PUT /challenges/1
