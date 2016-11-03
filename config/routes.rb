@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
 
+  resources :submissions do
+    resources :users do
+    end
+  end
   resources :challenges do
     resources :users do
+    end
+    resources :submissions do
     end
   end
   resources :users do

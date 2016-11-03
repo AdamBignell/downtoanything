@@ -2,5 +2,5 @@ class Challenge < ActiveRecord::Base
 end
 
 class User < ActiveRecord::Base
-	belongs_to :user
+	has_many :challenges, :dependent => :delete_all
 end

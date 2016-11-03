@@ -40,7 +40,7 @@ class ChallengesController < ApplicationController
       end
     end
     @user = User.find(@challenge.user_id)
-    @user.challenge << @challenge
+    @user.challenges << @challenge
   end
 
   # PATCH/PUT /challenges/1

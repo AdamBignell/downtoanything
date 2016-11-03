@@ -10,6 +10,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(params[:id])
+    # For whatever reason this line doesn't work
+    # @mysubmissions = @user.submissions
+    @challenges = Challenge.all
   end
 
   # GET /users/new

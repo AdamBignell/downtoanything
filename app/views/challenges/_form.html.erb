@@ -12,16 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+    Submitting User
+<!--     THIS LINE CURRENTLY ALLOWS DROP DOWN CHOICE OF USER! SHOULD BE AUTO SELECTED TO BE WHOEVER IS LOGGED IN -->
+    <%= collection_select(:challenge, :user_id, User.all, :id, :username, {prompt: true}, {:required => true}) %>
   </div>
   <div class="field">
-    <%= f.label :name %><br>
+    Challenge Title<br>
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :score %><br>
-    <%= f.number_field :score %>
   </div>
   <div class="actions">
     <%= f.submit %>
