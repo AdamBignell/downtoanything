@@ -12,8 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= collection_select(:submission, :user_id, User.all, :id, :username, {prompt: true}, {:required => true}) %>
+    <strong>Submission to challenge from:</strong> <%= @user.username %>
   </div>
   <div class="field">
     <%= f.label :challenge_id %><br>

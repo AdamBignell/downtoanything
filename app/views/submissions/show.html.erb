@@ -11,13 +11,8 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @submission.user_id %>
-</p>
-
-<p>
   <strong>Challenge:</strong>
-  <%= @submission.challenge_id %>
+  <%= Challenge.find(@submission.challenge_id).name %>
 </p>
 
 <%= link_to 'Edit', edit_submission_path(@submission) %> |

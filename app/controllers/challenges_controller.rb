@@ -19,6 +19,7 @@ class ChallengesController < ApplicationController
   # GET /challenges/new
   def new
     @challenge = Challenge.new
+    @user = User.find(session[:user_id])
   end
 
   # GET /challenges/1/edit
@@ -29,6 +30,7 @@ class ChallengesController < ApplicationController
   # POST /challenges.json
   def create
     @challenge = Challenge.new(challenge_params)
+    @challenge.update_attribute(:user_id, session[:user_id])
 
     respond_to do |format|
       if @challenge.save
