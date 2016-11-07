@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
 
 
+  resources :teams
   resources :submissions do
     resources :users do
     end
