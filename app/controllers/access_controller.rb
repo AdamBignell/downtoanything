@@ -6,6 +6,7 @@ class AccessController < ApplicationController
 
   def index
     # display text and links
+    @user = User.find(session[:user_id])
   end
 
   def login
