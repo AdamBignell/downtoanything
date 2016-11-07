@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107074417) do
+ActiveRecord::Schema.define(version: 20161107022200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,24 +24,6 @@ ActiveRecord::Schema.define(version: 20161107074417) do
     t.integer  "user_id"
   end
 
-  create_table "employee", id: false, force: :cascade do |t|
-    t.string "name",     limit: 20
-    t.string "dept",     limit: 20
-    t.string "jobtitle", limit: 20
-  end
-
-  create_table "employee_with_number", id: false, force: :cascade do |t|
-    t.string  "name", limit: 20
-    t.integer "cell"
-  end
-
-  create_table "people", force: :cascade do |t|
-    t.string   "pname"
-    t.integer  "age"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "submissions", force: :cascade do |t|
     t.string   "user"
     t.integer  "score"
@@ -52,33 +34,15 @@ ActiveRecord::Schema.define(version: 20161107074417) do
     t.string   "url"
   end
 
-  create_table "teams", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "points"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "username"
     t.integer  "points"
-    t.string   "team"
+    t.integer  "team_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
     t.boolean  "admin"
-    t.integer  "team_id"
-  end
-
-  add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
-
-  create_table "widgets", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "stock"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
 end
