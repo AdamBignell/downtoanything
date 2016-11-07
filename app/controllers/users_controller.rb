@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  # before_filter :admin_filter, only: [:edit, :index, :update]
 
   # GET /users
   # GET /users.json
@@ -73,6 +74,15 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :username, :points, :team)
+      params.require(:user).permit(:email, :password, :username, :points, :team, :admin)
+    end
+
+
+    # This is not working right now. The intention is to limit the pages non-admins can view
+    # See the top of this file, line beginning with before_filter
+    def admin_filter
+      unless @current_user && @current_user.admin?
+        redirect_to root_path, notice: "Only admins can view this page!"
+      end
     end
 end
