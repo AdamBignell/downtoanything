@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20161107022200) do
     t.integer  "user_id"
   end
 
+  create_table "employee", id: false, force: :cascade do |t|
+    t.string "name",     limit: 20
+    t.string "dept",     limit: 20
+    t.string "jobtitle", limit: 20
+  end
+
+  create_table "employee_with_number", id: false, force: :cascade do |t|
+    t.string  "name", limit: 20
+    t.integer "cell"
+  end
+
   create_table "people", force: :cascade do |t|
     t.string   "pname"
     t.integer  "age"
@@ -66,7 +77,7 @@ ActiveRecord::Schema.define(version: 20161107022200) do
   end
 
   create_table "tokimons", force: :cascade do |t|
-    t.string   "tname"
+    t.string   "name"
     t.float    "weight"
     t.float    "height"
     t.integer  "fly"
@@ -79,12 +90,11 @@ ActiveRecord::Schema.define(version: 20161107022200) do
     t.integer  "trainer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "colour"
-    t.integer  "psychic"
+    t.string   "bodytype"
   end
 
   create_table "trainers", force: :cascade do |t|
-    t.string   "pname"
+    t.string   "name"
     t.integer  "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -20,3 +20,6 @@
 
 # Ignore ruby-version
 /.ruby-version
+
+# Ignore database configuration
+/config/database.yml
