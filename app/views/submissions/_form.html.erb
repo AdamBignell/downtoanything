@@ -18,6 +18,10 @@
     <%= f.label :challenge_id %><br>
     <%= collection_select(:submission, :challenge_id, Challenge.all, :id, :name, {prompt: true}, {:required => true}) %>
   </div>
+  <div class="field">
+    <%= f.label "Submission Url" %><br>
+    <%= f.text_field :url %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
