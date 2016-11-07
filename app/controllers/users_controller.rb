@@ -6,6 +6,10 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    # @user = User.find(session[:id])
+    # if ! @user.admin
+    #   redirect_to({:controller => "access", :action => "index"})
+    # end
   end
 
   # GET /users/1
