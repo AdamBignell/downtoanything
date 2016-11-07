@@ -16,6 +16,7 @@
     <% @submissions.each do |submission| %>
       <tr>
         <td><%= @users.find(submission.user_id).username %></td>
+        <td><%= submission.url %></td>
         <td><%= submission.score %></td>
         <td><%= @challenges.find(submission.challenge_id).name %></td>
         <td><%= link_to 'Show', submission %></td>

@@ -12,9 +12,7 @@
   <% end %>
 
   <div class="field">
-    Submitting User
-<!--     THIS LINE CURRENTLY ALLOWS DROP DOWN CHOICE OF USER! SHOULD BE AUTO SELECTED TO BE WHOEVER IS LOGGED IN -->
-    <%= collection_select(:challenge, :user_id, User.all, :id, :username, {prompt: true}, {:required => true}) %>
+    <strong>Submitting Challenge from:</strong> <%= @user.username %>
   </div>
   <div class="field">
     Challenge Title<br>
