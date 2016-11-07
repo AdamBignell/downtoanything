@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
   resources :submissions do
     resources :users do
     end
@@ -14,6 +12,8 @@ Rails.application.routes.draw do
   end
   resources :users do
     resources :challenges do
+    end
+    resource :submissions do
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

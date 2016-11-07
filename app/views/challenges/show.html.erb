@@ -15,5 +15,24 @@
   <%= @challenge.score %>
 </p>
 
+<h3> Submissions: </h3>
+<tbody>
+  <thead>
+    <tr>
+      <th>Submitted By</th>
+      <th>Score</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <% @challsubmissions.each do |submission| %>
+  <tr>
+  <%= submission.url %>
+  <%= submission.score %>
+  <%= submission.user %>
+  </tr>
+  <% end %>
+</tbody>
+
+
 <%= link_to 'Edit', edit_challenge_path(@challenge) %> |
 <%= link_to 'Back', challenges_path %>

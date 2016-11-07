@@ -14,6 +14,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params[:id])
     @users = User.all
     @user = User.find(@challenge.user_id)
+    @challsubmissions = @challenge.submissions
   end
 
   # GET /challenges/new
@@ -41,7 +42,7 @@ class ChallengesController < ApplicationController
         format.json { render json: @challenge.errors, status: :unprocessable_entity }
       end
     end
-    @user = User.find(@challenge.user_id)
+    @user = User.find(session[:user_id])
     @user.challenges << @challenge
   end
 
