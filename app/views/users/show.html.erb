@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Points:</strong>
+  <%= @user.points %>
+</p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @user.team %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Login', '/access/login' %>
+<br>
+<thead>
+<h3> Submissions </h3>
+  <tr>
+    <th> <strong> Submission to: </strong><th><br>
+    <th> <strong> Score: </strong><th>
+  </th>
+</thead>
+
+<tbody>
+  <% # @mysubmissions.each do |submission| %>
+  <tr>
+  </tr>
+</tbody>

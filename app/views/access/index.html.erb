@@ -1,0 +1,10 @@
+<h1>Access#index</h1>
+<p>Find me in app/views/access/index.html.erb</p>
+
+<div>SUCCESS! Logged in as: <%= session[:username] %></div>
+
+<%= link_to("Logout", :action => 'logout') %><br /><br />
+
+<%= link_to("Users", :controller => 'users', :action => 'index') %><br />
+<%= link_to("Challenges", :controller => 'challenges', :action => 'index') %><br />
+<%= link_to("Submissions", :controller => 'submissions', :action => 'index') %>

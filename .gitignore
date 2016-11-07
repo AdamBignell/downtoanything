@@ -15,5 +15,11 @@
 /log/*.log
 /tmp
 
+# Ignore the database file
+/database.yml
+
 # Ignore ruby-version
 /.ruby-version
+
+# Ignore database configuration
+/config/database.yml

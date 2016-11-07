@@ -1,11 +1,29 @@
 Rails.application.routes.draw do
 
+
+
+  resources :submissions do
+    resources :users do
+    end
+  end
+  resources :challenges do
+    resources :users do
+    end
+    resources :submissions do
+    end
+  end
+  resources :users do
+    resources :challenges do
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
 
-  root 'welcome#index'
+  root 'access#index'
+
+  match ':controller(/:action(/:id))', :via => [:get, :post]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
