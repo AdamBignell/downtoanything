@@ -15,7 +15,7 @@
   <tbody>
     <% @challenges.each do |challenge| %>
       <tr>
-        <td><%= @users.find(challenge.user_id).username %></td>
+        <td><%=  @users.find(challenge.user_id).username %></td>
         <td><%= challenge.name %></td>
         <td><%= challenge.score %></td>
         <td><%= link_to 'Show', challenge %></td>
