@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107022200) do
+ActiveRecord::Schema.define(version: 20161107074417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,53 +41,19 @@ ActiveRecord::Schema.define(version: 20161107022200) do
     t.string   "url"
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "things", force: :cascade do |t|
     t.string   "tname"
     t.text     "description"
     t.integer  "person_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
-  create_table "tokemons", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "weight"
-    t.integer  "height"
-    t.integer  "fly"
-    t.integer  "fight"
-    t.integer  "fire"
-    t.integer  "water"
-    t.integer  "electrify"
-    t.integer  "ice"
-    t.integer  "total"
-    t.integer  "trainer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tokimons", force: :cascade do |t|
-    t.string   "tname"
-    t.float    "weight"
-    t.float    "height"
-    t.integer  "fly"
-    t.integer  "fight"
-    t.integer  "fire"
-    t.integer  "water"
-    t.integer  "electric"
-    t.integer  "ice"
-    t.integer  "total"
-    t.integer  "trainer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "colour"
-    t.integer  "psychic"
-  end
-
-  create_table "trainers", force: :cascade do |t|
-    t.string   "pname"
-    t.integer  "level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -99,7 +65,10 @@ ActiveRecord::Schema.define(version: 20161107022200) do
     t.datetime "updated_at",      null: false
     t.string   "password_digest"
     t.boolean  "admin"
+    t.integer  "team_id"
   end
+
+  add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
 
   create_table "widgets", force: :cascade do |t|
     t.string   "name"
