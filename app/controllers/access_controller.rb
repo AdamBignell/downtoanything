@@ -2,7 +2,7 @@ class AccessController < ApplicationController
 
   layout false
 
-  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
+  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout, {:controller => 'user', :action => 'new'}]
 
   def index
     # display text and links
@@ -32,14 +32,7 @@ class AccessController < ApplicationController
     end
   end
   
-  def is_admin
-    if confirm_logged_in
-      @user = User.find(session[:user_id])
-      return @user.admin
-    else
-      return false
-    end
-  end
+  
 
   def logout
     # mark user as logged out
