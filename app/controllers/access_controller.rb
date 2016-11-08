@@ -6,6 +6,7 @@ class AccessController < ApplicationController
 
   def index
     # display text and links
+    @user = User.find(session[:user_id])
   end
 
   def login
@@ -28,6 +29,15 @@ class AccessController < ApplicationController
     else
       # flash[:notice] = "Invalid username/password combination."
       redirect_to(:action => 'login')
+    end
+  end
+  
+  def is_admin
+    if confirm_logged_in:
+      @user = User.find(session[:user_id])
+      return @user.admin
+    else
+      return false
     end
   end
 

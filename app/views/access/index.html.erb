@@ -5,6 +5,8 @@
 
 <%= link_to("Logout", :action => 'logout') %><br /><br />
 
-<%= link_to("Users", :controller => 'users', :action => 'index') %><br />
+<% if @user.admin %>
+  <%= link_to("Users", :controller => 'users', :action => 'index') %><br />
+<% end %>
 <%= link_to("Challenges", :controller => 'challenges', :action => 'index') %><br />
 <%= link_to("Submissions", :controller => 'submissions', :action => 'index') %>
