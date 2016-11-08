@@ -1,7 +1,5 @@
 class AccessController < ApplicationController
 
-  layout false
-
   before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout, {:controller => 'user', :action => 'new'}]
 
   def index
