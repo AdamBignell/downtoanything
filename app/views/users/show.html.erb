@@ -23,6 +23,7 @@
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Login', '/access/login' %>
 <br>
+<table>
 <thead>
 <h3> Submissions </h3>
   <tr>
@@ -32,7 +33,26 @@
 </thead>
 
 <tbody>
-  <% # @mysubmissions.each do |submission| %>
+  <% @mysubmissions.each do |submission| %>
   <tr>
   </tr>
+  <% end %>
 </tbody>
+</table>
+
+<table>
+<thead>
+<h3> Submissions </h3>
+  <tr>
+    <th></th>
+    <th></th>
+  </th>
+</thead>
+
+<tbody>
+  <% @mychallenges.each do |challenge| %>
+  <tr>
+  </tr>
+  <% end %>
+</tbody>
+</table>

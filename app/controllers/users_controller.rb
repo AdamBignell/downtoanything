@@ -12,8 +12,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     # For whatever reason this line doesn't work
-    # @mysubmissions = @user.submissions
+    @mysubmissions = @user.submissions
     @challenges = Challenge.all
+    @mychallenges = @user.challenges
   end
 
   # GET /users/new
