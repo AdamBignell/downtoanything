@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_logged_in
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if is_admin
+      @users = User.all
+    else
+      redirect_to({:controller => 'access', :action => 'index'})
+    end
   end
 
   # GET /users/1
@@ -72,7 +75,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.admin = true
     @user.save
-    render("show")
+    redirect_to(:action => "show", :id => @user.id)
   end
 
   private

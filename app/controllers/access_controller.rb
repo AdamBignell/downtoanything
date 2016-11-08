@@ -33,7 +33,7 @@ class AccessController < ApplicationController
   end
   
   def is_admin
-    if confirm_logged_in:
+    if confirm_logged_in
       @user = User.find(session[:user_id])
       return @user.admin
     else
