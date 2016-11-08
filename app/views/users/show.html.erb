@@ -27,23 +27,23 @@
 <br>
 <h3> Submissions: </h3>
 <table>
-<tbody>
   <thead>
     <tr>
-      <th>Submitted By</th>
-      <th>Score</th>
-      <th>URL</th>
+      <th><strong>Submitted By</strong></th>
+      <th><strong>Score</strong></th>
+      <th><strong>URL</strong></th>
     </tr>
   </thead>
+  <tbody>
   <% @mysubmissions.each do |submission| %>
-
   <tr>
-  <%= submission.url %>
-  <%= submission.score %>
-  <%= submission.user %>
+    <td><%= User.find(submission.user).username %></td>
+    <td><%= submission.score %></td>
+    <td><a href="<%= submission.url %>"> <%=submission.url %></a></td>
   </tr>
   <% end %>
 </tbody>
+</table>
 
 <h3> Challenges: </h3>
 <table>
@@ -56,8 +56,8 @@
   </thead>
   <% @mychallenges.each do |challenge| %>
   <tr>
-  <%= challenge.name %>
-  <%= challenge.score %>
+    <td><%= challenge.name %></td>
+    <td><%= challenge.score %></td>
   </tr>
   <% end %>
 </tbody>

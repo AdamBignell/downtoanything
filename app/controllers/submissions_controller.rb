@@ -35,7 +35,7 @@ class SubmissionsController < ApplicationController
   def create
     @submission = Submission.new(submission_params)
     @user = User.find(session[:user_id])
-    @submission.update_attribute(:user, @user.username)
+    @submission.update_attribute(:user, @user)
     @submission.update_attribute(:user_id, session[:user_id])
 
     respond_to do |format|
