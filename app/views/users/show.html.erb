@@ -25,35 +25,39 @@
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Login', '/access/login' %>
 <br>
+<h3> Submissions: </h3>
 <table>
-<thead>
-<h3> Submissions </h3>
-  <tr>
-    <th> <strong> Submission to: </strong><th><br>
-    <th> <strong> Score: </strong><th>
-  </th>
-</thead>
-
 <tbody>
+  <thead>
+    <tr>
+      <th>Submitted By</th>
+      <th>Score</th>
+      <th>URL</th>
+    </tr>
+  </thead>
   <% @mysubmissions.each do |submission| %>
+
   <tr>
+  <%= submission.url %>
+  <%= submission.score %>
+  <%= submission.user %>
   </tr>
   <% end %>
 </tbody>
-</table>
 
+<h3> Challenges: </h3>
 <table>
-<thead>
-<h3> Challenges </h3>
-  <tr>
-    <th></th>
-    <th></th>
-  </th>
-</thead>
-
 <tbody>
+  <thead>
+    <tr>
+      <th>Challenge Name</th>
+      <th>Score</th>
+    </tr>
+  </thead>
   <% @mychallenges.each do |challenge| %>
   <tr>
+  <%= challenge.name %>
+  <%= challenge.score %>
   </tr>
   <% end %>
 </tbody>

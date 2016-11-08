@@ -34,4 +34,15 @@ ActiveRecord::Schema.define(version: 20161108001329) do
     t.string   "url"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string   "email"
+    t.string   "username"
+    t.integer  "points"
+    t.string   "team"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
+    t.boolean  "admin"
+  end
+
 end
