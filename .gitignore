@@ -23,3 +23,9 @@
 
 # Ignore database configuration
 /config/database.yml
+
+# Ignore database schema
+/db/schema.rb
+
+Gemfile
+Gemfile.lock
