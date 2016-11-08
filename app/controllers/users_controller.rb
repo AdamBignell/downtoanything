@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     if is_admin
       @users = User.all
     else
-      redirect_to({:controller => 'access', :action => 'index'})
+      return render :nothing => true, :status => :ok
     end
   end
 
