@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-	has_many :submissions
-	has_many :challenges
+	has_many :submissions, :dependent => :destroy
+	has_many :challenges, :dependent => :destroy
   belongs_to :team
 	has_secure_password
 
