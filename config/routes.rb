@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :teams
 
   resources :submissions do
     resources :users do
@@ -15,13 +16,15 @@ Rails.application.routes.draw do
   resources :users do
     resources :challenges do
     end
+    resource :submissions do
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
 
-  root 'access#index'
+  root 'access#login'
 
   match ':controller(/:action(/:id))', :via => [:get, :post]
 
