@@ -10,6 +10,12 @@ class UsersController < ApplicationController
     else
       return render :nothing => true, :status => :ok
     end
+
+    if params[:search]
+      @users = User.search(params[:search]).order("points DESC")
+    else
+      @users = User.all.order("points DESC")
+    end
   end
 
   # GET /users/1

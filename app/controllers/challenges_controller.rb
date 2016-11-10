@@ -9,6 +9,11 @@ class ChallengesController < ApplicationController
   def index
     @challenges = Challenge.all
     @users = User.all
+    if params[:search]
+      @challenges = Challenge.search(params[:search]).order("score DESC")
+    else
+      @challenges = Challenge.all.order("created_at DESC")
+    end
   end
 
   # GET /challenges/1
@@ -28,6 +33,7 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/1/edit
   def edit
+    @user = User.find(session[:user_id])
   end
 
   # POST /challenges
