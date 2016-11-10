@@ -26,6 +26,3 @@
 
 # Ignore database schema
 /db/schema.rb
-
-Gemfile
-Gemfile.lock
