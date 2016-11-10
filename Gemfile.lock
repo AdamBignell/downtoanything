@@ -40,8 +40,9 @@ GEM
     autoprefixer-rails (6.5.2)
       execjs
     bcrypt (3.1.11)
-    bootstrap-sass (3.2.0.2)
-      sass (~> 3.2)
+    bootstrap (4.0.0.alpha5)
+      autoprefixer-rails (>= 6.0.3)
+      sass (>= 3.4.19)
     builder (3.2.2)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -149,7 +150,7 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bcrypt (~> 3.1.7)
-  bootstrap-sass (~> 3.2.0)
+  bootstrap (~> 4.0.0.alpha5)
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails

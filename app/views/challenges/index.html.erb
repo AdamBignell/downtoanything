@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Challenges</h1>
+<h1>Latest Challenges</h1>
 
 <%= form_tag(challenges_path, :method => "get", id: "search-form") do %>
 <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
@@ -33,4 +33,4 @@
 
 <br>
 
-<%= link_to 'New Challenge', new_challenge_path %>
+<%= link_to 'Create Challenge', new_challenge_path %>
