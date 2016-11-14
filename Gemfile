@@ -32,6 +32,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'puma'
 
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+
 gem 'bootstrap', '~> 4.0.0.alpha5'
 
 gem 'autoprefixer-rails'
