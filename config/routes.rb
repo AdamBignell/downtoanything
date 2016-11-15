@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   resources :teams
-  
-  devise_for :users
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
@@ -10,7 +10,6 @@ Rails.application.routes.draw do
     
   get '/profile' => 'users#profile'
   
-
   resources :submissions do
     resources :users do
     end

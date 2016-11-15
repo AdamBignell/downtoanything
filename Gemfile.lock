@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/zquestz/omniauth-google-oauth2.git
+  revision: ff5a7e2618a35b102b16ef841c622722f91ef19d
+  specs:
+    omniauth-google-oauth2 (0.4.1)
+      jwt (~> 1.5.2)
+      multi_json (~> 1.3)
+      omniauth (>= 1.1.1)
+      omniauth-oauth2 (>= 1.3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -102,11 +112,6 @@ GEM
     omniauth (1.3.1)
       hashie (>= 1.2, < 4)
       rack (>= 1.0, < 3)
-    omniauth-google-oauth2 (0.4.1)
-      jwt (~> 1.5.2)
-      multi_json (~> 1.3)
-      omniauth (>= 1.1.1)
-      omniauth-oauth2 (>= 1.3.1)
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -193,7 +198,8 @@ DEPENDENCIES
   dotenv-rails
   jbuilder (~> 2.0)
   jquery-rails
-  omniauth-google-oauth2
+  omniauth
+  omniauth-google-oauth2!
   pg
   puma
   rails (= 4.2.5)
