@@ -23,7 +23,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/new
   def new
     @submission = Submission.new
-    @user = User.find(session[:user_id])
+    @user = User.find(current_user.id)
   end
 
   # GET /submissions/1/edit
@@ -34,9 +34,9 @@ class SubmissionsController < ApplicationController
   # POST /submissions.json
   def create
     @submission = Submission.new(submission_params)
-    @user = User.find(session[:user_id])
+    @user = User.find(current_user.id)
     @submission.update_attribute(:user, @user)
-    @submission.update_attribute(:user_id, session[:user_id])
+    @submission.update_attribute(:user_id, current_user.id)
 
     respond_to do |format|
       if @submission.save
