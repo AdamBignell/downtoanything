@@ -40,6 +40,9 @@ gem 'autoprefixer-rails'
 
 # Authentication
 gem 'devise'
+gem 'omniauth-google-oauth2'
+
+gem 'dotenv-rails', :groups => [:development, :test]
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
