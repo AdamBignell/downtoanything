@@ -38,6 +38,9 @@ gem 'bootstrap', '~> 4.0.0.alpha5'
 
 gem 'autoprefixer-rails'
 
+# Authentication
+gem 'devise'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

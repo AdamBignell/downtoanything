@@ -1,6 +1,6 @@
 class SubmissionsController < ApplicationController
 
-  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
+  before_action :authenticate_user!
 
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
