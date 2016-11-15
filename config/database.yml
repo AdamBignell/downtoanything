@@ -23,10 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: cmpt276
-  username: cmpt276
-  password: thecmpt276Passw0rd
-  host: localhost
+  database: dta
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

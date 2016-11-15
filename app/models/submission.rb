@@ -1,4 +1,5 @@
 class Submission < ActiveRecord::Base
-	belongs_to :user
+	has_many :user_interactions
+	has_many :users, :through => :user_interactions
 	belongs_to :challenge
 end
