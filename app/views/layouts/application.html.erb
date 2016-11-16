@@ -8,12 +8,18 @@
 <div class="container">
   <nav class="navbar navbar-dark bg-inverse">
     <div class="nav navbar-nav">
+      <a class="nav-item nav-link" href="/"><%= image_tag("logo.png", size: "372x35") %></a>
       <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/users">Profile</a>
       <a class="nav-item nav-link" href="/challenges">Challenges</a>
       <a class="nav-item nav-link" href="/access/logout">Logout</a>
     </div>
-    <div class="floatright"><%= image_tag("logo.png", size: "372x35") %></div>
+    <div class="floatright">
+    <%= form_tag('/search/results/', :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+    <%= submit_tag "Search!" %>
+    <% end %>
+    </div>
   </nav>
 </div>
 

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'search/results'
+
   resources :teams
 
   resources :submissions do

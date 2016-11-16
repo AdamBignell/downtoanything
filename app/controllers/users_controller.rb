@@ -5,13 +5,6 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-<<<<<<< HEAD
-    @users = User.all
-    # @user = User.find(session[:id])
-    # if ! @user.admin
-    #   redirect_to({:controller => "access", :action => "index"})
-    # end
-=======
     if is_admin
       @users = User.all
     else
@@ -23,7 +16,6 @@ class UsersController < ApplicationController
     else
       @users = User.all.order("points DESC")
     end
->>>>>>> 0f25edf33fbf01a1699db52d8d7092c31ba3b41c
   end
 
   # GET /users/1
