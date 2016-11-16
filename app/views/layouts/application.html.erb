@@ -7,30 +7,41 @@
   <meta name="google-signin-client_id" content="881367045605-3rp1s8s756hseuitp3fq032b6dfsp0tb.apps.googleusercontent.com">
 </head>
 <body>
-<div class="container">
-  <nav class="navbar navbar-dark bg-inverse">
-    <div class="nav navbar-nav">
-      <a class="floatleft" href="/"><%= image_tag("logolong.png", size: "230x30") %></a>
-      <% if user_signed_in? %>
-        Logged in as <strong><%= current_user.email %></strong>.
-        <a class="nav-item nav-link" href="/profile">My Profile</a>
-        <%= link_to 'Account', edit_user_registration_path, :class => 'nav-item nav-link' %> |
-        <%= link_to "Logout", destroy_user_session_path, :class => 'nav-item nav-link'  %>
-        <%= link_to "Challenges", challenges_path, :class => 'nav-item nav-link' %>
-      <% else %>
-        <%= link_to "Sign up", new_user_registration_path, :class => 'nav-item nav-link'  %> |
-        <%= link_to "Login", new_user_session_path, :class => 'nav-item nav-link'  %>
-      <% end %>
+<div class="container-fluid pr-0 pl-0">
+  <nav class="navbar navbar-dark bg-inverse topnav">
+    <div class="container">
+      <a class="navbar-brand" href="/"><%= image_tag("logolong.png", size: "230x30") %></a>
+      <ul class="nav navbar-nav">
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>.
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="/profile">My Profile</a>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Account', edit_user_registration_path, :class => 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Challenges", challenges_path, :class => 'nav-link' %>
+          </li>
+          <li class="nav-item float-xs-right">
+            <%= link_to "Logout", destroy_user_session_path, :class => 'nav-link'  %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign up", new_user_registration_path, :class => 'nav-link'  %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, :class => 'nav-link'  %>
+          </li>
+        <% end %>
+        <form class="form-inline float-xs-left ml-1" method="GET" action="/search/results">
+          <input class="form-control" type="text" name="search" placeholder="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </ul>
+    </nav>
     </div>
-
-    <div class="floatright">
-    <%= form_tag('/search/results/', :method => "get", id: "search-form") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search dta" %>
-    <%= submit_tag "Search!" %>
-    <% end %>
-    </div>
-  </nav>
-</div>
+  </div>
 
 <div class="container">
 <% if notice %>
