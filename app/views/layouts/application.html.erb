@@ -22,16 +22,13 @@
         <%= link_to "Login", new_user_session_path, :class => 'nav-item nav-link'  %>
       <% end %>
     </div>
-<<<<<<< HEAD
+
     <div class="floatright">
     <%= form_tag('/search/results/', :method => "get", id: "search-form") do %>
     <%= text_field_tag :search, params[:search], placeholder: "Search dta" %>
     <%= submit_tag "Search!" %>
     <% end %>
     </div>
-=======
-    
->>>>>>> origin/oauth
   </nav>
 </div>
 
