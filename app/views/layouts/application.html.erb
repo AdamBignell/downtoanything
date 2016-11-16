@@ -3,25 +3,32 @@
 <head>
   <title>Down To Anything</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "application" %>
   <meta name="google-signin-client_id" content="881367045605-3rp1s8s756hseuitp3fq032b6dfsp0tb.apps.googleusercontent.com">
 </head>
 <body>
 <div class="container">
   <nav class="navbar navbar-dark bg-inverse">
     <div class="nav navbar-nav">
-      <a class="navbar-brand" href="/"><%= image_tag("logo.png", size: "372x35") %></a>
-      <a class="nav-item nav-link" href="/challenges">Challenges</a>
+      <a class="floatleft" href="/"><%= image_tag("logolong.png", size: "230x30") %></a>
       <% if user_signed_in? %>
         Logged in as <strong><%= current_user.email %></strong>.
         <a class="nav-item nav-link" href="/profile">My Profile</a>
         <%= link_to 'Account', edit_user_registration_path, :class => 'nav-item nav-link' %> |
         <%= link_to "Logout", destroy_user_session_path, :class => 'nav-item nav-link'  %>
+        <%= link_to "Challenges", challenges_path, :class => 'nav-item nav-link' %>
       <% else %>
         <%= link_to "Sign up", new_user_registration_path, :class => 'nav-item nav-link'  %> |
         <%= link_to "Login", new_user_session_path, :class => 'nav-item nav-link'  %>
       <% end %>
     </div>
-    
+
+    <div class="floatright">
+    <%= form_tag('/search/results/', :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search dta" %>
+    <%= submit_tag "Search!" %>
+    <% end %>
+    </div>
   </nav>
 </div>
 

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'search/results'
+
   resources :teams
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }

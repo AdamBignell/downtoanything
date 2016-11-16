@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  has_many :user_interactions, :dependent => :destroy
+	has_many :user_interactions, :dependent => :destroy
 	has_many :submissions, :through => :user_interactions, :dependent => :destroy
 
   # Include default devise modules. Others available are:
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 	validates :email, :presence => true,
                     :format => EMAIL_REGEX
 
-  def search(search)
+  def User.search(search)
     where("username LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
   end
 

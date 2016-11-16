@@ -35,12 +35,12 @@ class SubmissionsController < ApplicationController
   def create
     @submission = Submission.new(submission_params)
 
-    @user = User.find(session[:user_id])
+    @user = User.find(current_user.id)
     @interaction = UserInteraction.create(:interaction => "created")
     @user.user_interactions << @interaction
     @submission.user_interactions << @interaction
-    @submission.update_attributes(:user_id => @user.id)
-
+    @submission.update_attribute(:user, @user)
+    @submission.update_attribute(:user_id, current_user.id)
 
     respond_to do |format|
       if @submission.save

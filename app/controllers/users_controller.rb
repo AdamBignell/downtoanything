@@ -30,6 +30,11 @@ class UsersController < ApplicationController
   def show
     if user_signed_in?
       @user = User.find(params[:id])
+      unless current_user == @user
+        flash[:notice] = "You can only view your own user account!"
+        redirect_to users_path(current_user)
+        return
+      end
       # For whatever reason this line doesn't work
       @mysubmissions = @user.submissions
       @challenges = Challenge.all
