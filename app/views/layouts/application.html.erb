@@ -3,21 +3,35 @@
 <head>
   <title>Down To Anything</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <meta name="google-signin-client_id" content="881367045605-3rp1s8s756hseuitp3fq032b6dfsp0tb.apps.googleusercontent.com">
 </head>
 <body>
 <div class="container">
   <nav class="navbar navbar-dark bg-inverse">
     <div class="nav navbar-nav">
-      <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/users">Profile</a>
+      <a class="navbar-brand" href="/"><%= image_tag("logo.png", size: "372x35") %></a>
       <a class="nav-item nav-link" href="/challenges">Challenges</a>
-      <a class="nav-item nav-link" href="/access/logout">Logout</a>
+      <% if user_signed_in? %>
+        Logged in as <strong><%= current_user.email %></strong>.
+        <a class="nav-item nav-link" href="/profile">My Profile</a>
+        <%= link_to 'Account', edit_user_registration_path, :class => 'nav-item nav-link' %> |
+        <%= link_to "Logout", destroy_user_session_path, :class => 'nav-item nav-link'  %>
+      <% else %>
+        <%= link_to "Sign up", new_user_registration_path, :class => 'nav-item nav-link'  %> |
+        <%= link_to "Login", new_user_session_path, :class => 'nav-item nav-link'  %>
+      <% end %>
     </div>
-    <div class="floatright"><%= image_tag("logo.png", size: "372x35") %></div>
+    
   </nav>
 </div>
 
 <div class="container">
+<% if notice %>
+  <p class="alert alert-info" role="alert"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
   <%= yield %>
 </div>
 

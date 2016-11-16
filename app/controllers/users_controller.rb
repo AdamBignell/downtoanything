@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_logged_in, :except => [:new, :create]
+  
+  before_action :authenticate_user!
 
   # GET /users
   # GET /users.json
@@ -8,31 +8,43 @@ class UsersController < ApplicationController
     if is_admin
       @users = User.all
     else
-      return render :nothing => true, :status => :ok
+      redirect_to '/profile'
     end
-
     if params[:search]
       @users = User.search(params[:search]).order("points DESC")
     else
       @users = User.all.order("points DESC")
     end
   end
-
+  
+  
+  def profile
+     @user = current_user
+     @mysubmissions = @user.submissions
+     @challenges = Challenge.all
+     @mychallenges = @user.challenges
+  end
   # GET /users/1
   # GET /users/1.json
+  
   def show
-    @user = User.find(params[:id])
-    # For whatever reason this line doesn't work
-    @mysubmissions = @user.submissions
-    @challenges = Challenge.all
-    @mychallenges = @user.challenges
+    if user_signed_in?
+      @user = User.find(params[:id])
+      # For whatever reason this line doesn't work
+      @mysubmissions = @user.submissions
+      @challenges = Challenge.all
+      @mychallenges = @user.challenges
+    end
   end
+  
 
   # GET /users/new
+  /
   def new
     @user = User.new
   end
 
+/
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
@@ -40,6 +52,7 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
+  /
   def create
     @user = User.new(user_params)
 
@@ -53,6 +66,7 @@ class UsersController < ApplicationController
       end
     end
   end
+  /
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json

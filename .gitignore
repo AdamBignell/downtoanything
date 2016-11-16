@@ -26,3 +26,7 @@
 
 # Ignore database schema
 /db/schema.rb
+
+# Ignore enviornment config
+/.env
+.env

@@ -38,6 +38,13 @@ gem 'bootstrap', '~> 4.0.0.alpha5'
 
 gem 'autoprefixer-rails'
 
+# Authentication
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2', git: 'https://github.com/zquestz/omniauth-google-oauth2.git'
+
+gem 'dotenv-rails', :groups => [:development, :test]
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
