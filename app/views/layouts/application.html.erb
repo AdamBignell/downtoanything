@@ -12,18 +12,36 @@
       <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/users">Profile</a>
       <a class="nav-item nav-link" href="/challenges">Challenges</a>
-      <a class="nav-item nav-link" href="/access/logout">Logout</a>
+      <% if user_signed_in? %>
+        Logged in as <strong><%= current_user.email %></strong>.
+        <a class="nav-item nav-link" href="/profile">My Profile</a>
+        <%= link_to 'Account', edit_user_registration_path, :class => 'nav-item nav-link' %> |
+        <%= link_to "Logout", destroy_user_session_path, :class => 'nav-item nav-link'  %>
+      <% else %>
+        <%= link_to "Sign up", new_user_registration_path, :class => 'nav-item nav-link'  %> |
+        <%= link_to "Login", new_user_session_path, :class => 'nav-item nav-link'  %>
+      <% end %>
     </div>
+<<<<<<< HEAD
     <div class="floatright">
     <%= form_tag('/search/results/', :method => "get", id: "search-form") do %>
     <%= text_field_tag :search, params[:search], placeholder: "Search dta" %>
     <%= submit_tag "Search!" %>
     <% end %>
     </div>
+=======
+    
+>>>>>>> origin/oauth
   </nav>
 </div>
 
 <div class="container">
+<% if notice %>
+  <p class="alert alert-info" role="alert"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
   <%= yield %>
 </div>
 
