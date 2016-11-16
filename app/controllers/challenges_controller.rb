@@ -1,4 +1,7 @@
 class ChallengesController < ApplicationController
+
+  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
+
   before_action :set_challenge, only: [:show, :edit, :update, :destroy]
 
   # GET /challenges
@@ -6,6 +9,11 @@ class ChallengesController < ApplicationController
   def index
     @challenges = Challenge.all
     @users = User.all
+    if params[:search]
+      @challenges = Challenge.search(params[:search]).order("score DESC")
+    else
+      @challenges = Challenge.all.order("created_at DESC")
+    end
   end
 
   # GET /challenges/1
@@ -14,6 +22,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params[:id])
     @users = User.all
     @user = User.find(@challenge.user_id)
+    @challsubmissions = @challenge.submissions
   end
 
   # GET /challenges/new
@@ -24,6 +33,7 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/1/edit
   def edit
+    @user = User.find(session[:user_id])
   end
 
   # POST /challenges
@@ -41,7 +51,7 @@ class ChallengesController < ApplicationController
         format.json { render json: @challenge.errors, status: :unprocessable_entity }
       end
     end
-    @user = User.find(@challenge.user_id)
+    @user = User.find(session[:user_id])
     @user.challenges << @challenge
   end
 

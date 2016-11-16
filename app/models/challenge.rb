@@ -1,6 +1,8 @@
 class Challenge < ActiveRecord::Base
+	belongs_to :user
+	has_many :submissions
 end
 
-class User < ActiveRecord::Base
-	has_many :challenges, :dependent => :delete_all
+def Challenge.search(search)
+	where("name LIKE ?", "%#{search}%")
 end

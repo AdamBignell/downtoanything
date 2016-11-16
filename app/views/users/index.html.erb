@@ -3,7 +3,12 @@
 <%= link_to("Logout", {:controller => "access", :action => 'logout'}) %><br /><br />
 
 <h1>Listing Users</h1>
-<p>To grant admin priviligies, go to "edit"</p>
+<p>To grant admin privileges, go to "edit"</p>
+
+<%= form_tag(users_path, :method => "get", id: "search-form") do %>
+<%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+<%= submit_tag "Search!" %>
+<% end %>
 
 <table>
   <thead>
@@ -23,7 +28,7 @@
         <td><%= user.email %></td>
         <td><%= user.username %></td>
         <td><%= user.points %></td>
-        <td><%= user.team %></td>
+        <td><%= user.team_id %></td>
         <td><%= user.admin ? "Yes" : "No" %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>

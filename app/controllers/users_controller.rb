@@ -1,15 +1,29 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_logged_in
+  before_action :confirm_logged_in, :except => [:new, :create]
 
   # GET /users
   # GET /users.json
   def index
+<<<<<<< HEAD
     @users = User.all
     # @user = User.find(session[:id])
     # if ! @user.admin
     #   redirect_to({:controller => "access", :action => "index"})
     # end
+=======
+    if is_admin
+      @users = User.all
+    else
+      return render :nothing => true, :status => :ok
+    end
+
+    if params[:search]
+      @users = User.search(params[:search]).order("points DESC")
+    else
+      @users = User.all.order("points DESC")
+    end
+>>>>>>> 0f25edf33fbf01a1699db52d8d7092c31ba3b41c
   end
 
   # GET /users/1
@@ -17,8 +31,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     # For whatever reason this line doesn't work
-    # @mysubmissions = @user.submissions
+    @mysubmissions = @user.submissions
     @challenges = Challenge.all
+    @mychallenges = @user.challenges
   end
 
   # GET /users/new
@@ -75,7 +90,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.admin = true
     @user.save
-    render("show")
+    redirect_to(:action => "show", :id => @user.id)
   end
 
   private

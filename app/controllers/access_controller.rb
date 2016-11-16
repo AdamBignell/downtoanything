@@ -1,8 +1,6 @@
 class AccessController < ApplicationController
 
-  layout false
-
-  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
+  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout, {:controller => 'user', :action => 'new'}]
 
   def index
     # display text and links
@@ -27,10 +25,12 @@ class AccessController < ApplicationController
       # flash[:notice] = "You are logged in."
       redirect_to(:action => 'index')
     else
-      # flash[:notice] = "Invalid username/password combination."
+      flash[:notice] = "Invalid username/password combination."
       redirect_to(:action => 'login')
     end
   end
+
+
 
   def logout
     # mark user as logged out

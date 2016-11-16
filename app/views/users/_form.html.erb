@@ -17,19 +17,15 @@
   </div>
   <div class="field">
     <%= f.label :password %><br>
-    <%= f.text_field :password %>
+    <%= f.password_field :password %>
   </div>
   <div class="field">
     <%= f.label :username %><br>
     <%= f.text_field :username %>
   </div>
   <div class="field">
-    <%= f.label :points %><br>
-    <%= f.number_field :points %>
-  </div>
-  <div class="field">
-    <%= f.label :team %><br>
-    <%= f.text_field :team %>
+  <%= f.label :team%><br>
+   <%= f.collection_select(:team_id, Team.all, :id, :name) %>
   </div>
   <div class="actions">
     <%= f.submit %>
