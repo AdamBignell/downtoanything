@@ -5,6 +5,7 @@
 <h3> Challenges</h3>
 <table>
   <thead>
+  <% if not @challenges.blank? %>
     <tr>
       <th>Proposed By</th>
       <th>Title</th>
@@ -13,25 +14,28 @@
     </tr>
   </thead>
 
+  <% end %>
   <tbody>
-  <% @challenges.each do |challenge| %>
+  <% if @challenges.each do |challenge| %>
       <tr>
         <td><%= @allusers.find(challenge.user_id).username %></td>
         <td><%= challenge.name %></td>
         <td><%= challenge.score %></td>
         <td><%= link_to 'Show', challenge %></td>
       </tr>
-  <% end %>
+    <% end.empty? %>
+      <h5> There were no Challenges fitting your search. </h5>
+    <% end %>
   </tbody>
 </table>
+<%= link_to 'Create Challenge', new_challenge_path %>
 
 <br>
-
-<%= link_to 'Create Challenge', new_challenge_path %>
 <div>
 <h3> Users</h3>
 <table>
   <thead>
+  <% if not @users.blank? %>
     <tr>
       <th>Email</th>
       <th>Username</th>
@@ -41,9 +45,9 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
+  <% end %>
   <tbody>
-    <% @users.each do |user| %>
+    <% if @users.each do |user| %>
       <tr>
         <td><%= user.email %></td>
         <td><%= user.username %></td>
@@ -52,6 +56,8 @@
         <td><%= user.admin ? "Yes" : "No" %></td>
         <td><%= link_to 'Show', user %></td>
       </tr>
+    <% end.empty? %>
+        <h5> There were no users fitting your search. </h5>
     <% end %>
   </tbody>
 </table>
