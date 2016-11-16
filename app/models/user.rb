@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 	validates :email, :presence => true,
                     :format => EMAIL_REGEX
 
-  def search(search)
+  def User.search(search)
     where("username LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
   end
 
