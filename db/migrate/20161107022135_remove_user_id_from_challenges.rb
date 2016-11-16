@@ -1,5 +1,11 @@
 class RemoveUserIdFromChallenges < ActiveRecord::Migration
-  def change
-    remove_column :challenges, :user_id, :string
+
+  def up
+    remove_column :challenges, :user_id
   end
+
+  def down
+    add_column :challenges, :user_id, :string
+  end
+
 end

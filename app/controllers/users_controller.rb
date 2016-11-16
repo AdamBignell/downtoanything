@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :confirm_logged_in, :except => [:new, :create]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if is_admin
+      @users = User.all
+    else
+      return render :nothing => true, :status => :ok
+    end
   end
 
   # GET /users/1
@@ -12,8 +17,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     # For whatever reason this line doesn't work
-    # @mysubmissions = @user.submissions
+    @mysubmissions = @user.submissions
     @challenges = Challenge.all
+    @mychallenges = @user.challenges
   end
 
   # GET /users/new
@@ -23,6 +29,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user = User.find(params[:id])
   end
 
   # POST /users
@@ -63,6 +70,13 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def make_admin
+    @user = User.find(params[:id])
+    @user.admin = true
+    @user.save
+    redirect_to(:action => "show", :id => @user.id)
   end
 
   private

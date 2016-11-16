@@ -1,3 +1,10 @@
+<div class="container">
+<% if !flash[:notice].blank? %>
+      <div class="notice">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
 <div class="login">
   <%= form_tag(:action => 'attempt_login') do %>
   <table>
@@ -16,4 +23,5 @@
   </table>
   <%= link_to 'New User', new_user_path %>
   <% end %>
+</div>
 </div>

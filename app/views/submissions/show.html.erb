@@ -2,12 +2,12 @@
 
 <p>
   <strong>User:</strong>
-  <%= @submission.user %>
+  <%= User.find(@submission.user).username %>
 </p>
 
 <p>
-  <strong>Score:</strong>
-  <%= @submission.url %>
+  <strong>Link:</strong>
+  <a href="<%= @submission.url %>"> <%=@submission.url %></a>
 </p>
 
 <p>

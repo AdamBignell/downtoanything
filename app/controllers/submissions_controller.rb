@@ -1,4 +1,7 @@
 class SubmissionsController < ApplicationController
+
+  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
+
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
   # GET /submissions
@@ -31,7 +34,8 @@ class SubmissionsController < ApplicationController
   # POST /submissions.json
   def create
     @submission = Submission.new(submission_params)
-    @submission.update_attribute(:user, (User.find(session[:user_id])).username)
+    @user = User.find(session[:user_id])
+    @submission.update_attribute(:user, @user)
     @submission.update_attribute(:user_id, session[:user_id])
 
     respond_to do |format|
