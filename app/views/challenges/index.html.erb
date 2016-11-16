@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Challenges</h1>
+<h1>Latest Challenges</h1>
 
 <%= form_tag(challenges_path, :method => "get", id: "search-form") do %>
 <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
@@ -25,7 +25,7 @@
         <td><%= challenge.score %></td>
         <td><%= link_to 'Show', challenge %></td>
         <td><%= link_to 'Edit', edit_challenge_path(challenge) %></td>
-        <td><%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', challenge, method: :destroy, data: { confirm: 'Are you sure?' } %></td>
       </tr>
   <% end %>
   </tbody>
@@ -33,4 +33,4 @@
 
 <br>
 
-<%= link_to 'New Challenge', new_challenge_path %>
+<%= link_to 'Create Challenge', new_challenge_path %>

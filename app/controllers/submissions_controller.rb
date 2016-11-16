@@ -16,7 +16,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/1.json
   def show
     @submission = Submission.find(params[:id])
-    @user = User.find(@submission.user_id)
+    @user = User.find(@submission.user_id).username
     @challenge = Challenge.find(@submission.challenge_id)
   end
 
@@ -35,8 +35,10 @@ class SubmissionsController < ApplicationController
   def create
     @submission = Submission.new(submission_params)
     @user = User.find(session[:user_id])
-    @submission.update_attribute(:user, @user)
-    @submission.update_attribute(:user_id, session[:user_id])
+    @interaction = UserInteraction.create(:interaction => "created")
+    @user.user_interactions << @interaction
+    @submission.user_interactions << @interaction
+    @submission.update_attributes(:user_id => @user.id)
 
     respond_to do |format|
       if @submission.save
