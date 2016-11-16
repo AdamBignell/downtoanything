@@ -2,11 +2,6 @@
 
 <h1>Latest Challenges</h1>
 
-<%= form_tag(challenges_path, :method => "get", id: "search-form") do %>
-<%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
-<%= submit_tag "Search!" %>
-<% end %>
-
 <table>
   <thead>
     <tr>
@@ -34,3 +29,8 @@
 <br>
 
 <%= link_to 'Create Challenge', new_challenge_path %>
+
+<%= form_tag(challenges_path, :method => "get", id: "search-form") do %>
+<%= text_field_tag :search, params[:search], placeholder: "Search Challenges" %>
+<%= submit_tag "Search!" %>
+<% end %>

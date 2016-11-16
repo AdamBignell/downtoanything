@@ -5,11 +5,6 @@
 <h1>Listing Users</h1>
 <p>To grant admin privileges, go to "edit"</p>
 
-<%= form_tag(users_path, :method => "get", id: "search-form") do %>
-<%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
-<%= submit_tag "Search!" %>
-<% end %>
-
 <table>
   <thead>
     <tr>
@@ -41,3 +36,8 @@
 <br>
 
 <%= link_to 'New User', new_user_path %>
+
+<%= form_tag(users_path, :method => "get", id: "search-form") do %>
+<%= text_field_tag :search, params[:search], placeholder: "Search Users" %>
+<%= submit_tag "Search!" %>
+<% end %>
