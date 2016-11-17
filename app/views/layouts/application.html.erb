@@ -13,7 +13,6 @@
       <a class="navbar-brand" href="/"><%= image_tag("logolong.png", size: "230x30") %></a>
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
-          Logged in as <strong><%= current_user.email %></strong>.
           <li class="nav-item">
             <a class="nav-item nav-link" href="/profile">My Profile</a>
           </li>
@@ -34,23 +33,37 @@
             <%= link_to "Login", new_user_session_path, :class => 'nav-link'  %>
           </li>
         <% end %>
-        <form class="form-inline float-xs-left ml-1" method="GET" action="/search/results">
-          <input class="form-control" type="text" name="search" placeholder="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
       </ul>
+      <form class="form-inline float-xs-left ml-2" method="GET" action="/search/results">
+        <input class="form-control" type="text" name="search" placeholder="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </nav>
     </div>
   </div>
 
 <div class="container">
-<% if notice %>
-  <p class="alert alert-info" role="alert"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
-  <%= yield %>
+  <% if notice %>
+    <div class="alert alert-info mt-1 alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <%= notice %>
+    </div>
+  <% end %>
+  <% if alert %>
+    <div class="alert alert-danger mt-1 alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <%= alert %>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-xs-12 mt-2">
+      <%= yield %>
+    </div>
+  </div>
 </div>
 
 </body>

@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>User:</strong>
   <%= @user.username %>
@@ -15,6 +13,8 @@
   <%= @challenge.score %>
 </p>
 
+<%= link_to 'New Submission', new_challenge_submission_path(@challenge) %>
+
 <h3> Submissions: </h3>
 <table>
   <thead>
@@ -27,7 +27,7 @@
   <tbody>
   <% @challsubmissions.each do |submission| %>
   <tr>
-    <td><%= User.find(submission.user).username %></td>
+    <td><%= submission.user.username %></td>
     <td><%= submission.score %></td>
     <td><a href="<%= submission.url %>"> <%=submission.url %></a></td>
   </tr>
