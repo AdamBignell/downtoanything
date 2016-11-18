@@ -20,14 +20,16 @@ class SubmissionsController < ApplicationController
     @challenge = Challenge.find(@submission.challenge_id)
   end
 
-  # GET /submissions/new
+  # GET /challenges/:challenge_id/submissions/new
   def new
+    @challenge = Challenge.find(params[:challenge_id]);
     @submission = Submission.new
     @user = User.find(current_user.id)
   end
 
   # GET /submissions/1/edit
   def edit
+    @user = User.find(@submission.user_id)
   end
 
   # POST /submissions
@@ -52,9 +54,8 @@ class SubmissionsController < ApplicationController
       end
     end
     @user = User.find(@submission.user_id)
-    # Can somebody try this on their own machine? It's failing 'sometimes' (I know this is weird) on mine
-    # @user.submissions << @submission
-    @challenge = Challenge.find(@submission.challenge_id)
+    
+    @challenge = Challenge.find(params[:challenge_id])
     @challenge.submissions << @submission
   end
 

@@ -1,41 +1,32 @@
-<p>
-  <strong>User:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @challenge.name %>
-</p>
-
-<p>
-  <strong>Score:</strong>
-  <%= @challenge.score %>
-</p>
+<h1>
+    <%= @challenge.name %>
+    <small class="text-muted h6">Created by <%= link_to @user.username, @user %></small>
+    <small class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge) %></small>
+</h1>
 
 <%= link_to 'New Submission', new_challenge_submission_path(@challenge) %>
 
-<h3> Submissions: </h3>
-<table>
-  <thead>
-    <tr>
-      <th><strong>Submitted By</strong></th>
-      <th><strong>Score</strong></th>
-      <th><strong>URL</strong></th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="card-deck-wrapper mt-2">
+  <div class="card-deck">
   <% @challsubmissions.each do |submission| %>
-  <tr>
-    <td><%= submission.user.username %></td>
-    <td><%= submission.score %></td>
-    <td><a href="<%= submission.url %>"> <%=submission.url %></a></td>
-  </tr>
-  <% end %>
-</tbody>
-</table>
+      <div class="card submission" data-url="<%= challenge_submission_path(@challenge, submission)%>">
+          <div class="card-block">
+            <h4 class="card-title">Submission <small class="h6"><%= link_to 'Edit', edit_challenge_submission_path(@challenge.id, submission.id) %></small></h4>
+            <p class="card-text">By: <%= submission.user.username %></p>
+            <p class="card-text"><a href="<%= submission.url %>"> <%=submission.url %></a></p>
+            <p class="card-text">Score: <%= submission.score %></p>
+            <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
 
+<script>
+  $('.submission').click(function(){
+    window.location.href = $(this).data('url');
+  });
+</script>
 
-<%= link_to 'Edit', edit_challenge_path(@challenge) %> |
-<%= link_to 'Back', challenges_path %>
 <%# " | " + link_to("+1", :action => 'upvote', :id => @challenge.id) %>
