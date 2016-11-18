@@ -1,0 +1,62 @@
+<%= link_to("Back", {:action => 'index'}) %>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Points:</strong>
+  <%= @user.points %>
+</p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @user.team_id %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Login', '/access/login' %>
+<br>
+<h3> Submissions: </h3>
+<table>
+  <thead>
+    <tr>
+      <th><strong>Submitted By</strong></th>
+      <th><strong>Score</strong></th>
+      <th><strong>URL</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @mysubmissions.each do |submission| %>
+  <tr>
+    <td><%= User.find(submission.user).username %></td>
+    <td><%= submission.score %></td>
+    <td><a href="<%= submission.url %>"> <%=submission.url %></a></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+
+<h3> Challenges: </h3>
+<table>
+<tbody>
+  <thead>
+    <tr>
+      <th>Challenge Name</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <% @mychallenges.each do |challenge| %>
+  <tr>
+    <td><%= challenge.name %></td>
+    <td><%= challenge.score %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>

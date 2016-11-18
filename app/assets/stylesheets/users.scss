@@ -1,3 +1,14 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.google-sign-in img:hover{
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(66,133,244,1);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(66,133,244,1);
+    box-shadow: 0px 0px 10px 1px rgba(66,133,244,1);
+}
+.google-sign-in img{
+    transition: box-shadow 0.3s ease;
+    transition: -moz-box-shadow 0.3s ease;
+    transition: -webkit-box-shadow 0.3s ease;
+}
