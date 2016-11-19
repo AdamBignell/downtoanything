@@ -27,13 +27,13 @@ class SubmissionsController < ApplicationController
     @user = User.find(current_user.id)
   end
 
-  # GET /submissions/1/edit
+  # GET /submissions/:id/edit
   def edit
     @user = User.find(@submission.user_id)
   end
 
-  # POST /submissions
-  # POST /submissions.json
+  # POST /challenges/:challenge_id/submissions
+  # POST /challenges/:challenge_id/submissions.json
   def create
     @submission = Submission.new(submission_params)
 
@@ -91,6 +91,6 @@ class SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:user, :score, :user_id, :challenge_id, :url)
+      params.require(:submission).permit(:user, :score, :user_id, :challenge_id, :url, :description, :title, :embed, :thumbnail, :duration)
     end
 end

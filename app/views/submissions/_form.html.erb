@@ -15,9 +15,22 @@
     <strong>Submission to challenge from:</strong> <%= @user.username %>
   </div>
  
+ <!-- TODO: Temporary until handeld in backend -->
   <div class="field">
     <%= f.label "Submission Url" %><br>
     <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label "Embed" %><br>
+    <%= f.text_field :embed %>
+  </div>
+   <div class="field">
+    <%= f.label "Duration" %><br>
+    <%= f.text_field :duration %>
+  </div>
+   <div class="field">
+    <%= f.label "Thumbnail" %><br>
+    <%= f.text_field :thumbnail %>
   </div>
   <div class="actions">
     <%= f.submit %>

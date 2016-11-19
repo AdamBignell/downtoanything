@@ -19,9 +19,12 @@
                 processData: false
             }).done(function(result) {
                 var data = $.parseJSON(result);
-                console.log(data.video.video_id);
-                console.log(data.video.full_url);
+                console.log(data);
                 $('#submission_url').val(data.video.full_url);
+                $('#submission_embed').val(data.video.embed_url);
+                $('#submission_duration').val(data.video.duration);
+                $('#submission_thumbnail').val(data.video.thumbnail);
+                $('#submission_thumbnail').val(data.video.thumbnail_url);
             });
         });
     });

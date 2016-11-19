@@ -13,7 +13,9 @@
           <div class="card-block">
             <h4 class="card-title">Submission <small class="h6"><%= link_to 'Edit', edit_challenge_submission_path(@challenge.id, submission.id) %></small></h4>
             <p class="card-text">By: <%= submission.user.username %></p>
-            <p class="card-text"><a href="<%= submission.url %>"> <%=submission.url %></a></p>
+          </div>
+          <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
+          <div class="card-block">
             <p class="card-text">Score: <%= submission.score %></p>
             <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
           </div>
