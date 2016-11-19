@@ -43,7 +43,11 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2', git: 'https://github.com/zquestz/omniauth-google-oauth2.git'
 
+# handle .env file
 gem 'dotenv-rails', :groups => [:development, :test]
+
+# HTTP client library for API calls in rails
+gem 'faraday'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
