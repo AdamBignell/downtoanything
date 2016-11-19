@@ -1,4 +1,4 @@
-<%= link_to("Back", {:action => 'index'}) %>
+<%#= link_to("Back", {:action => 'index'}) %>
 
 <p>
   <strong>Email:</strong>
@@ -20,8 +20,7 @@
   <%= @user.team_id %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Login', '/access/login' %>
+<%= link_to 'Edit', edit_user_path(@user) %>
 <br>
 <h3> Submissions: </h3>
 <table>
