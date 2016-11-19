@@ -7,14 +7,16 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.update_attribute(:user_id, current_user)
+    @submission = Submission.find(params[:submission_id])
+    @comment = @submission.comments.create(params[:comment])
+    @user = User.find(current_user.id)
+    @comment = @user.comments.create(params[:comment])
+    @comment.update_attribute(:user, @user.username)
+    @comment.update_attribute(:user_id, current_user.id)
 
-    if @comment.save
-      flash[:success] = 'Your comment was successfully added!'
-      redirect_to root_url
-    else
-      render 'new'
+    respond_to do |format|
+      format.html { redirect_to post_path(@post) }
+      format.js
     end
   end
 

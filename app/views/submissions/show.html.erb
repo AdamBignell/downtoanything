@@ -14,7 +14,12 @@
         </a>
       </div>
   </div>
+  <h2> Comments:</h2>
+  <%= render @submission.comments %>
 </div>
+
+<h2> Add a comment!: <h2>
+  <%= render "comments/form" %>
 
 <script>
   $('.submission').click(function(){
