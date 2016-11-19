@@ -9,15 +9,26 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- 
+
  *= require_self
  *= require_tree .
  *
- 
+
 */
 
 @import "bootstrap";
 
 .topnav{
 	border-radius: 0;
+}
+
+.btn-secondary {
+  color: #FF415E;
+  border-color: #FF415E;
+}
+
+.btn-secondary:hover {
+  background-color: #FF415E;
+  color: white;
+  border-color: #FF415E;
 }

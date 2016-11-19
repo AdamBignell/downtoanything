@@ -5,13 +5,13 @@ Rails.application.routes.draw do
   resources :teams
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", registrations: 'registrations' }
-  
+
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
-    
+
   get '/profile' => 'users#profile'
-  
+
   resources :submissions do
     resources :users do
     end
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     resource :submissions do
     end
    end
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -37,8 +37,8 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   # match ':controller(/:action(/:id))', :via => [:get, :post]
-  
-  
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
