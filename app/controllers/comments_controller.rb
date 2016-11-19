@@ -6,9 +6,9 @@ class CommentsController < ApplicationController
 
   def create
     @submission = Submission.find(params[:submission_id])
-    @comment = @submission.comments.create(params[:comment])
+    @comment = @submission.comments.create(comment_params)
     @user = User.find(current_user.id)
-    @comment = @user.comments.create(params[:comment])
+    @comment = @user.comments.create(comment_params)
     @comment.update_attribute(:user, @user.username)
     @comment.update_attribute(:user_id, current_user.id)
 
