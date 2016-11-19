@@ -1,24 +1,22 @@
-<h1>
-    <%= @challenge.name %>
-    <small class="text-muted h6">Created by <%= link_to @user.username, @user %></small>
-    <small class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge) %></small>
-</h1>
+<div class="mb-1">
+    <span class="h1"><%= @challenge.name %></span>
+    <span class="text-muted h6">Created by <%= link_to @user.username, @user %></span>
+    <span class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge) %></span>
+    <%= button_to 'Destroy', @challenge, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline" %>
+</div>
 
-<%= link_to 'New Submission', new_challenge_submission_path(@challenge) %>
-<br><br>
-<h4 class="card-title">Submissions:</h4>
+<%= link_to 'New Submission', new_challenge_submission_path(@challenge), class: "btn btn-secondary" %>
+
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
-  <% @challsubmissions.each do |submission| %>
+  <% @challenge.submissions.sort_by { |submission| submission.score}.each do |submission| %>
       <div class="card submission" data-url="<%= challenge_submission_path(@challenge, submission)%>">
           <div class="card-block">
-            <h4 class="card-title">Submission <small class="h6"><%= link_to 'Edit', edit_challenge_submission_path(@challenge.id, submission.id) %></small></h4>
-            <p class="card-text">By: <%= submission.user.username %></p>
+            <h4 class="card-title">Submission <small class="h6">By: <%= submission.user.username %></h4>
           </div>
           <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
           <div class="card-block">
             <p class="card-text">Score: <%= submission.score %></p>
-            <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
           </div>
         </a>
       </div>
@@ -32,4 +30,4 @@
   });
 </script>
 
-<%# " | " + link_to("+1", :action => 'upvote', :id => @challenge.id) %>
+<%# link_to("+1", :action => 'upvote', :id => @challenge.id) %>

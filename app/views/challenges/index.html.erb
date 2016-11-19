@@ -1,4 +1,5 @@
-<h1>Latest Challenges</h1>
+
+<div><span class="h1">Latest Challenges <%= link_to 'Create Challenge', new_challenge_path, class: "btn btn-secondary" %></span></div>
 
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
@@ -6,34 +7,41 @@
   <% @topchallenges.each do |challenge| %>
       <div class="card challenge" data-url="<%= challenge_path(challenge)%>">
           <div class="card-block">
-            <h3 class="card-title"><%= challenge.name %> </h3>
-            <div class="floatright">
-              <td><%= link_to 'Show', challenge %></td>
-              <td><%= link_to 'Edit', edit_challenge_path(challenge) %></td>
-              <td><%= button_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <div class="card-title"><span class="h2"><%= challenge.name %></span>
+              <span class="h6 ml-1">By: <%= challenge.user.username %></span>
+              <span class="h6 ml-1">Total score: <%= challenge.score%></span>
             </div>
-            <p class="card-text">By: <%= @users.find(challenge.user_id).username %></p>
+              <%= challenge.description %> <br>
             <% @subs = challenge.submissions.sort_by { |sub| sub.score} %>
             <% if not @subs.blank? %>
               <% @topsub = @subs[0] %>
-              <p class="card-text"><a href="<%= @topsub.url %>"> <%= @topsub.url %></a></p>
-              <p class="card-text">Score: <%= @topsub.score %></p>
+                Top Submission: <%= @topsub.user.username %>
+                Score: <%= @topsub.score %>
             <% else %>
-              <p> There are no submissions to this challenge yet! </p>
+              There are no submissions to this challenge yet!
             <% end %>
-              <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
+          </div>
           </div>
         </a>
       </div>
     <% end %>
   </div>
 </div>
+</div>
 
-<br>
-
-<%= link_to 'Create Challenge', new_challenge_path %>
+<div class="row">
+<div class="col-xs-12">
 
 <%= form_tag(challenges_path, :method => "get", id: "search-form") do %>
 <%= text_field_tag :search, params[:search], placeholder: "Search Challenges" %>
 <%= submit_tag "Search!" %>
+
 <% end %>
+</div>
+</div>
+
+<script>
+  $('.challenge').click(function(){
+    window.location.href = $(this).data('url');
+  });
+</script>
