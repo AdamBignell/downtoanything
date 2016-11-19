@@ -5,7 +5,8 @@
 </h1>
 
 <%= link_to 'New Submission', new_challenge_submission_path(@challenge) %>
-
+<br><br>
+<h4 class="card-title">Submissions:</h4>
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
   <% @challsubmissions.each do |submission| %>

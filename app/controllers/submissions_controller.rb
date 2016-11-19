@@ -18,6 +18,7 @@ class SubmissionsController < ApplicationController
     @submission = Submission.find(params[:id])
     @user = User.find(@submission.user_id).username
     @challenge = Challenge.find(@submission.challenge_id)
+    @comments = @submission.comments
   end
 
   # GET /challenges/:challenge_id/submissions/new
@@ -27,7 +28,7 @@ class SubmissionsController < ApplicationController
     @user = User.find(current_user.id)
   end
 
-  # GET /submissions/:id/edit
+  # GET /submissions/1/edit
   def edit
     @user = User.find(@submission.user_id)
   end
@@ -54,7 +55,7 @@ class SubmissionsController < ApplicationController
       end
     end
     @user = User.find(@submission.user_id)
-    
+
     @challenge = Challenge.find(params[:challenge_id])
     @challenge.submissions << @submission
   end

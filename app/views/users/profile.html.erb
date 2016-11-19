@@ -1,4 +1,4 @@
-<%= link_to("Back", {:action => 'index'}) %>
+<%#= link_to("Back", {:action => 'index'}) %>
 
 <p>
   <strong>Email:</strong>
@@ -22,26 +22,24 @@
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Login', '/access/login' %>
-<br>
-<h3> Submissions: </h3>
-<table>
-  <thead>
-    <tr>
-      <th><strong>Submitted By</strong></th>
-      <th><strong>Score</strong></th>
-      <th><strong>URL</strong></th>
-    </tr>
-  </thead>
-  <tbody>
+<br><br>
+<h4 class="card-title">Submissions:</h4>
+<div class="card-deck-wrapper mt-2">
+  <div class="card-deck">
   <% @mysubmissions.each do |submission| %>
-  <tr>
-    <td><%= User.find(submission.user).username %></td>
-    <td><%= submission.score %></td>
-    <td><a href="<%= submission.url %>"> <%=submission.url %></a></td>
-  </tr>
-  <% end %>
-</tbody>
-</table>
+      <div class="card submission" data-url="<%= challenge_submission_path(@challenges.find(submission.challenge_id).id, submission)%>">
+          <div class="card-block">
+            <small class="h6"><p class="floatright"><%= link_to 'Edit', edit_challenge_submission_path(@challenges.find(submission.challenge_id).id, submission.id) %></p></small>
+            <h3 class="card-title"><%= @challenges.find(submission.challenge_id).name %> Challenge </h3>
+            <p class="card-text"><a href="<%= submission.url %>"> <%=submission.url %></a></p>
+            <p class="card-text">Score: <%= submission.score %></p>
+            <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <h3> Challenges: </h3>
 <table>

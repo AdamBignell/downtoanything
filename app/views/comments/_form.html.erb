@@ -1,0 +1,7 @@
+<%= form_for([@submission, @submission.comments.build], remote: true) do |f| %>
+  <div class="form-group">
+    <%= f.text_area :body, class: 'form-control', required: true %>
+  </div>
+
+  <%= f.submit class: 'btn btn-secondary' %>
+<% end %>

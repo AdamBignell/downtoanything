@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
 	has_many :challenges, :dependent => :destroy
+	has_many :comments, :dependent => :destroy
   belongs_to :team
 
 	EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
@@ -33,7 +34,7 @@ class User < ActiveRecord::Base
        end
 
       # skip confirmation email when using oauth
-      user.skip_confirmation! 
+      user.skip_confirmation!
 
       return user
   end
