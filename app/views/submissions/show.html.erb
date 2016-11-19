@@ -14,11 +14,14 @@
         </a>
       </div>
   </div>
-  <h2> Comments:</h2>
-  <%= render @submission.comments %>
+  <h6> Comments </h6>
+  <% @comments.each do |comment|  %>
+  <p> <strong> comment.user </strong> <p>
+  <p> comment.body </p>
+  <% end %>
 </div>
 
-<h2> Add a comment!: <h2>
+<h6> Add a comment!: </h6>
   <%= render "comments/form" %>
 
 <script>

@@ -1,7 +1,5 @@
 class CommentsController < ApplicationController
-  def index
-    @comments = Comment.all
-  end
+
   def new
     @comment = Comment.new
   end
@@ -15,7 +13,7 @@ class CommentsController < ApplicationController
     @comment.update_attribute(:user_id, current_user.id)
 
     respond_to do |format|
-      format.html { redirect_to post_path(@post) }
+      format.html { redirect_to comment_path(@comment) }
       format.js
     end
   end

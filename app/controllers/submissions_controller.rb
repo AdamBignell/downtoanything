@@ -18,6 +18,7 @@ class SubmissionsController < ApplicationController
     @submission = Submission.find(params[:id])
     @user = User.find(@submission.user_id).username
     @challenge = Challenge.find(@submission.challenge_id)
+    @comments = @submission.comments
   end
 
   # GET /challenges/:challenge_id/submissions/new
