@@ -54,7 +54,7 @@ class SubmissionsController < ApplicationController
       end
     end
     @user = User.find(@submission.user_id)
-    
+
     @challenge = Challenge.find(params[:challenge_id])
     @challenge.submissions << @submission
   end

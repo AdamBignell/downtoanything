@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :teams
 
+  resources :comments, only: [:index, :new, :create]
+
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", registrations: 'registrations' }
 
   devise_scope :user do
@@ -14,6 +16,8 @@ Rails.application.routes.draw do
 
   resources :submissions do
     resources :users do
+    end
+    resources :comments do
     end
   end
   resources :challenges do

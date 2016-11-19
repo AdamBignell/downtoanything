@@ -1,24 +1,31 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= User.find(@submission.user_id).username %>
-</p>
+<div class="card-deck-wrapper mt-2">
+  <div class="card-deck">
+      <div class="card submission" data-url="<%= challenge_submission_path(@challenge, @submission)%>">
+          <div class="card-block">
+            <h5 class="card-title">Submission to: <small class="h6"><p class="floatright"><%= link_to 'Edit', edit_challenge_submission_path(@challenge.id, @submission.id) %></p></small></h5>
+            <h3 class="card-title"><%= Challenge.find(@submission.challenge_id).name %> Challenge </h3>
+            <p class="card-text">By: <%= @submission.user.username %></p>
+            <p class="card-text"><a href="<%= @submission.url %>"> <%=@submission.url %></a></p>
+            <p class="card-text">Score: <%= @submission.score %></p>
+            <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
+          </div>
+        </a>
+      </div>
+  </div>
+  <h2> Comments:</h2>
+  <%= render @submission.comments %>
+</div>
 
-<p>
-  <strong>Link:</strong>
-  <a href="<%= @submission.url %>"> <%=@submission.url %></a>
-</p>
+<h2> Add a comment!: <h2>
+  <%= render "comments/form" %>
 
-<p>
-  <strong>Score:</strong>
-  <%= @submission.score %>
-</p>
-
-<p>
-  <strong>Challenge:</strong>
-  <%= Challenge.find(@submission.challenge_id).name %>
-</p>
+<script>
+  $('.submission').click(function(){
+    window.location.href = $(this).data('url');
+  });
+</script>
 
 <%= link_to 'Edit', edit_submission_path(@submission) %> |
 <%= link_to 'Back', submissions_path %>

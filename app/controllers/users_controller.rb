@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+
   before_action :authenticate_user!
 
   # GET /users
@@ -16,8 +16,8 @@ class UsersController < ApplicationController
       @users = User.all.order("points DESC")
     end
   end
-  
-  
+
+
   def profile
      @user = current_user
      @mysubmissions = @user.submissions
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
   # GET /users/1
   # GET /users/1.json
-  
+
   def show
     if user_signed_in?
       @user = User.find(params[:id])
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       @mychallenges = @user.challenges
     end
   end
-  
+
 
   # GET /users/new
   /
