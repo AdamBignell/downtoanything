@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  before_action :authenticate_user!
 
   def results
   	@allusers = User.all
@@ -9,5 +10,5 @@ class SearchController < ApplicationController
       @challenges = Challenge.all.order("created_at DESC")
       @users = User.all.order("points DESC")
     end
-  end   
+  end
 end

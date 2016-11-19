@@ -27,7 +27,7 @@
 <table>
   <thead>
     <tr>
-      <th><strong>Submitted By</strong></th>
+      <th><strong>Challenge</strong></th>
       <th><strong>Score</strong></th>
       <th><strong>URL</strong></th>
     </tr>
@@ -35,7 +35,7 @@
   <tbody>
   <% @mysubmissions.each do |submission| %>
   <tr>
-    <td><%= User.find(submission.user).username %></td>
+    <td><%= Challenge.find(submission.challenge_id).name %></td>
     <td><%= submission.score %></td>
     <td><a href="<%= submission.url %>"> <%=submission.url %></a></td>
   </tr>
