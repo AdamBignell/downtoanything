@@ -1,15 +1,12 @@
-<h1>
-Down to Anything
-</h1>
 <h2>
-Prepare to be challenged!
+Prepare to meet your match!
 </h2>
 
 <div>Success! Logged in as: <%= session[:username] %></div>
 
 
 <% if @user.admin %>
-  <%= link_to("Users", :controller => 'users', :action => 'index') %><br />
+  <%= link_to("View Users", :controller => 'users', :action => 'index') %><br />
 <% end %>
-<%= link_to("Challenges", :controller => 'challenges', :action => 'index') %><br />
-<%= link_to("Submissions", :controller => 'submissions', :action => 'index') %>
+<%= link_to("View Challenges", :controller => 'challenges', :action => 'index') %><br />
+<%#= link_to("Submissions", :controller => 'submissions', :action => 'index') %>

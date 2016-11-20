@@ -1,10 +1,25 @@
 Rails.application.routes.draw do
 
+  get 'search/results'
 
   resources :teams
 
+  resources :comments, only: [:index, :new, :create]
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", registrations: 'registrations' }
+
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
+  get '/profile' => 'users#profile'
+  post '/users/make_admin/:id' => 'users#make_admin'
+  post '/users/demote_admin/:id' => 'users#demote_admin'
+
   resources :submissions do
     resources :users do
+    end
+    resources :comments do
     end
   end
   resources :challenges do
@@ -18,15 +33,17 @@ Rails.application.routes.draw do
     end
     resource :submissions do
     end
-  end
+   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
 
-  root 'access#login'
+  root 'welcome#index'
 
-  match ':controller(/:action(/:id))', :via => [:get, :post]
+  # match ':controller(/:action(/:id))', :via => [:get, :post]
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

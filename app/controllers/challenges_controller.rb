@@ -1,7 +1,6 @@
 class ChallengesController < ApplicationController
+  before_action :authenticate_user!
 
-  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
-  
   before_action :set_challenge, only: [:show, :edit, :update, :destroy]
 
   # GET /challenges
@@ -9,6 +8,11 @@ class ChallengesController < ApplicationController
   def index
     @challenges = Challenge.all
     @users = User.all
+    if params[:search]
+      @challenges = Challenge.search(params[:search]).order("score DESC")
+    else
+      @challenges = Challenge.all.order("created_at DESC")
+    end
   end
 
   # GET /challenges/1
@@ -23,18 +27,19 @@ class ChallengesController < ApplicationController
   # GET /challenges/new
   def new
     @challenge = Challenge.new
-    @user = User.find(session[:user_id])
+    @user = current_user
   end
 
   # GET /challenges/1/edit
   def edit
+    @user = User.find(current_user.id)
   end
 
   # POST /challenges
   # POST /challenges.json
   def create
     @challenge = Challenge.new(challenge_params)
-    @challenge.update_attribute(:user_id, session[:user_id])
+    @challenge.update_attribute(:user_id, current_user)
 
     respond_to do |format|
       if @challenge.save
@@ -45,7 +50,7 @@ class ChallengesController < ApplicationController
         format.json { render json: @challenge.errors, status: :unprocessable_entity }
       end
     end
-    @user = User.find(session[:user_id])
+    @user = User.find(current_user.id)
     @user.challenges << @challenge
   end
 
@@ -81,6 +86,6 @@ class ChallengesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def challenge_params
-      params.require(:challenge).permit(:user_id, :name, :score)
+      params.require(:challenge).permit(:user_id, :name, :score, :description)
     end
 end

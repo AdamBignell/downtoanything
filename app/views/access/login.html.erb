@@ -5,6 +5,7 @@
       </div>
     <% end %>
 
+<h2>Login</h2>
 <div class="login">
   <%= form_tag(:action => 'attempt_login') do %>
   <table>
@@ -21,7 +22,9 @@
       <td><%= submit_tag("Log In") %></td>
     </tr>
   </table>
-  <%= link_to 'New User', new_user_path %>
   <% end %>
+</div>
+<div class="btn-group" role="group">
+  <a href="<%= new_user_path %>"><button type="button" class="btn btn-default">Sign Up</button></a>
 </div>
 </div>

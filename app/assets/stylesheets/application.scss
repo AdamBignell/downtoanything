@@ -1,0 +1,49 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *= require_self
+ *= require_tree .
+ *
+*/
+
+@import "bootstrap";
+
+
+.floatright {
+  float: right
+}
+.inline {
+  display: inline !important;
+}
+
+.topnav{
+	border-radius: 0;
+}
+
+.btn-secondary {
+  color: #FF415E;
+  border-color: #FF415E;
+}
+
+.btn-secondary:hover {
+  background-color: #FF415E;
+  color: white;
+  border-color: #FF415E;
+}
+
+.card {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border-radius: 2px;
+}
+
+.card:hover {
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 4px 4px rgba(0,0,0,0.22);
+}

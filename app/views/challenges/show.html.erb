@@ -1,40 +1,33 @@
-<p id="notice"><%= notice %></p>
+<div class="mb-1">
+    <span class="h1"><%= @challenge.name %></span>
+    <span class="text-muted h6">Created by <%= link_to @user.username, @user %></span>
+    <span class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge) %></span>
+    <%= button_to 'Destroy', @challenge, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline" %>
+</div>
 
-<p>
-  <strong>User:</strong>
-  <%= @challenge.user_id %>
-</p>
+<%= link_to 'New Submission', new_challenge_submission_path(@challenge), class: "btn btn-secondary" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @challenge.name %>
-</p>
+<div class="card-deck-wrapper mt-2">
+  <div class="card-deck">
+  <% @challenge.submissions.sort_by { |submission| submission.score}.each do |submission| %>
+      <div class="card submission" data-url="<%= challenge_submission_path(@challenge, submission)%>">
+          <div class="card-block">
+            <h4 class="card-title">Submission <small class="h6">By: <%= submission.user.username %></h4>
+          </div>
+          <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
+          <div class="card-block">
+            <p class="card-text">Score: <%= submission.score %></p>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-<p>
-  <strong>Score:</strong>
-  <%= @challenge.score %>
-</p>
+<script>
+  $('.submission').click(function(){
+    window.location.href = $(this).data('url');
+  });
+</script>
 
-<h3> Submissions: </h3>
-<table>
-  <thead>
-    <tr>
-      <th><strong>Submitted By</strong></th>
-      <th><strong>Score</strong></th>
-      <th><strong>URL</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @challsubmissions.each do |submission| %>
-  <tr>
-    <td><%= User.find(submission.user).username %></td>
-    <td><%= submission.score %></td>
-    <td><a href="<%= submission.url %>"> <%=submission.url %></a></td>
-  </tr>
-  <% end %>
-</tbody>
-</table>
-
-
-<%= link_to 'Edit', edit_challenge_path(@challenge) %> |
-<%= link_to 'Back', challenges_path %>
+<%# link_to("+1", :action => 'upvote', :id => @challenge.id) %>

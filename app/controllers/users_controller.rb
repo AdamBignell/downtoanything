@@ -1,39 +1,62 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_logged_in, :except => [:new, :create]
+
+  before_action :authenticate_user!
 
   # GET /users
   # GET /users.json
   def index
-    if is_admin
+    if is_admin?
       @users = User.all
     else
-      return render :nothing => true, :status => :ok
+      redirect_to '/profile'
+    end
+    if params[:search]
+      @users = User.search(params[:search]).order("points DESC")
+    else
+      @users = User.all.order("points DESC")
     end
   end
 
+
+  def profile
+     @user = current_user
+     @mysubmissions = @user.submissions
+     @challenges = Challenge.all
+     @mychallenges = @user.challenges
+  end
   # GET /users/1
   # GET /users/1.json
+
   def show
-    @user = User.find(params[:id])
-    # For whatever reason this line doesn't work
-    @mysubmissions = @user.submissions
-    @challenges = Challenge.all
-    @mychallenges = @user.challenges
+    if user_signed_in?
+      @user = User.find(params[:id])
+      unless current_user == @user
+        flash[:notice] = "You can only view your own user account!"
+        redirect_to users_path(current_user)
+        return
+      end
+      # For whatever reason this line doesn't work
+      @mysubmissions = @user.submissions
+      @challenges = Challenge.all
+      @mychallenges = @user.challenges
+    end
   end
 
+
   # GET /users/new
+  
   def new
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = current_user;
   end
 
   # POST /users
   # POST /users.json
+  /
   def create
     @user = User.new(user_params)
 
@@ -47,6 +70,7 @@ class UsersController < ApplicationController
       end
     end
   end
+  /
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
@@ -65,18 +89,31 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    if is_admin?
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
   def make_admin
-    @user = User.find(params[:id])
-    @user.admin = true
-    @user.save
-    redirect_to(:action => "show", :id => @user.id)
+    if is_admin? 
+      @user = User.find(params[:id])
+      @user.admin = true
+      @user.save
+      @users = User.all
+    end
+  end
+
+  def demote_admin
+    if is_admin?
+      @user = User.find(params[:id])
+      @user.admin = false
+      @user.save
+      @users = User.all
+    end
   end
 
   private

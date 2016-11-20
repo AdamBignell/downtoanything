@@ -32,8 +32,25 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'puma'
 
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+
+gem 'bootstrap', '~> 4.0.0.alpha5'
+
 gem 'autoprefixer-rails'
+
+# Authentication
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2', git: 'https://github.com/zquestz/omniauth-google-oauth2.git'
+
+# Nested Comments
+gem 'closure_tree'
+
+# handle .env file
+gem 'dotenv-rails', :groups => [:development, :test]
+
+# HTTP client library for API calls in rails
+gem 'faraday'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

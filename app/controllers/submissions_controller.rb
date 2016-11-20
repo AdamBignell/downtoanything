@@ -1,6 +1,6 @@
 class SubmissionsController < ApplicationController
 
-  before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
+  before_action :authenticate_user!
 
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
@@ -16,27 +16,34 @@ class SubmissionsController < ApplicationController
   # GET /submissions/1.json
   def show
     @submission = Submission.find(params[:id])
-    @user = User.find(@submission.user_id)
+    @user = User.find(@submission.user_id).username
     @challenge = Challenge.find(@submission.challenge_id)
+    @comments = @submission.comments
   end
 
-  # GET /submissions/new
+  # GET /challenges/:challenge_id/submissions/new
   def new
+    @challenge = Challenge.find(params[:challenge_id]);
     @submission = Submission.new
-    @user = User.find(session[:user_id])
+    @user = User.find(current_user.id)
   end
 
   # GET /submissions/1/edit
   def edit
+    @user = User.find(@submission.user_id)
   end
 
-  # POST /submissions
-  # POST /submissions.json
+  # POST /challenges/:challenge_id/submissions
+  # POST /challenges/:challenge_id/submissions.json
   def create
     @submission = Submission.new(submission_params)
-    @user = User.find(session[:user_id])
+
+    @user = User.find(current_user.id)
+    @interaction = UserInteraction.create(:interaction => "created")
+    @user.user_interactions << @interaction
+    @submission.user_interactions << @interaction
     @submission.update_attribute(:user, @user)
-    @submission.update_attribute(:user_id, session[:user_id])
+    @submission.update_attribute(:user_id, current_user.id)
 
     respond_to do |format|
       if @submission.save
@@ -48,9 +55,8 @@ class SubmissionsController < ApplicationController
       end
     end
     @user = User.find(@submission.user_id)
-    # Can somebody try this on their own machine? It's failing 'sometimes' (I know this is weird) on mine
-    # @user.submissions << @submission
-    @challenge = Challenge.find(@submission.challenge_id)
+
+    @challenge = Challenge.find(params[:challenge_id])
     @challenge.submissions << @submission
   end
 
@@ -86,6 +92,6 @@ class SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:user, :score, :user_id, :challenge_id, :url)
+      params.require(:submission).permit(:user, :score, :user_id, :challenge_id, :url, :description, :title, :embed, :thumbnail, :duration)
     end
 end

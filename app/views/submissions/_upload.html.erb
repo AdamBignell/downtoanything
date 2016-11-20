@@ -1,0 +1,31 @@
+<form id="media-upload">
+
+<input name="filedata" id="filedata" type="file" accept="image/*,video/*">
+<input type="submit">
+</form>
+
+<script>
+    $(document).ready(function(){
+
+        $('#media-upload').submit(function(e){
+            var formdata = new FormData($('#media-upload')[0]);
+            e.preventDefault();
+            $.ajax({
+                url: 'https://api.vid.me/video/upload',
+                method: 'POST',
+                data: formdata,
+                cache: false,
+                contentType: false,
+                processData: false
+            }).done(function(result) {
+                var data = $.parseJSON(result);
+                console.log(data);
+                $('#submission_url').val(data.video.full_url);
+                $('#submission_embed').val(data.video.embed_url);
+                $('#submission_duration').val(data.video.duration);
+                $('#submission_thumbnail').val(data.video.thumbnail);
+                $('#submission_thumbnail').val(data.video.thumbnail_url);
+            });
+        });
+    });
+</script>

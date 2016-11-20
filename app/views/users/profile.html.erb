@@ -1,0 +1,60 @@
+<%#= link_to("Back", {:action => 'index'}) %>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Points:</strong>
+  <%= @user.points %>
+</p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @user.team_id %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Login', '/access/login' %>
+<br><br>
+<h4 class="card-title">Submissions:</h4>
+<div class="card-deck-wrapper mt-2">
+  <div class="card-deck">
+  <% @mysubmissions.each do |submission| %>
+      <div class="card submission" data-url="<%= challenge_submission_path(@challenges.find(submission.challenge_id).id, submission)%>">
+          <div class="card-block">
+            <small class="h6"><p class="floatright"><%= link_to 'Edit', edit_challenge_submission_path(@challenges.find(submission.challenge_id).id, submission.id) %></p></small>
+            <h3 class="card-title"><%= @challenges.find(submission.challenge_id).name %> Challenge </h3>
+            <p class="card-text"><a href="<%= submission.url %>"> <%=submission.url %></a></p>
+            <p class="card-text">Score: <%= submission.score %></p>
+            <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<h3> Challenges: </h3>
+<table>
+<tbody>
+  <thead>
+    <tr>
+      <th>Challenge Name</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <% @mychallenges.each do |challenge| %>
+  <tr>
+    <td><%= challenge.name %></td>
+    <td><%= challenge.score %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>

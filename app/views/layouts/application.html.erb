@@ -2,26 +2,73 @@
 <html>
 <head>
   <title>Down To Anything</title>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "application" %>
+  <meta name="google-signin-client_id" content="881367045605-3rp1s8s756hseuitp3fq032b6dfsp0tb.apps.googleusercontent.com">
 </head>
 <body>
-<div class="container">
-  <nav class="navbar navbar-dark bg-inverse">
-    <div class="nav navbar-nav">
-      <a class="nav-item nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/challenges">Challenges</a>
-      <a class="nav-item nav-link" href="/submissions">Submissions</a>
-      <a class="nav-item nav-link" href="/access/logout">Logout</a>
+<div class="container-fluid pr-0 pl-0">
+  <nav class="navbar navbar-dark bg-inverse topnav">
+    <div class="container">
+      <a class="navbar-brand" href="/"><%= image_tag("logolong.png", size: "230x30") %></a>
+      <ul class="nav navbar-nav">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <a class="nav-item nav-link" href="/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Account', edit_user_registration_path, :class => 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Challenges", challenges_path, :class => 'nav-link' %>
+          </li>
+          <li class="nav-item float-xs-right">
+            <%= link_to "Logout", destroy_user_session_path, :class => 'nav-link'  %>
+          </li>
+          <% if is_admin? %>
+           <li class="nav-item">
+            <%= link_to "Users", users_path, :class => 'nav-link' %>
+          </li>
+          <% end %>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign up", new_user_registration_path, :class => 'nav-link'  %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, :class => 'nav-link'  %>
+          </li>
+        <% end %>
+      </ul>
+      <form class="form-inline float-xs-left ml-2" method="GET" action="/search/results">
+        <input class="form-control" type="text" name="search" placeholder="Search">
+        <button class="btn btn-outline-info" type="submit">Search</button>
+      </form>
+    </nav>
     </div>
-  </nav>
-</div>
+  </div>
 
 <div class="container">
-  <%= yield %>
+  <% if notice %>
+    <div class="alert alert-info mt-1 alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <%= notice %>
+    </div>
+  <% end %>
+  <% if alert %>
+    <div class="alert alert-danger mt-1 alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      <%= alert %>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-xs-12 mt-2">
+      <%= yield %>
+    </div>
+  </div>
 </div>
 
 </body>
