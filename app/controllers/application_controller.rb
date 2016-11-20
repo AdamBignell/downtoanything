@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   # before_action :confirm_logged_in, :except => [:login, :attempt_login, :logout]
-  
-  
-  def is_admin
+  helper_method :is_admin?
+  def is_admin?
     return user_signed_in? && current_user.admin
   end
+
 end

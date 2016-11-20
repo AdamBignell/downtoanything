@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    if is_admin
+    if is_admin?
       @users = User.all
     else
       redirect_to '/profile'
@@ -89,23 +89,31 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    if is_admin?
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
   def make_admin
-    @user = User.find(params[:id])
-    @user.admin = true
-    @user.save
+    if is_admin? 
+      @user = User.find(params[:id])
+      @user.admin = true
+      @user.save
+      @users = User.all
+    end
   end
 
   def demote_admin
-    @user = User.find(params[:id])
-    @user.admin = false
-    @user.save
+    if is_admin?
+      @user = User.find(params[:id])
+      @user.admin = false
+      @user.save
+      @users = User.all
+    end
   end
 
   private
