@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   end
 
   get '/profile' => 'users#profile'
+  post '/users/make_admin/:id' => 'users#make_admin'
+  post '/users/demote_admin/:id' => 'users#demote_admin'
 
   resources :submissions do
     resources :users do

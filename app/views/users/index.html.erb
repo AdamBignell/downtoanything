@@ -1,9 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to("Logout", {:controller => "access", :action => 'logout'}) %><br /><br />
-
 <h1>Listing Users</h1>
-<p>To grant admin privileges, go to "edit"</p>
 
 <table>
   <thead>
@@ -28,6 +23,10 @@
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+        <% if !user.admin? %> <%= link_to("Make Admin", {:action => "make_admin", :id => user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> <% end %>
+        <% if user.admin? %> <%= link_to("Demote Admin", {:action => "demote_admin", :id => user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

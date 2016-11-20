@@ -44,15 +44,14 @@ class UsersController < ApplicationController
 
 
   # GET /users/new
-  /
+  
   def new
     @user = User.new
   end
 
-/
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = current_user;
   end
 
   # POST /users
@@ -101,7 +100,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.admin = true
     @user.save
-    redirect_to(:action => "show", :id => @user.id)
+  end
+
+  def demote_admin
+    @user = User.find(params[:id])
+    @user.admin = false
+    @user.save
   end
 
   private
