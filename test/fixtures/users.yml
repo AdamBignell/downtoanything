@@ -8,6 +8,7 @@ one:
   points: 1
   team: Slothropians
   encrypted_password: <%= User.new.send(:password_digest, 'gelitripping') %>
+  admin: t
 
 two:
   id: 2
@@ -17,3 +18,4 @@ two:
   points: 1
   team: Enfield Tennis Academy
   encrypted_password: <%= User.new.send(:password_digest, 'moldonmold') %>
+  admin: t

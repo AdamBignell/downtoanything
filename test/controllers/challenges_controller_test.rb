@@ -14,9 +14,9 @@ class ChallengesControllerTest < ActionController::TestCase
 
   setup do
     @request.env['devise.mapping'] = Devise.mappings[:challenge]
-    @challenge = challenges(:one)
+    @challenge = Challenge.first
     @challenge.save!
-    User.first.confirm!
+    User.first.skip_confirmation!
     sign_in User.first
   end
 

@@ -17,4 +17,10 @@ class UserTest < ActiveSupport::TestCase
 	  u2.save
 	  assert_not_nil(u2, "Users are not properly created!")
 	end
+
+  test 'no email' do
+    user = User.new(username: "BadGuy")
+    refute user.valid?
+    assert_not_nil user.errors[:email]
+  end
 end
