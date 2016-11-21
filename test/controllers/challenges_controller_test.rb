@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class ChallengesControllerTest < ActionController::TestCase
+
+  # The below lines fix the Devise 'could not find 'Warden:Proxy'' error
+  include Devise::TestHelpers                          
+  include Warden::Test::Helpers                        
+  Warden.test_mode!                                    
+
+  def teardown                                         
+    Warden.test_reset!                                 
+  end
+
   setup do
     @challenge = challenges(:one)
   end

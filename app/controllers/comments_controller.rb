@@ -11,6 +11,8 @@ class CommentsController < ApplicationController
     @comment = @submission.comments.create(comment_params)
     @user.comments << @comment
 
+    @comment.save
+
     respond_to do |format|
       format.html { redirect_to comment_path(@comment) }
       format.js

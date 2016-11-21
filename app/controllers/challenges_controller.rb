@@ -40,6 +40,8 @@ class ChallengesController < ApplicationController
   def create
     @challenge = Challenge.new(challenge_params)
     @challenge.update_attribute(:user_id, current_user)
+    @user = User.find(current_user.id)
+    @user.challenges << @challenge
 
     respond_to do |format|
       if @challenge.save
@@ -50,8 +52,6 @@ class ChallengesController < ApplicationController
         format.json { render json: @challenge.errors, status: :unprocessable_entity }
       end
     end
-    @user = User.find(current_user.id)
-    @user.challenges << @challenge
   end
 
   # PATCH/PUT /challenges/1
