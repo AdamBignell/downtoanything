@@ -2,7 +2,7 @@
     <span class="h1"><%= @challenge.name %></span>
     <span class="text-muted h6">Created by <%= link_to @user.username, @user %></span>
     <span class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge) %></span>
-    <%= button_to 'Destroy', @challenge, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline" %>
+    <%= button_to 'Destroy', @challenge, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline ", class: "btn-outline-info" %>
 </div>
 
 <%= link_to 'New Submission', new_challenge_submission_path(@challenge), class: "btn btn-secondary" %>
