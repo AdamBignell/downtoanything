@@ -16,7 +16,7 @@
   <tbody>
     <% @submissions.each do |submission| %>
       <tr>
-        <td><%= @users.find(submission.user_id).username %></td>
+        <td><%= submission.user_interactions.where(:interaction => "created").first.user.username %></td>
         <td><%= submission.url %></td>
         <td><%= submission.score %></td>
         <td><%= submission.challenge.name %></td>

@@ -37,7 +37,7 @@
   <tbody>
   <% @mysubmissions.each do |submission| %>
   <tr>
-    <td><%= User.find(submission.user).username %></td>
+    <td><%= @user.username %></td>
     <td><%= submission.score %></td>
     <td><a href="<%= submission.url %>"> <%=submission.url %></a></td>
   </tr>
