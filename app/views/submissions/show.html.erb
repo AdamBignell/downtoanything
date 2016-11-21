@@ -11,7 +11,7 @@
             <h3 class="card-title"><%= Challenge.find(@submission.challenge_id).name %> Challenge </h3>
             <p class="card-text">By: <%= @submission.user_interactions.where(:interaction => "created").first.user.username %></p>
             <p class="card-text"><a href="<%= @submission.url %>"> <%=@submission.url %></a></p>
-            <p class="card-text">Score: <%= @submission.score %></p>
+            <h3 class="card-text">Score: <%= @submission.score %></h3>
             <p class="card-text">
               <% if !@interaction || @interaction.interaction != "created" %>
                 <% if !@interaction %>
@@ -35,11 +35,12 @@
           </div>
       </div>
   </div>
-  <h6> Comments </h6>
-  <% @comments.each do |comment|  %>
-  <p> <strong> <%= comment.user %> </strong> <p>
-  <p> <%= comment.body %> </p>
-  <% end %>
+      <h4> Comments </h4>
+      <% @comments.each do |comment|  %>
+      <hr>
+      <p> <strong> <%= @users.find(comment.user_id).username %> | <%= comment.created_at %> </strong> </p>
+      <p> <%= comment.body %> </p>
+      <% end %>
 </div>
 
 <h6> Add a comment!: </h6>

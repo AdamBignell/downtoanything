@@ -20,6 +20,7 @@ class SubmissionsController < ApplicationController
     @interaction = UserInteraction.where(:user_id => current_user.id, :submission_id => @submission.id).first
     @challenge = Challenge.find(@submission.challenge_id)
     @comments = @submission.comments
+    @users = User.all
   end
 
   # GET /challenges/:challenge_id/submissions/new

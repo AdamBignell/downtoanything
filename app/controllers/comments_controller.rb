@@ -6,11 +6,12 @@ class CommentsController < ApplicationController
 
   def create
     @submission = Submission.find(params[:submission_id])
+    @user = User.find(current_user)
+    @comment = Comment.new(comment_params)
     @comment = @submission.comments.create(comment_params)
-    @user = User.find(current_user.id)
-    @comment = @user.comments.create(comment_params)
-    @comment.update_attribute(:user, @user.username)
-    @comment.update_attribute(:user_id, current_user.id)
+    @user.comments << @comment
+
+    @comment.save
 
     respond_to do |format|
       format.html { redirect_to comment_path(@comment) }
