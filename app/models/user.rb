@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
 	validates :email, :presence => true,
                     :format => EMAIL_REGEX
 
+  validates_length_of :username, :maximum => 20
+
   def User.search(search)
     where("username LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
   end
