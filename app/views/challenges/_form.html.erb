@@ -11,18 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <strong>Submitting Challenge from:</strong> <%= @user.username %>
   </div>
-  <div class="field">
+  <div class="form-group">
     Challenge Title<br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
-   <div class="field">
+   <div class="form-group">
     Challenge Description<br>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-secondary" %>
   </div>
 <% end %>
