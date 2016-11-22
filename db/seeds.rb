@@ -27,7 +27,7 @@ u5 = User.create(email: 'sk8rsteve@fakemail.com', username: 'Sk8rSteve', points:
 u5.skip_confirmation!
 u5.save!
 
-u6 = User.create(email: 'rosanna@fleur.com', username: 'RoseyGirl', points: 0, team_id: 1, password: 'thorn', admin: false)
+u6 = User.create(email: 'rosanna@fleur.com', username: 'RoseyGirl', points: 0, team_id: 1, password: 'thorns666', admin: false)
 u6.skip_confirmation!
 u6.save!
 
