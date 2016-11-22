@@ -7,7 +7,10 @@
   <div class="card-deck">
       <div class="card" data-url="<%= challenge_submission_path(@challenge, @submission)%>">
           <div class="card-block">
-            <h5 class="card-title">Submission to: <small class="h6"><p class="floatright"><%= link_to 'Edit', edit_challenge_submission_path(@challenge.id, @submission.id) %></p></small></h5>
+            <h5 class="card-title">Submission to: <small class="h6"><p class="floatright">
+            <% if (@submission.user_interactions.where(:interaction => "created").first.user == current_user) %>
+              <%= link_to 'Edit', edit_challenge_submission_path(@challenge.id, @submission.id) %></p></small></h5>
+            <% end%>
             <h3 class="card-title"><%= Challenge.find(@submission.challenge_id).name %> Challenge </h3>
             <p class="card-text">By: <%= @submission.user_interactions.where(:interaction => "created").first.user.username %></p>
             <p class="card-text"><a href="<%= @submission.url %>"> <%=@submission.url %></a></p>
