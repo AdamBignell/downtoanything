@@ -55,6 +55,9 @@ gem 'faraday'
 #for active links
 gem 'active_link_to', '~> 1.0', '>= 1.0.3'
 
+# alternative database
+gem 'sqlite3'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
