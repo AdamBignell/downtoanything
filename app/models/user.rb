@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
-	has_many :challenges, :dependent => :destroy
+	has_many :us_chal_interactions, :dependent => :destroy
+	has_many :challenges, :through => :us_chal_interactions, :dependent => :destroy
 	has_many :comments, :dependent => :destroy
   belongs_to :team
 
