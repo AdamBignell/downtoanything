@@ -1,8 +1,10 @@
 <div class="mb-1">
     <span class="h1"><%= @challenge.name %></span>
     <span class="text-muted h6">Created by <%= link_to @cre_user.username, @cre_user %></span>
+    <% if @challenge.us_chal_interactions.where(:interaction => "created").first.user == current_user %>
     <span class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge) %></span>
-    <%= button_to 'Destroy', @challenge, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline ", class: "btn-outline-info" %>
+      <%= button_to 'Destroy', @challenge, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline ", class: "btn-outline-info" %>
+    <% end %>
 </div>
 
 <p>Score: <%= @challenge.score %></p>
@@ -37,7 +39,9 @@
           <div class="card-block">
             <h4 class="card-title">Submission <small class="h6">By: <%= submission.user_interactions.where(:interaction => "created").first.user.username %></h4>
           </div>
-          <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
+          <% if submission.thumbnail? %>
+            <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
+          <% end%>
           <div class="card-block">
             <p class="card-text">Score: <%= submission.score %></p>
           </div>
