@@ -9,7 +9,7 @@
       <div class="card challenge" data-url="<%= challenge_path(challenge)%>">
           <div class="card-block">
             <div class="card-title"><span class="h2"><%= challenge.name %></span>
-              <span class="h6 ml-1">By: <%= challenge.user.username %></span>
+              <span class="h6 ml-1">By: <%= challenge.us_chal_interactions.where(:interaction => "created").first.user.username %></span>
               <span class="h6 ml-1">Total score: <%= challenge.score%></span>
             </div>
               <p class="card-text"><i><%= challenge.description %></i></p><br>

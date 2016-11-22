@@ -18,7 +18,7 @@
   <tbody>
   <% if @challenges.each do |challenge| %>
       <tr>
-        <td><%= @allusers.find(challenge.user_id).username %></td>
+        <td><%= challenge.us_chal_interactions.where(:interaction => "created").first.user.username %></td>
         <td><%= challenge.name %></td>
         <td><%= challenge.score %></td>
         <td><%= link_to 'Show', challenge %></td>
