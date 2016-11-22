@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    if is_admin
+    if is_admin?
       @users = User.all
     else
       redirect_to '/profile'
@@ -30,11 +30,6 @@ class UsersController < ApplicationController
   def show
     if user_signed_in?
       @user = User.find(params[:id])
-      unless current_user == @user
-        flash[:notice] = "You can only view your own user account!"
-        redirect_to users_path(current_user)
-        return
-      end
       # For whatever reason this line doesn't work
       @mysubmissions = @user.submissions
       @challenges = Challenge.all
@@ -44,15 +39,21 @@ class UsersController < ApplicationController
 
 
   # GET /users/new
-  /
+
   def new
     @user = User.new
   end
 
-/
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    if user_signed_in?
+      @user = User.find(params[:id])
+      unless current_user == @user
+        flash[:notice] = "You can only edit your own user account!"
+        redirect_to users_path(current_user)
+        return
+      end
+    end
   end
 
   # POST /users
@@ -76,6 +77,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user = User.find(params[:id])
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -90,18 +92,31 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    if is_admin?
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
   def make_admin
-    @user = User.find(params[:id])
-    @user.admin = true
-    @user.save
-    redirect_to(:action => "show", :id => @user.id)
+    if is_admin?
+      @user = User.find(params[:id])
+      @user.admin = true
+      @user.save
+      @users = User.all
+    end
+  end
+
+  def demote_admin
+    if is_admin?
+      @user = User.find(params[:id])
+      @user.admin = false
+      @user.save
+      @users = User.all
+    end
   end
 
   private

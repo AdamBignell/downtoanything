@@ -22,8 +22,7 @@
   <%= @user.team_id %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Login', '/access/login' %>
+<%= link_to 'Edit', edit_user_path(@user), class: "btn btn-secondary" %>
 <br>
 <h3> Submissions: </h3>
 <table>
@@ -37,7 +36,7 @@
   <tbody>
   <% @mysubmissions.each do |submission| %>
   <tr>
-    <td><%= User.find(submission.user).username %></td>
+    <td><%= @user.username %></td>
     <td><%= submission.score %></td>
     <td><a href="<%= submission.url %>"> <%=submission.url %></a></td>
   </tr>

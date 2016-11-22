@@ -46,7 +46,16 @@ gem 'omniauth-google-oauth2', git: 'https://github.com/zquestz/omniauth-google-o
 # Nested Comments
 gem 'closure_tree'
 
+# handle .env file
 gem 'dotenv-rails', :groups => [:development, :test]
+
+# HTTP client library for API calls in rails
+gem 'faraday'
+
+#for active links
+gem 'active_link_to', '~> 1.0', '>= 1.0.3'
+
+gem 'sqlite3', group: :development
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

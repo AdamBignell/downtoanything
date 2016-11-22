@@ -14,12 +14,25 @@
   <div class="field">
     <strong>Submission to challenge from:</strong> <%= @user.username %>
   </div>
- 
-  <div class="field">
+
+ <!-- TODO: Temporary until handeld in backend -->
+  <div class="form-group">
     <%= f.label "Submission Url" %><br>
     <%= f.text_field :url %>
   </div>
+  <div class="form-group">
+    <%= f.label "Embed" %><br>
+    <%= f.text_field :embed, class: "form-control" %>
+  </div>
+   <div class="form-group">
+    <%= f.label "Duration" %><br>
+    <%= f.text_field :duration, class: "form-control" %>
+  </div>
+   <div class="form-group">
+    <%= f.label "Thumbnail" %><br>
+    <%= f.text_field :thumbnail, class: "form-control" %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit, class: "btn btn-secondary" %>
   </div>
 <% end %>
