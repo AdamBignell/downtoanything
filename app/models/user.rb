@@ -13,10 +13,10 @@ class User < ActiveRecord::Base
   belongs_to :team
 
 	EMAIL_REGEX = /\A[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\Z/i
-	validates :email, :presence => true,
-                    :format => EMAIL_REGEX
-
+	validates :email, :presence => true, :format => EMAIL_REGEX, uniqueness: true
+  validates :username, :presence => true, uniqueness: true
   validates_length_of :username, :maximum => 20
+  
 
   def User.search(search)
     where("username LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
               email: data['info']["email"],
               password: Devise.friendly_token[0,20],
               provider: data['provider'],
+              username: data['info']["email"],
               uid: data['uid']
            )
        end

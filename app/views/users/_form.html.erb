@@ -11,23 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :email %><br>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :username %><br>
-    <%= f.text_field :username %>
+    <%= f.text_field :username, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
   <%= f.label :team%><br>
    <%= f.collection_select(:team_id, Team.all, :id, :name) %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-secondary" %>
   </div>
 <% end %>
