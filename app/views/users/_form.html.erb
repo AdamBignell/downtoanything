@@ -23,11 +23,12 @@
     <%= f.label :username %><br>
     <%= f.text_field :username %>
   </div>
-  <div class="field">
+  <!-- <div class="field">
   <%= f.label :team%><br>
    <%= f.collection_select(:team_id, Team.all, :id, :name) %>
-  </div>
+  </div> -->
   <div class="actions">
+  
     <%= f.submit %>
   </div>
 <% end %>

@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
 
-  resources :teams
-
   resources :submissions do
     resources :users do
     end
@@ -17,6 +15,13 @@ Rails.application.routes.draw do
     resources :challenges do
     end
     resource :submissions do
+    end
+  end
+
+  resource :team do
+    member do
+      get 'join'
+      get 'leave'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

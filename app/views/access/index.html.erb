@@ -6,6 +6,7 @@ Prepare to be challenged!
 </h2>
 
 <div>Success! Logged in as: <%= session[:username] %></div>
+<dic> Team is: <%= @user.team.name if @user.team %></div>
 
 
 <% if @user.admin %>
@@ -13,3 +14,4 @@ Prepare to be challenged!
 <% end %>
 <%= link_to("Challenges", :controller => 'challenges', :action => 'index') %><br />
 <%= link_to("Submissions", :controller => 'submissions', :action => 'index') %>
+<%= link_to("Teams", :controller => 'teams', :action => 'index') %>

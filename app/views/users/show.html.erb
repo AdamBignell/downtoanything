@@ -19,7 +19,7 @@
 
 <p>
   <strong>Team:</strong>
-  <%= @user.team_id %>
+  <%= @user.team.name if @user.team %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
