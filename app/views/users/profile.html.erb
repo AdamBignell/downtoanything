@@ -20,8 +20,10 @@
   <%= @user.team_id %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Login', '/access/login' %>
+<% if @user == current_user %>
+    <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
+<% end%>
+
 <br><br>
 <h4 class="card-title">Submissions:</h4>
 <div class="card-deck-wrapper mt-2">
