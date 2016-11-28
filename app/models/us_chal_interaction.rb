@@ -1,6 +1,6 @@
-class UserInteraction < ActiveRecord::Base
+class UsChalInteraction < ActiveRecord::Base
   belongs_to :user
-  belongs_to :submission
+  belongs_to :challenge
 
   INTERACTION_TYPES = ['created', 'liked', 'disliked', 'neutral']
 

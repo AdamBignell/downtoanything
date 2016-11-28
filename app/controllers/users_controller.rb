@@ -30,11 +30,6 @@ class UsersController < ApplicationController
   def show
     if user_signed_in?
       @user = User.find(params[:id])
-      unless current_user == @user
-        flash[:notice] = "You can only view your own user account!"
-        redirect_to users_path(current_user)
-        return
-      end
       # For whatever reason this line doesn't work
       @mysubmissions = @user.submissions
       @challenges = Challenge.all
@@ -44,14 +39,21 @@ class UsersController < ApplicationController
 
 
   # GET /users/new
-  
+
   def new
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
-    @user = current_user;
+    if user_signed_in?
+      @user = User.find(params[:id])
+      unless current_user == @user
+        flash[:notice] = "You can only edit your own user account!"
+        redirect_to users_path(current_user)
+        return
+      end
+    end
   end
 
   # POST /users
@@ -75,6 +77,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user = User.find(params[:id])
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -99,7 +102,7 @@ class UsersController < ApplicationController
   end
 
   def make_admin
-    if is_admin? 
+    if is_admin?
       @user = User.find(params[:id])
       @user.admin = true
       @user.save
