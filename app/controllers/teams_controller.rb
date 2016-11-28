@@ -1,4 +1,4 @@
-class TeamsController < ActionController::Base
+class TeamsController < ApplicationController
   def index
   end
   def show
