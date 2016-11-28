@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   get 'search/results'
-
   resources :teams
 
   resources :comments, only: [:index, :new, :create]
@@ -101,4 +100,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  match ':controller(/:action(/:id))', :via => :get
 end

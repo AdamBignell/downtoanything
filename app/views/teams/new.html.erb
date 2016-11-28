@@ -1,0 +1,15 @@
+<h1>Creating Teams</h1>
+
+<div class="card-deck-wrapper mt-2">
+  <div class="card-deck">
+    <%= link_to("Index", {:action => 'index'}) %> <br/>
+    <%= link_to("Show", {:action => 'show'}) %> <br/>
+    <%= link_to("New", {:action => 'new'}) %> <br/>
+  </div>
+</div>
+
+<script>
+  $('.team').click(function(){
+    window.location.href = $(this).data('url');
+  });
+</script>
