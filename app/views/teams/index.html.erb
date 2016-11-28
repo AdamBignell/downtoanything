@@ -1,15 +1,31 @@
+<p id="notice"><%= notice %></p>
+
 <h1>Listing Teams</h1>
 
-<div class="card-deck-wrapper mt-2">
-  <div class="card-deck">
-    <%= link_to("Index", {:action => 'index'}) %> <br/>
-    <%= link_to("Show", {:action => 'show'}) %> <br/>
-    <%= link_to("New", {:action => 'new'}) %> <br/>
-  </div>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Points</th>
+      <th>Members</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-<script>
-  $('.team').click(function(){
-    window.location.href = $(this).data('url');
-  });
-</script>
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.name %></td>
+        <td><%= team.points %></td>
+        <td><%= team.members %></td>
+        <td><%= link_to 'Show', team %></td>
+        <td><%= link_to 'Edit', edit_team_path(team) %></td>
+        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Team', new_team_path %>

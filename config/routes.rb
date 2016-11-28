@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  get 'search/results'
   resources :teams
+  get 'search/results'
 
   resources :comments, only: [:index, :new, :create]
 

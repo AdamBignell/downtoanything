@@ -1,15 +1,19 @@
-<h1>Showing Teams</h1>
+<p id="notice"><%= notice %></p>
 
-<div class="card-deck-wrapper mt-2">
-  <div class="card-deck">
-    <%= link_to("Index", {:action => 'index'}) %> <br/>
-    <%= link_to("Show", {:action => 'show'}) %> <br/>
-    <%= link_to("New", {:action => 'new'}) %> <br/>
-  </div>
-</div>
+<p>
+  <strong>Name:</strong>
+  <%= @team.name %>
+</p>
 
-<script>
-  $('.team').click(function(){
-    window.location.href = $(this).data('url');
-  });
-</script>
+<p>
+  <strong>Points:</strong>
+  <%= @team.points %>
+</p>
+
+<p>
+  <strong>Members:</strong>
+  <%= @team.members %>
+</p>
+
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>
