@@ -20,10 +20,10 @@
   <%= @user.team_id %>
 </p>
 
+
 <% if @user == current_user %>
     <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
 <% end%>
-
 <br><br>
 <% if not @mysubmissions.blank? %>
 <hr>
