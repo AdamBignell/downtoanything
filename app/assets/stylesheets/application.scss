@@ -14,36 +14,9 @@
  *
 */
 
+
+@import "variables";
+
 @import "bootstrap";
 
-
-.floatright {
-  float: right
-}
-.inline {
-  display: inline !important;
-}
-
-.topnav{
-	border-radius: 0;
-}
-
-.btn-secondary {
-  color: #FF415E;
-  border-color: #FF415E;
-}
-
-.btn-secondary:hover {
-  background-color: #FF415E;
-  color: white;
-  border-color: #FF415E;
-}
-
-.card {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  border-radius: 2px;
-}
-
-.card:hover {
-  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 4px 4px rgba(0,0,0,0.22);
-}
+@import "custom";
