@@ -61,6 +61,10 @@ class TeamsController < ApplicationController
     end
   end
 
+  def join
+    @user.teamid = @team.id
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team
@@ -69,6 +73,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :points, :members)
+      params.require(:team).permit(:name, :points)
     end
 end
