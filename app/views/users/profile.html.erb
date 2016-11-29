@@ -20,15 +20,17 @@
   <%= @user.team_id %>
 </p>
 
+
 <% if @user == current_user %>
     <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
 <% end%>
-
 <br><br>
-<h4 class="card-title">Submissions:</h4>
+<% if not @mysubmissions.blank? %>
+<hr>
+<h5 class="card-title"><%= @user.username %>'s Submissions:</h5>
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
-  <% @mysubmissions.each do |submission| %>
+  <% if @mysubmissions.each do |submission| %>
       <div class="card submission" data-url="<%= challenge_submission_path(@challenges.find(submission.challenge_id).id, submission)%>">
           <div class="card-block">
             <small class="h6"><p class="floatright"><%= link_to 'Edit', edit_challenge_submission_path(@challenges.find(submission.challenge_id).id, submission.id) %></p></small>
@@ -40,23 +42,40 @@
         </a>
       </div>
     <% end %>
+    <% end %>
   </div>
 </div>
+<% end %>
 
-<h3> Challenges: </h3>
-<table>
-<tbody>
-  <thead>
-    <tr>
-      <th>Challenge Name</th>
-      <th>Score</th>
-    </tr>
-  </thead>
-  <% @mychallenges.each do |challenge| %>
-  <tr>
-    <td><%= challenge.name %></td>
-    <td><%= challenge.score %></td>
-  </tr>
-  <% end %>
-</tbody>
-</table>
+<% if not @mychallenges.blank? %>
+<hr>
+<h5> Challenges proposed by <%= @user.username %>: </h5>
+<div class="card-deck-wrapper mt-2">
+  <div class="card-deck">
+  <% @topchallenges = @mychallenges.sort_by { |chall| chall.score} %>
+  <% @topchallenges.each do |challenge| %>
+      <div class="card challenge" data-url="<%= challenge_path(challenge)%>">
+          <div class="card-block">
+            <div class="card-title"><span class="h2"><%= challenge.name %></span>
+              <span class="h6 ml-1">By: <%= challenge.us_chal_interactions.where(:interaction => "created").first.user.username %></span>
+              <span class="h6 ml-1">Total score: <%= challenge.score%></span>
+            </div>
+              <p class="card-text"><i><%= challenge.description %></i></p><br>
+              <hr>
+            <% @subs = challenge.submissions.sort_by { |sub| sub.score} %>
+            <% if not @subs.blank? %>
+              <% @topsub = @subs[0] %>
+                Top Submission: <%= @topsub.user_interactions.where(:interaction => "created").first.user.username %>
+                Score: <%= @topsub.score %>
+            <% else %>
+              <p class="lead"> There are no submissions to this challenge yet! </p>
+            <% end %>
+          </div>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>
+<% end %>
