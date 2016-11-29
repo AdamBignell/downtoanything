@@ -12,7 +12,7 @@
 
 <p>
   <strong>Members:</strong>
-  <%= @team.members %>
+  <%= @team.users.count %>
 </p>
 
 <%= link_to 'Edit', edit_team_path(@team) %> |

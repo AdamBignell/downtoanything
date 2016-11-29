@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Teams</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -17,17 +15,15 @@
       <tr>
         <td><%= team.name %></td>
         <td><%= team.points %></td>
-        <td><%= team.members %></td>
-        <td><%= button_to 'Join', @team, method: :join, form_class: "inline ", class: "btn-outline-info" %></td>
+        <td><%= team.users.count %></td>
+        <td><%= button_to 'Join',  {:controller => "teams", :action => "join", :id => team.id}, form_class: "inline ", class: "btn btn-success" %></td>
+        <td><%= button_to 'Leave', {:controller => "teams", :action => "leave", :id => team.id}, method: :leave, form_class: "inline ", class: "btn btn-danger" %></td>
       </tr>
-      <td><%= button_to 'Leave', @team, method: :leave, form_class: "inline ", class: "btn-outline-info" %></td>
-      </tr>
-        <td><%= button_to 'Destroy', @team, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline ", class: "btn-outline-info" %></td>
+        <td><%= button_to 'Destroy', @team, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline ", class: "btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
 
-<%= link_to 'New Team', new_team_path %>
+<%= link_to 'New Team', new_team_path, class: "btn btn-primary" %>

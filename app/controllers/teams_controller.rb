@@ -62,7 +62,25 @@ class TeamsController < ApplicationController
   end
 
   def join
-    @user.teamid = @team.id
+    @team = Team.find(params[:id])
+    @user = current_user;
+    @user.team_id = @team.id
+    respond_to do |format|
+      if(@user.save)
+        format.html { redirect_to @team, notice: 'Added to team' + @team.name }
+      end
+    end
+  end
+
+   def leave
+    @team = Team.find(params[:id])
+    @user = current_user;
+    @user.team_id = nil
+    respond_to do |format|
+      if(@user.save)
+        format.html { redirect_to teams_url, notice: 'Remvoed from team '+ @team.name }
+      end
+    end
   end
 
   private

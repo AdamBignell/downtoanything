@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   get '/challenges/downvote/:id' => 'challenges#downvote'
   post '/challenges/downvote/:id' => 'challenges#downvote'
 
+  post '/teams/join/:id' => 'teams#join'
+  post '/teams/leave/:id' => 'teams#leave'
+
   resources :submissions do
     resources :users do
     end
