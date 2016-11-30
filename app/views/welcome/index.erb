@@ -9,12 +9,14 @@
   </div>
   <% end %>
  <hr>
+ <div class="row">
   <% if not @subs.blank? %>
   <h3>Top Submission </h3>
-
+</div>
+<div class="row">
   <div class="card-deck-wrapper mt-2">
     <div class="card-deck">
-        <div class="card" data-url="<%= submission_path(@topsub)%>">
+        <div class="card submission" data-url="<%= submission_path(@topsub)%>">
             <div class="card-block">
               <h5 class="card-title">Submission to: <small class="h6">
               <% if (@topsub.user_interactions.where(:interaction => "created").first.user == current_user) %>
@@ -60,4 +62,15 @@
     <% end %>
   </div>
 </div>
+</div>
 <% end %>
+
+<script>
+  $('.submission').click(function(){
+    window.location.href = $(this).data('url');
+  });
+  $(".submission a").click(function(e) {
+   //prevent going to view when click on link inside card
+   e.stopPropagation();
+})
+</script>

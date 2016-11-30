@@ -6,11 +6,10 @@ class WelcomeController < ApplicationController
     @subs = @submissions.sort_by { |sub| sub.score}
     if not @subs.blank?
       @topsub = @subs[0]
+      @challenge = Challenge.find(@topsub.challenge_id)
+      @interaction = UserInteraction.where(:user_id => current_user.id, :submission_id => @topsub.id).first
     end
-    @challenge = Challenge.find(@topsub.challenge_id)
     @users = User.all
     @comments = Comment.all
-    @interaction = UserInteraction.where(:user_id => current_user.id, :submission_id => @topsub.id).first
   end
-
 end
