@@ -1,33 +1,26 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Submissions</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Submitted By</th>
-      <th>URL</th>
-      <th>Score</th>
-      <th>Challenge</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @submissions.each do |submission| %>
-      <tr>
-        <td><%= @users.find(submission.user_id).username %></td>
-        <td><%= submission.url %></td>
-        <td><%= submission.score %></td>
-        <td><%= submission.challenge.name %></td>
-        <td><%= link_to 'Show', submission %></td>
-        <td><%= link_to 'Edit', edit_submission_path(submission) %></td>
-        <td><%= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="card-deck-wrapper mt-2">
+  <div class="card-deck">
+  <% @submissions.sort_by { |submission| submission.score}.each do |submission| %>
+      <div class="card submission" data-url="<%= challenge_submission_path(submission.challenge, submission)%>">
+          <div class="card-block">
+            <h4 class="card-title"><%= submission.challenge.name %> <small class="h6">By: <%= submission.user_interactions.where(:interaction => "created").first.user.username %></h4>
+          </div>
+          <% if submission.thumbnail? %>
+            <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
+          <% end %>
+          <div class="card-block">
+            <p class="card-text">Score: <%= submission.score %></p>
+          </div>
+        </a>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 
-<br>
-
-<%= link_to 'New Submission', new_submission_path %>
+<script>
+  $('.submission').click(function(){
+    window.location.href = $(this).data('url');
+  });
+</script>

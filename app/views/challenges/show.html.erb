@@ -1,24 +1,50 @@
-<h1>
-    <%= @challenge.name %>
-    <small class="text-muted h6">Created by <%= link_to @user.username, @user %></small>
-    <small class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge) %></small>
-</h1>
+<div class="mb-1">
+    <span class="h1"><%= @challenge.name %></span>
+    <span class="text-muted h6">Created by <%= link_to @cre_user.username, @cre_user %></span>
+    <% if @challenge.us_chal_interactions.where(:interaction => "created").first.user == current_user %>
+    <span class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge) %></span>
+      <%= button_to 'Destroy', @challenge, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline ", class: "btn-outline-info" %>
+    <% end %>
+</div>
 
-<%= link_to 'New Submission', new_challenge_submission_path(@challenge) %>
-<br><br>
-<h4 class="card-title">Submissions:</h4>
+<p>Score: <%= @challenge.score %></p>
+
+<p class="card-text">
+  <% if !@interaction || @interaction.interaction != "created" %>
+    <% if !@interaction %>
+      <%= link_to("+1", {:action => 'upvote', :id => @challenge.id, :st => 'none', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> /
+      <%= link_to("-1", {:action => 'downvote', :id => @challenge.id, :st => 'none', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %>
+    <% else %>
+      <% case @interaction.interaction %>
+      <% when "neutral" %>
+        <%= link_to("+1", {:action => 'upvote', :id => @challenge.id, :st => 'neither', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> /
+        <%= link_to("-1", {:action => 'downvote', :id => @challenge.id, :st => 'neither', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %>
+      <% when "liked" %>
+        <%= link_to("cancel", {:action => 'upvote', :id => @challenge.id, :st => 'like', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> /
+        <%= link_to("-1", {:action => 'downvote', :id => @challenge.id, :st => 'like', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %>
+      <% else %>
+        <%= link_to("+1", {:action => 'upvote', :id => @challenge.id, :st => 'dislike', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> /
+        <%= link_to("-cancel", {:action => 'downvote', :id => @challenge.id, :st => 'dislike', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %>
+      <% end %>
+    <% end %>
+  <% end %>
+</p>
+
+<%= link_to 'New Submission', new_challenge_submission_path(@challenge), class: "btn btn-secondary" %>
+
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
-  <% @challsubmissions.each do |submission| %>
+  <% @challenge.submissions.sort_by { |submission| submission.score}.each do |submission| %>
       <div class="card submission" data-url="<%= challenge_submission_path(@challenge, submission)%>">
           <div class="card-block">
-             <small class="h6"><p class="floatright"><%= link_to 'Edit', edit_challenge_submission_path(@challenge.id, submission.id) %></p></small>
-            <p class="card-title"><h3>By: <%= link_to submission.user.username, submission.user %></h3></p>
-            <p class="card-text"><a href="<%= submission.url %>"> <%=submission.url %></a></p>
-            <p class="card-text">Score: <%= submission.score %></p>
-            <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
+            <h4 class="card-title">Submission <small class="h6">By: <%= submission.user_interactions.where(:interaction => "created").first.user.username %></h4>
           </div>
-        </a>
+          <% if submission.thumbnail? %>
+            <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
+          <% end%>
+          <div class="card-block">
+            <p class="card-text">Score: <%= submission.score %></p>
+          </div>
       </div>
     <% end %>
   </div>
@@ -30,4 +56,4 @@
   });
 </script>
 
-<%# " | " + link_to("+1", :action => 'upvote', :id => @challenge.id) %>
+<%# link_to("+1", :action => 'upvote', :id => @challenge.id) %>

@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: MyString
-  name: MyString
+  user_id: 1
+  name: Film a Dragon
+  description: Catch a dragon on film! Be as creative as you like :)
   score: 1
 
 two:
-  user_id: MyString
-  name: MyString
+  user_id: 2
+  name: Climb a Mountain
+  description: Climb the tallest mountain you can find!
   score: 1

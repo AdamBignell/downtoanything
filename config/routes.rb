@@ -13,6 +13,16 @@ Rails.application.routes.draw do
   end
 
   get '/profile' => 'users#profile'
+  post '/users/make_admin/:id' => 'users#make_admin'
+  post '/users/demote_admin/:id' => 'users#demote_admin'
+  get '/submissions/upvote/:id' => 'submissions#upvote'
+  post '/submissions/upvote/:id' => 'submissions#upvote'
+  get '/submissions/downvote/:id' => 'submissions#downvote'
+  post '/submissions/downvote/:id' => 'submissions#downvote'
+  get '/challenges/upvote/:id' => 'challenges#upvote'
+  post '/challenges/upvote/:id' => 'challenges#upvote'
+  get '/challenges/downvote/:id' => 'challenges#downvote'
+  post '/challenges/downvote/:id' => 'challenges#downvote'
 
   resources :submissions do
     resources :users do

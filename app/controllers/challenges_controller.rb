@@ -20,7 +20,9 @@ class ChallengesController < ApplicationController
   def show
     @challenge = Challenge.find(params[:id])
     @users = User.all
-    @user = User.find(@challenge.user_id)
+    @user = User.find(current_user.id)
+    @cre_user = @challenge.us_chal_interactions.where(:interaction => "created").first.user
+    @interaction = UsChalInteraction.where(:user_id => current_user.id, :challenge_id => @challenge.id).first
     @challsubmissions = @challenge.submissions
   end
 
@@ -32,14 +34,17 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/1/edit
   def edit
-    @user = User.find(current_user.id)
+    @user = @challenge.us_chal_interactions.where(:interaction => "created").first.user
   end
 
   # POST /challenges
   # POST /challenges.json
   def create
     @challenge = Challenge.new(challenge_params)
-    @challenge.update_attribute(:user_id, current_user)
+    @user = User.find(current_user.id)
+    @interaction = UsChalInteraction.create(:interaction => "created")
+    @user.us_chal_interactions << @interaction
+    @challenge.us_chal_interactions << @interaction
 
     respond_to do |format|
       if @challenge.save
@@ -50,8 +55,7 @@ class ChallengesController < ApplicationController
         format.json { render json: @challenge.errors, status: :unprocessable_entity }
       end
     end
-    @user = User.find(current_user.id)
-    @user.challenges << @challenge
+    @user = @challenge.us_chal_interactions.where(:interaction => "created").first.user
   end
 
   # PATCH/PUT /challenges/1
@@ -78,6 +82,64 @@ class ChallengesController < ApplicationController
     end
   end
 
+  def upvote
+    @challenge = Challenge.find(params[:id])
+    @user = User.find(params[:user])
+    @cre_user = @challenge.us_chal_interactions.where(:interaction => "created").first.user
+    if params[:st] == 'none'
+      @interaction = UsChalInteraction.create(:interaction => 'liked')
+      @user.us_chal_interactions << @interaction
+      @challenge.us_chal_interactions << @interaction
+      @challenge.update_attributes(:score => @challenge.score + 1)
+      @cre_user.update_attributes(:points => @cre_user.points + 1)
+    else
+      @interaction = @challenge.us_chal_interactions.where(:user_id => @user.id).first
+      if params[:st] == 'neither'
+        @interaction.update_attributes(:interaction => 'liked')
+        @challenge.update_attributes(:score => @challenge.score + 1)
+        @cre_user.update_attributes(:points => @cre_user.points + 1)
+      elsif params[:st] == 'like'
+        @interaction.update_attributes(:interaction => 'neutral')
+        @challenge.update_attributes(:score => @challenge.score - 1)
+        @cre_user.update_attributes(:points => @cre_user.points - 1)
+      else
+        @interaction.update_attributes(:interaction => 'liked')
+        @challenge.update_attributes(:score => @challenge.score + 2)
+        @cre_user.update_attributes(:points => @cre_user.points + 2)
+      end
+    end
+    redirect_to(:action => 'show')
+  end
+
+  def downvote
+    @challenge = Challenge.find(params[:id])
+    @user = User.find(params[:user])
+    @cre_user = @challenge.us_chal_interactions.where(:interaction => "created").first.user
+    if params[:st] == 'none'
+      @interaction = UsChalInteraction.create(:interaction => 'disliked')
+      @user.us_chal_interactions << @interaction
+      @challenge.us_chal_interactions << @interaction
+      @challenge.update_attributes(:score => @challenge.score - 1)
+      @cre_user.update_attributes(:points => @cre_user.points - 1)
+    else
+      @interaction = @challenge.us_chal_interactions.where(:user_id => @user.id).first
+      if params[:st] == 'neither'
+        @interaction.update_attributes(:interaction => 'disliked')
+        @challenge.update_attributes(:score => @challenge.score - 1)
+        @cre_user.update_attributes(:points => @cre_user.points - 1)
+      elsif params[:st] == 'like'
+        @interaction.update_attributes(:interaction => 'disliked')
+        @challenge.update_attributes(:score => @challenge.score - 2)
+        @cre_user.update_attributes(:points => @cre_user.points - 2)
+      else
+        @interaction.update_attributes(:interaction => 'neutral')
+        @challenge.update_attributes(:score => @challenge.score + 1)
+        @cre_user.update_attributes(:points => @cre_user.points + 1)
+      end
+    end
+    redirect_to(:action => 'show')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_challenge
@@ -86,6 +148,6 @@ class ChallengesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def challenge_params
-      params.require(:challenge).permit(:user_id, :name, :score)
+      params.require(:challenge).permit(:name, :score, :description)
     end
 end
