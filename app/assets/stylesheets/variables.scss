@@ -1,0 +1,229 @@
+// Variables
+//
+// Copy settings from this file into the provided `_custom.scss` to override
+// the Bootstrap defaults without modifying key, versioned files.
+
+// ***** REMOVE !default to change value *******
+
+// Table of Contents
+//
+// Colors
+// Options
+// Spacing
+// Body
+// Links
+// Grid breakpoints
+// Grid containers
+// Grid columns
+// Fonts
+// Components
+
+// General variable structure
+//
+// Variable format should follow the `$component-modifier-state-property` order.
+
+
+// Colors
+//
+// Grayscale and brand colors for use across Bootstrap.
+
+
+
+$brand-primary:             #FF415E;
+$brand-secondary:           #5bc0de;
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-transitions:        true;
+
+
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the $spacers map, should you need more variation.
+
+
+
+// Body
+//
+// Settings for the `<body>` element.
+
+
+// Links
+//
+// Style anchor elements.
+
+$link-color:            darken($brand-secondary, 20%);
+$link-hover-color:      darken($link-color, 10%);
+
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+
+
+// Pixel value used to responsively scale all typography. Applied to the `<html>` element.
+
+
+
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+$border-radius:          .15rem; // .25 rem
+
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-primary-bg:                 lighten($brand-primary,7%);
+
+$btn-secondary-color:            #fff;
+$btn-secondary-bg:               $brand-secondary;
+$btn-secondary-border:           $btn-secondary-bg;
+
+
+
+// Allows for customizing button radius independently from global border radius
+
+// Forms
+
+
+// Form validation icons
+
+
+
+// Dropdowns
+//
+// Dropdown menu container and contents.
+
+
+
+// Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+
+
+
+
+// Navbar
+
+
+// Navs
+
+
+
+// Pagination
+
+
+
+
+// Jumbotron
+
+
+
+// Form states and alerts
+//
+// Define colors for form feedback states and, by default, alerts.
+
+
+
+
+// Cards
+
+
+
+// Tooltips
+
+
+
+
+// Popovers
+
+
+
+
+// Tags
+
+
+// Modals
+
+// Padding applied to the modal body
+
+// Alerts
+//
+// Define alert colors, border radius, and padding.
+
+
+
+
+// Progress bars
+
+
+// List group
+
+
+
+// Image thumbnails
+
+
+
+
+// Figures
+
+
+
+
+// Breadcrumbs
+
+
+
+
+// Media objects
+
+
+
+
+// Carousel
+
+
+
+
+// Close
+
+
+
+
+// Code
