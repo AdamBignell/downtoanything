@@ -49,3 +49,15 @@ Merit::Badge.create!(
   name: 'TimeForChange',
   description: 'Made an account on DTA!'
 )
+
+Merit::Badge.create!(
+  id: 4,
+  name: 'LayOfTheLand',
+  description: 'Successfully used the search!'
+)
+
+Merit::Badge.create!(
+  id: 5,
+  name: 'Rumpelstiltskin',
+  description: 'Updated to a username over 10 characters!'
+)

@@ -23,6 +23,10 @@
   <%= f.label :team%><br>
    <%= f.collection_select(:team_id, Team.all, :id, :name) %>
   </div>
+  <div class="form-group">
+    <%= f.label :points %></br>
+    <%= f.text_field :points, class: "form-control" %>
+  </div>
   <div class="actions">
     <%= f.submit class: "btn btn-secondary" %>
   </div>

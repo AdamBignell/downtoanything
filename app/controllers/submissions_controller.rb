@@ -96,8 +96,8 @@ class SubmissionsController < ApplicationController
         @cre_user.update_attributes(:points => @cre_user.points - 1)
       else
         @interaction.update_attributes(:interaction => 'liked')
-        @submission.update_attributes(:score => @submission.score + 2)
-        @cre_user.update_attributes(:points => @cre_user.points + 2)
+        @submission.update_attributes(:score => @submission.score + 1)
+        @cre_user.update_attributes(:points => @cre_user.points + 1)
       end
     end
     redirect_to(:action => 'show')

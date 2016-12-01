@@ -21,14 +21,14 @@ module Merit
     include Merit::BadgeRulesMethods
 
     def initialize
-      grant_on ['users#update', 'users#create'], badge_id: 2, badge: 'lucky', temporary: true do |user|
-        lucky_regex = "%777%"
-        validates user.username :format => lucky_regex
+
+
+      grant_on 'users#update', badge: 'FirstPoint', model_name: 'User' do |user|
+        user.points > 0
       end
 
-      grant_on 'users#update', badge_id: 1, badge: 'FirstPoint' do |user|
-        user.points >= 1
-      end
+      grant_on 'search#results', badge_id: 4, badge: 'LayOfTheLand', to: :action_user
+ 
 
       grant_on 'users#edit', badge_id: 3, badge: 'TimeForChange', to: :itself
 
@@ -48,12 +48,11 @@ module Merit
       #   comment.votes.count == 5
       # end
 
-      # Changes his name by one wider than 4 chars (arbitrary ruby code case)
-      # grant_on 'registrations#update', badge: 'autobiographer',
-      #   temporary: true, model_name: 'User' do |user|
-      #
-      #   user.name.length > 4
-      # end
+      #Changes his name by one wider than 4 chars (arbitrary ruby code case)
+      grant_on 'users#update', badge: 'Rumpelstiltskin',
+        temporary: true, model_name: 'User' do |user|
+        user.username.length > 10
+      end
     end
   end
 end
