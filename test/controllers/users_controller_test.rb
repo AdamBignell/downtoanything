@@ -10,7 +10,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   setup do
-    @user = users(:one)
+    @user = users(:userone)
+    sign_in @user
   end
 
   test "should get index" do
@@ -22,14 +23,6 @@ class UsersControllerTest < ActionController::TestCase
   test "should get new" do
     get :new
     assert_response :success
-  end
-
-  test "should create user" do
-    assert_difference('User.count') do
-      post :create, user: { email: @user.email, password: @user.password, points: @user.points, team: @user.team, username: @user.username }
-    end
-
-    assert_redirected_to user_path(assigns(:user))
   end
 
   test "should show user" do

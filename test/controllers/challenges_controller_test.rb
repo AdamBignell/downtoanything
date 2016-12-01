@@ -16,8 +16,7 @@ class ChallengesControllerTest < ActionController::TestCase
     @request.env['devise.mapping'] = Devise.mappings[:challenge]
     @challenge = Challenge.first
     @challenge.save!
-    User.first.skip_confirmation!
-    sign_in User.first
+    sign_in users(:userone)
   end
 
 
@@ -34,7 +33,7 @@ class ChallengesControllerTest < ActionController::TestCase
 
   test "should create challenge" do
     assert_difference('Challenge.count') do
-      post :create, challenge: { name: @challenge.name, score: @challenge.score, user_id: @challenge.user_id }
+      post :create, challenge: { name: @challenge.name, score: @challenge.score}
     end
 
     assert_redirected_to challenge_path(assigns(:challenge))
@@ -51,7 +50,7 @@ class ChallengesControllerTest < ActionController::TestCase
   end
 
   test "should update challenge" do
-    patch :update, id: @challenge, challenge: { name: @challenge.name, score: @challenge.score, user_id: @challenge.user_id }
+    patch :update, id: @challenge, challenge: { name: @challenge.name, score: @challenge.score}
     assert_redirected_to challenge_path(assigns(:challenge))
   end
 

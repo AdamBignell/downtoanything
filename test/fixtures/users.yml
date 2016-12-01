@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+userone:
   id: 1
   email: thomaspynchon@gravity.ca
   #password: MyString
@@ -9,8 +9,9 @@ one:
   team: Slothropians
   encrypted_password: <%= User.new.send(:password_digest, 'gelitripping') %>
   admin: t
+  confirmed_at: <%= Time.now %>
 
-two:
+usertwo:
   id: 2
   email: davewallace@infinite.com
   #password: MyString
@@ -19,3 +20,4 @@ two:
   team: Enfield Tennis Academy
   encrypted_password: <%= User.new.send(:password_digest, 'moldonmold') %>
   admin: t
+  confirmed_at: <%= Time.now %>
