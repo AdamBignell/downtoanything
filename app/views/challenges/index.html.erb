@@ -8,12 +8,13 @@
   <% @topchallenges.each do |challenge| %>
       <div class="card challenge" data-url="<%= challenge_path(challenge)%>">
           <div class="card-block">
-            <div class="card-title"><span class="h2"><%= challenge.name %></span>
-              <span class="h6 ml-1">By: <%= challenge.us_chal_interactions.where(:interaction => "created").first.user.username %></span>
-              <span class="h6 ml-1">Total score: <%= challenge.score%></span>
-            </div>
-              <p class="card-text"><i><%= challenge.description %></i></p><br>
-              <hr>
+            <div class="card-title mb-0"><span class="h2"><%= challenge.name %></span></div>
+            <span class="h6">
+                <span>By: <%= challenge.us_chal_interactions.where(:interaction => "created").first.user.username %></span>
+                <span class="ml-1">Total score: <%= challenge.score%></span>
+            </span>
+            <p class="card-text mt-1"><i><%= challenge.description %></i></p>
+            <hr>
             <% @subs = challenge.submissions.sort_by { |sub| sub.score} %>
             <% if not @subs.blank? %>
               <% @topsub = @subs[0] %>
@@ -23,17 +24,16 @@
               <p class="lead"> There are no submissions to this challenge yet! </p>
             <% end %>
           </div>
-          </div>
-        </a>
-      </div>
+        </div>
     <% end %>
+    </div>
+    </div>
     <div class="floatright">
       <%= form_tag(challenges_path, :method => "get", id: "search-form") do %>
       <%= text_field_tag :search, params[:search], placeholder: "Search Challenges" %>
       <%= submit_tag "Search!", class: "btn-outline-info" %>
     </div>
   </div>
-</div>
 </div>
 
 <div class="row">
@@ -46,5 +46,9 @@
 <script>
   $('.challenge').click(function(){
     window.location.href = $(this).data('url');
+  });
+   $(".challenge a").click(function(e) {
+   //prevent going to view when click on link inside card
+   e.stopPropagation();
   });
 </script>
