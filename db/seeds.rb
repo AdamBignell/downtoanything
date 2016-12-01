@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 include Devise
 
-u = User.create(email: 'admin@dta.ca', username: 'admin', points: 0, team_id: 1, password: 'adminpass', admin: true)
+u = User.create(email: 'admin@dta.ca', username: 'admin', points: 500, team_id: 1, password: 'adminpass', admin: true)
 u.skip_confirmation!
 u.save!
 

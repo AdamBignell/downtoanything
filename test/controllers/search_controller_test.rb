@@ -11,6 +11,10 @@ class SearchControllerTest < ActionController::TestCase
     Warden.test_reset!                                 
   end
 
+  setup do
+    sign_in users(:userone)
+  end
+
   test "should get results" do
     get :results
     assert_response :success

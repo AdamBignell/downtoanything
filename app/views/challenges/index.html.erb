@@ -1,21 +1,21 @@
 
-<div><span class="h1">Latest Challenges <%= link_to 'Create Challenge', new_challenge_path, class: "btn btn-secondary" %></span></div>
+<div><span class="h1">All Challenges <%= link_to 'Create Challenge', new_challenge_path, class: "btn btn-secondary" %></span></div>
 
 
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
   <% @topchallenges = @challenges.sort_by { |chall| chall.score} %>
-  <% @topchallenges.each do |challenge| %>
-      <div class="card challenge" data-url="<%= challenge_path(challenge)%>">
-          <div class="card-block">
-            <div class="card-title"><span class="h2"><%= challenge.name %></span>
+  <% @topchallenges.reverse.each do |challenge| %>
+    <div class="card-block">
+      <div class="card challenge" style="width:20%;padding:20px" data-url="<%= challenge_path(challenge)%>">
+      <div class="card-title"><span class="h2"><%= challenge.name %></span></div>
               <span class="h6 ml-1">By: <%= challenge.us_chal_interactions.where(:interaction => "created").first.user.username %></span>
               <span class="h6 ml-1">Total score: <%= challenge.score%></span>
-            </div>
               <p class="card-text"><i><%= challenge.description %></i></p><br>
               <hr>
             <% @subs = challenge.submissions.sort_by { |sub| sub.score} %>
             <% if not @subs.blank? %>
+              <% @subs = @subs.reverse %>
               <% @topsub = @subs[0] %>
                 Top Submission: <%= @topsub.user_interactions.where(:interaction => "created").first.user.username %>
                 Score: <%= @topsub.score %>
@@ -24,27 +24,23 @@
             <% end %>
           </div>
           </div>
-        </a>
+        <% end %>
       </div>
-    <% end %>
     <div class="floatright">
       <%= form_tag(challenges_path, :method => "get", id: "search-form") do %>
       <%= text_field_tag :search, params[:search], placeholder: "Search Challenges" %>
       <%= submit_tag "Search!", class: "btn-outline-info" %>
     </div>
   </div>
-</div>
-</div>
-
-<div class="row">
-<div class="col-xs-12">
 
 <% end %>
-</div>
-</div>
 
 <script>
   $('.challenge').click(function(){
     window.location.href = $(this).data('url');
+  });
+   $(".challenge a").click(function(e) {
+   //prevent going to view when click on link inside card
+   e.stopPropagation();
   });
 </script>

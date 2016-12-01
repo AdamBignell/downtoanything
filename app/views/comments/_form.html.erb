@@ -1,7 +1,7 @@
 <%= form_for([@submission, @submission.comments.build], remote: true, :authenticity_token => true) do |f| %>
   <div class="form-group">
     <%= f.text_area :body, class: 'form-control', required: true %>
+    <br>
+    <%= f.submit class: 'btn btn-secondary' %>
   </div>
-
-  <%= f.submit class: 'btn btn-secondary' %>
 <% end %>

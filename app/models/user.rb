@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_merit
+
 
 	has_many :user_interactions, :dependent => :destroy
 	has_many :submissions, :through => :user_interactions, :dependent => :destroy

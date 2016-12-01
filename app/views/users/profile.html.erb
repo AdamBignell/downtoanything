@@ -1,6 +1,6 @@
 <%#= link_to("Back", {:action => 'index'}) %>
 
-<p>
+<!--<p>
   <strong>Email:</strong>
   <%= @user.email %>
 </p>
@@ -17,24 +17,51 @@
 
 <p>
   <strong>Team:</strong>
+  <% if @user.team_id %>
   <%= @user.team_id %>
+  <% else %> None <% end %>
 </p>
 
+<p>
+  <strong>Achievements:</strong>
+</p>-->
 
-<% if @user == current_user %>
-    <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
-<% end%>
-<br><br>
+<!--<h1 class="card-title"><%= @user.username %></h1>-->
+<div class="card-deck-wrapper mt-2">
+  <div class="card-deck">
+    <div class="card-block">
+      <div class="card-title"><span class="h1"><%= @user.username %></span>
+          <% if @user == current_user %>
+          <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
+          <% end %></div>
+            <p class="card-text">Email: <%= @user.email %></p>
+            <p class="card-text">Challenger Points: <%= @user.points %></p>
+            <p class="card-text">Team: <% if @user.team_id %>
+              <%= @user.team_id %>
+              <% else %> None <% end %></p>
+            <p class="card-text">Badges:
+              <% @user.badges.each do |badge| %>
+              <%= badge.name %> |
+              <% end %>
+            <!--<p class="card-text">Achievements:</p>-->
+          </div>
+      </div>
+  </div>
+
+<!--<% if @user == current_user %>
+    <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' %>
+<% end %>-->
+<br>
 <% if not @mysubmissions.blank? %>
 <hr>
-<h5 class="card-title"><%= @user.username %>'s Submissions:</h5>
+<h3 class="card-title">Completed by <%= @user.username %></h5>
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
   <% if @mysubmissions.each do |submission| %>
       <div class="card submission" data-url="<%= challenge_submission_path(@challenges.find(submission.challenge_id).id, submission)%>">
           <div class="card-block">
             <small class="h6"><p class="floatright"><%= link_to 'Edit', edit_challenge_submission_path(@challenges.find(submission.challenge_id).id, submission.id) %></p></small>
-            <h3 class="card-title"><%= @challenges.find(submission.challenge_id).name %> Challenge </h3>
+            <h4 class="card-title"><%= @challenges.find(submission.challenge_id).name %> Challenge </h3>
             <p class="card-text"><a href="<%= submission.url %>"> <%=submission.url %></a></p>
             <p class="card-text">Score: <%= submission.score %></p>
             <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
@@ -49,20 +76,20 @@
 
 <% if not @mychallenges.blank? %>
 <hr>
-<h5> Challenges proposed by <%= @user.username %>: </h5>
+<h3> Created by <%= @user.username %></h5>
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
-  <% @topchallenges = @mychallenges.sort_by { |chall| chall.score} %>
+  <% @topchallenges = @mychallenges.sort_by { |chall| chall.score}.reverse! %>
   <% @topchallenges.each do |challenge| %>
       <div class="card challenge" data-url="<%= challenge_path(challenge)%>">
           <div class="card-block">
-            <div class="card-title"><span class="h2"><%= challenge.name %></span>
+            <div class="card-title"><span class="h4"><%= challenge.name %></span>
               <span class="h6 ml-1">By: <%= challenge.us_chal_interactions.where(:interaction => "created").first.user.username %></span>
               <span class="h6 ml-1">Total score: <%= challenge.score%></span>
             </div>
               <p class="card-text"><i><%= challenge.description %></i></p><br>
               <hr>
-            <% @subs = challenge.submissions.sort_by { |sub| sub.score} %>
+            <% @subs = challenge.submissions.sort_by { |sub| sub.score}.reverse! %>
             <% if not @subs.blank? %>
               <% @topsub = @subs[0] %>
                 Top Submission: <%= @topsub.user_interactions.where(:interaction => "created").first.user.username %>

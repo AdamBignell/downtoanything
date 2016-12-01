@@ -34,7 +34,7 @@
 
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
-  <% @challenge.submissions.sort_by { |submission| submission.score}.each do |submission| %>
+  <% @challenge.submissions.sort_by { |submission| submission.score}.reverse!.each do |submission| %>
       <div class="card submission" data-url="<%= challenge_submission_path(@challenge, submission)%>">
           <div class="card-block">
             <h4 class="card-title">Submission <small class="h6">By: <%= submission.user_interactions.where(:interaction => "created").first.user.username %></h4>

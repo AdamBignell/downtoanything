@@ -11,6 +11,7 @@ class SubmissionsControllerTest < ActionController::TestCase
 
   setup do
     @submission = submissions(:one)
+    sign_in users(:userone)
   end
 
   test "should get index" do
@@ -26,7 +27,7 @@ class SubmissionsControllerTest < ActionController::TestCase
 
   test "should create submission" do
     assert_difference('Submission.count') do
-      post :create, submission: { challenge_id: @submission.challenge_id, score: @submission.score, user: @submission.user, user_id: @submission.user_id }
+      post :create, submission: { challenge_id: @submission.challenge_id, score: @submission.score}
     end
 
     assert_redirected_to submission_path(assigns(:submission))
@@ -43,7 +44,7 @@ class SubmissionsControllerTest < ActionController::TestCase
   end
 
   test "should update submission" do
-    patch :update, id: @submission, submission: { challenge_id: @submission.challenge_id, score: @submission.score, user: @submission.user, user_id: @submission.user_id }
+    patch :update, id: @submission, submission: { challenge_id: @submission.challenge_id, score: @submission.score}
     assert_redirected_to submission_path(assigns(:submission))
   end
 
