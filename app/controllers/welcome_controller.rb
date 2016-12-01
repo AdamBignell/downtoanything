@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
   # GET /welcome
   def index
     @submissions = Submission.all
-    @subs = @submissions.sort_by { |sub| sub.score}
+    @subs = @submissions.sort_by { |sub| sub.score}.reverse!
     if not @subs.blank?
       @topsub = @subs[0]
       @challenge = Challenge.find(@topsub.challenge_id)
