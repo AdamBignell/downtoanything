@@ -4,7 +4,7 @@
 
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
-  <% @topchallenges = @challenges.sort_by { |chall| chall.score} %>
+  <% @topchallenges = @challenges.sort_by { |chall| chall.score}.reverse! %>
   <% @topchallenges.each do |challenge| %>
       <div class="card challenge" data-url="<%= challenge_path(challenge)%>">
           <div class="card-block">
@@ -15,7 +15,7 @@
             </span>
             <p class="card-text mt-1"><i><%= challenge.description %></i></p>
             <hr>
-            <% @subs = challenge.submissions.sort_by { |sub| sub.score} %>
+            <% @subs = challenge.submissions.sort_by { |sub| sub.score}.reverse! %>
             <% if not @subs.blank? %>
               <% @topsub = @subs[0] %>
                 Top Submission: <%= @topsub.user_interactions.where(:interaction => "created").first.user.username %>
