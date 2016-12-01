@@ -39,6 +39,10 @@
             <p class="card-text">Team: <% if @user.team_id %>
               <%= @user.team_id %>
               <% else %> None <% end %></p>
+            <p class="card-text">Badges:
+              <% @user.badges.each do |badge| %>
+              <%= badge.name %> |
+              <% end %>
             <!--<p class="card-text">Achievements:</p>-->
           </div>
       </div>

@@ -48,6 +48,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    ambry (1.0.0)
     arel (6.0.3)
     autoprefixer-rails (6.5.3)
       execjs
@@ -106,6 +107,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    merit (2.4.0)
+      ambry (~> 1.0.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -220,6 +223,7 @@ DEPENDENCIES
   faraday
   jbuilder (~> 2.0)
   jquery-rails
+  merit
   omniauth
   omniauth-google-oauth2!
   pg

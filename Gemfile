@@ -52,6 +52,8 @@ gem 'dotenv-rails', :groups => [:development, :test]
 # HTTP client library for API calls in rails
 gem 'faraday'
 
+gem 'merit'
+
 #for active links
 gem 'active_link_to', '~> 1.0', '>= 1.0.3'
 

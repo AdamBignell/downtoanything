@@ -33,15 +33,6 @@
             </div>
         </div>
     </div>
-    <% if not @comments.blank? %>
-        <h4> Comments </h4>
-        <% if @comments.each do |comment|  %>
-        <hr>
-        <p> <strong> <%= @users.find(comment.user_id).username %> | <%= comment.created_at %> </strong> </p>
-        <p> <%= comment.body %> </p>
-        <% end %>
-    <% end %>
-    <% end %>
   </div>
 </div>
 </div>
