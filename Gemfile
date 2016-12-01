@@ -64,6 +64,7 @@ group :development do
     gem 'better_errors'
 end
 
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
