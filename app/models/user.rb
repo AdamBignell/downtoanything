@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   
   mount_uploader :image, ImageUploader
 
-  def search(search)
+  def self.search(search)
     where("username LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
   end
 
