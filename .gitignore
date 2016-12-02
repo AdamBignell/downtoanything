@@ -34,3 +34,6 @@
 # Ignore sqlite3 databases
 cmpt276
 cmpt276_test
+
+# Ignore uploads directory
+/public/uploads

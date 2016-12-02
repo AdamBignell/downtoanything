@@ -72,6 +72,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     closure_tree (6.2.0)
       activerecord (>= 4.1.0)
       with_advisory_lock (>= 3.0.0)
@@ -229,6 +234,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap (~> 4.0.0.alpha5)
   capybara
+  carrierwave (~> 0.10.0)
   closure_tree
   coffee-rails (~> 4.0.0)
   devise

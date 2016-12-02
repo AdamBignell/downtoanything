@@ -56,7 +56,7 @@ gem 'merit'
 
 gem 'capybara'
 
-#for active links
+# active links
 gem 'active_link_to', '~> 1.0', '>= 1.0.3'
 
 # for development enviornment only
@@ -67,6 +67,10 @@ group :development do
     # better errors
     gem 'better_errors'
 end
+
+# image uploading
+gem 'carrierwave', '~> 0.10.0'
+# gem 'mini_magick', '~> 4.3'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

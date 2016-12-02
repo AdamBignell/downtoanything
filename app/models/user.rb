@@ -22,13 +22,14 @@ class User < ActiveRecord::Base
 
   after_initialize :set_defaults, unless: :persisted?
   
+  mount_uploader :image, ImageUploader
 
   def search(search)
     where("username LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
   end
 
   def set_defaults
-    self.image  ||= ActionController::Base.helpers.image_path("profile_default.png")
+   
   end
 
   def self.google_from_omniauth(access_token)
@@ -41,9 +42,9 @@ class User < ActiveRecord::Base
               password: Devise.friendly_token[0,20],
               provider: data['provider'],
               username: data['info']["email"],
-              image: data['info']['image'],
               uid: data['uid']
            )
+        user.remote_image_url = data['info']['image']
        end
 
       # skip confirmation email when using oauth
