@@ -22,9 +22,6 @@
            <li class="nav-item">
             <%= link_to "Submissions", submissions_path, :class => 'nav-link' %>
           </li>
-          <li class="nav-item float-xs-right">
-            <%= link_to "Logout", destroy_user_session_path, :class => 'nav-link'  %>
-          </li>
 
           <li class="nav-item dropdown float-xs-right">
             <a class="nav-link dropdown-toggle pt-0 pb-0" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,6 +31,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="/profile">Profile</a>
               <%= link_to 'Account', edit_user_registration_path, :class => 'dropdown-item' %>
+              <%= link_to "Logout", destroy_user_session_path, :class => 'dropdown-item'  %>
             </div>
           </li>
           <% if is_admin? %>
