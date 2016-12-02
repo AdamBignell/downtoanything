@@ -19,10 +19,16 @@ class User < ActiveRecord::Base
 	validates :email, :presence => true, :format => EMAIL_REGEX, uniqueness: true
   validates :username, :presence => true, uniqueness: true
   validates_length_of :username, :maximum => 20
+
+  after_initialize :set_defaults, unless: :persisted?
   
 
-  def User.search(search)
+  def search(search)
     where("username LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
+  end
+
+  def set_defaults
+    self.image  ||= ActionController::Base.helpers.image_path("profile_default.png")
   end
 
   def self.google_from_omniauth(access_token)
@@ -31,10 +37,11 @@ class User < ActiveRecord::Base
 
       unless user
         user = User.create(
-              email: data['info']["email"],
+              email: data['info']['email'],
               password: Devise.friendly_token[0,20],
               provider: data['provider'],
               username: data['info']["email"],
+              image: data['info']['image'],
               uid: data['uid']
            )
        end
