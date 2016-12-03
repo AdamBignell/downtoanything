@@ -1,3 +1,4 @@
+<div class="container">
 <h1>
   <%= @submission.title %>
 </h1>
@@ -52,6 +53,5 @@
 <% end %>
 <h6> Add a comment!: </h6>
   <%= render "comments/form" %>
-
-<%= link_to 'Edit', edit_submission_path(@submission) %> |
-<%= link_to 'Back', submissions_path %>
+  
+</div>

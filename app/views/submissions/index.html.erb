@@ -1,26 +1,3 @@
 <h1>Listing Submissions</h1>
 
-<div class="card-deck-wrapper mt-2">
-  <div class="card-deck">
-  <% @submissions.sort_by { |submission| submission.score}.reverse!.each do |submission| %>
-      <div class="card submission" data-url="<%= challenge_submission_path(submission.challenge, submission)%>">
-          <div class="card-block">
-            <h4 class="card-title"><%= submission.challenge.name %> <small class="h6">By: <%= submission.user_interactions.where(:interaction => "created").first.user.username %></h4>
-          </div>
-          <% if submission.thumbnail? %>
-            <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
-          <% end %>
-          <div class="card-block">
-            <p class="card-text">Score: <%= submission.score %></p>
-          </div>
-        </a>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<script>
-  $('.submission').click(function(){
-    window.location.href = $(this).data('url');
-  });
-</script>
+<%= render partial: "cards", locals: {submissions: @submissions} %>

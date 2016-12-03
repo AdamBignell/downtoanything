@@ -1,0 +1,28 @@
+<div class="card-columns mt-2">
+  <div class="card-deck-wrapper">
+    <div class="card-deck">
+    <% @submissions.sort_by { |submission| submission.score}.reverse!.each do |submission| %>
+        <div class="card submission mb-1" data-url="<%= challenge_submission_path(submission.challenge, submission)%>">
+            <div class="card-block">
+              <div class="card-title">
+                <h4><%= submission.challenge.name %></h4>
+                <h6>By: <%= submission.user_interactions.where(:interaction => "created").first.user.username %></h6>
+              </div>
+              <% if submission.thumbnail? %>
+                <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
+              <% end %>
+              <p class="card-text">Score: <%= submission.score %></p>
+            </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+  $('.submission').click(function(){
+    window.location.href = $(this).data('url');
+  });
+  $('.submission a').click(function(e){
+    e.stopPropagation();
+  });
+</script>

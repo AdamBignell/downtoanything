@@ -23,6 +23,7 @@
     <%= f.text_field :description, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit class: "btn btn-secondary" %>
+    <%= link_to 'Back', challenges_path, :class=>"btn btn-secondary" %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>
