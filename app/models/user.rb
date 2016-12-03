@@ -19,10 +19,17 @@ class User < ActiveRecord::Base
 	validates :email, :presence => true, :format => EMAIL_REGEX, uniqueness: true
   validates :username, :presence => true, uniqueness: true
   validates_length_of :username, :maximum => 20
-  
 
-  def User.search(search)
+  after_initialize :set_defaults, unless: :persisted?
+  
+  mount_uploader :image, ImageUploader
+
+  def self.search(search)
     where("username LIKE ? OR email LIKE ?", "%#{search}%", "%#{search}%")
+  end
+
+  def set_defaults
+   
   end
 
   def self.google_from_omniauth(access_token)
@@ -31,12 +38,13 @@ class User < ActiveRecord::Base
 
       unless user
         user = User.create(
-              email: data['info']["email"],
+              email: data['info']['email'],
               password: Devise.friendly_token[0,20],
               provider: data['provider'],
               username: data['info']["email"],
               uid: data['uid']
            )
+        user.remote_image_url = data['info']['image']
        end
 
       # skip confirmation email when using oauth

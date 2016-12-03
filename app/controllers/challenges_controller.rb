@@ -23,7 +23,7 @@ class ChallengesController < ApplicationController
     @user = User.find(current_user.id)
     @cre_user = @challenge.us_chal_interactions.where(:interaction => "created").first.user
     @interaction = UsChalInteraction.where(:user_id => current_user.id, :challenge_id => @challenge.id).first
-    @challsubmissions = @challenge.submissions
+    @submissions = @challenge.submissions
   end
 
   # GET /challenges/new

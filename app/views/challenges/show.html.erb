@@ -1,9 +1,12 @@
+
 <div class="mb-1">
-    <span class="h1"><%= @challenge.name %></span>
+    <span class="h1">
+      <%= @challenge.name %>
+    </span>
     <span class="text-muted h6">Created by <%= link_to @cre_user.username, @cre_user %></span>
     <% if @challenge.us_chal_interactions.where(:interaction => "created").first.user == current_user %>
-    <span class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge) %></span>
-      <%= button_to 'Destroy', @challenge, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline ", class: "btn-outline-info" %>
+    <span class="h6"><%= link_to 'Edit', edit_challenge_path(@challenge), class: "btn btn-secondary" %></span>
+      <%= button_to 'Destroy', @challenge, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline ", class: "btn btn-danger" %>
     <% end %>
 </div>
 
@@ -30,30 +33,8 @@
   <% end %>
 </p>
 
-<%= link_to 'New Submission', new_challenge_submission_path(@challenge), class: "btn btn-secondary" %>
+<%= link_to 'New Submission', new_challenge_submission_path(@challenge), class: "btn btn-primary" %>
 
-<div class="card-deck-wrapper mt-2">
-  <div class="card-deck">
-  <% @challenge.submissions.sort_by { |submission| submission.score}.reverse!.each do |submission| %>
-      <div class="card submission" data-url="<%= challenge_submission_path(@challenge, submission)%>">
-          <div class="card-block">
-            <h4 class="card-title">Submission <small class="h6">By: <%= submission.user_interactions.where(:interaction => "created").first.user.username %></h4>
-          </div>
-          <% if submission.thumbnail? %>
-            <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
-          <% end%>
-          <div class="card-block">
-            <p class="card-text">Score: <%= submission.score %></p>
-          </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<script>
-  $('.submission').click(function(){
-    window.location.href = $(this).data('url');
-  });
-</script>
+<%= render partial: "submissions/cards", locals: {submissions: @submissions} %>
 
 <%# link_to("+1", :action => 'upvote', :id => @challenge.id) %>

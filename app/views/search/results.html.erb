@@ -16,9 +16,10 @@
   <tbody>
   <% if @challenges.each do |challenge| %>
       <tr>
+      <% if not challenge.us_chal_interactions.blank? %>
         <th><%= link_to challenge.name, challenge %></th>
         <td> by <%= challenge.us_chal_interactions.where(:interaction => "created").first.user.username %></td>
-
+        <% end %>
   <!--      <td><%= challenge.score %></td>-->
 
       </tr>
