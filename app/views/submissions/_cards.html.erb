@@ -1,7 +1,7 @@
 <div class="card-columns mt-2">
   <div class="card-deck-wrapper">
     <div class="card-deck">
-    <% @submissions.sort_by { |submission| submission.score}.reverse!.each do |submission| %>
+    <% submissions.sort_by { |submission| submission.score}.reverse!.each do |submission| %>
         <div class="card submission mb-1" data-url="<%= challenge_submission_path(submission.challenge, submission)%>">
             <div class="card-block">
               <div class="card-title">
