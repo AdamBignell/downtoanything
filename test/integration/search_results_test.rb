@@ -21,11 +21,4 @@ class SearchResultsTest < ActionDispatch::IntegrationTest
 		assert_select "table", 2
 	end
 
-	test "actually search for user" do
-		post user_session_path, 'user[email]' => @user.email, 'user[password]' =>  'gelitripping'
-		get "/search/results"
-		fill_in('searchform', with: "tommy")
-		click_button('searchbutton')
-		assert_response :success
-	end
 end

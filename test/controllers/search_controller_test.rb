@@ -3,7 +3,7 @@ require 'test_helper'
 class SearchControllerTest < ActionController::TestCase
 
 # The below lines fix the Devise 'could not find 'Warden:Proxy'' error
-  include Devise::TestHelpers                          
+  include Devise::Test::ControllerHelpers                        
   include Warden::Test::Helpers                        
   Warden.test_mode!                                    
 

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ChallengeTest < ActionDispatch::IntegrationTest
+class ChallengeTesting < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
@@ -15,8 +15,6 @@ class ChallengeTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "span", "Test Challenge"
   end
-
-  test 
 
   test "can edit a challenge" do
     get "/challenges/1/edit"

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  include Devise::TestHelpers                          
+  include Devise::Test::ControllerHelpers                         
   include Warden::Test::Helpers                        
   Warden.test_mode!                                    
 
@@ -36,7 +36,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    patch :update, id: @user, user: { email: @user.email, password: @user.password, points: @user.points, team: @user.team, username: @user.username }
+    patch :update, id: @user, user: { email: @user.email, password: @user.password, points: @user.userscore, team: @user.team, username: @user.username }
     assert_redirected_to user_path(assigns(:user))
   end
 
