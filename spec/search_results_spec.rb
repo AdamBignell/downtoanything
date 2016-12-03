@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe "actually search for user" do
-	it "should go to the search results" do
+	before do
 		visit "/search/results"
-		fill_in('searchform', with: "a")
-		click_button('searchbutton')
-		page.has_content?('Users')
+		fill_in('searchform', with: "e")
+		find_button('searchbutton').click
+	end
+	it "should go to the search results" do
+		page.should have_content('e')
 	end
 end
