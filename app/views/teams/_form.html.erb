@@ -15,6 +15,18 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :Team_Password %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :Team_Password_Confirmation %><br>
+    <%= f.password_field :passwordconfirmation %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

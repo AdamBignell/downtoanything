@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   post '/teams/join/:id' => 'teams#join'
   post '/teams/leave/:id' => 'teams#leave'
+  post '/teams/:id' => 'teams#show'
 
   resources :submissions do
     resources :users do
@@ -104,4 +105,5 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   match ':controller(/:action(/:id))', :via => :get
+  #match ':controller(/:action(/:id))', :via => :post
 end

@@ -10,6 +10,8 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    @team = Team.find(params[:id])
+    @users = @team.users # this will find the group users
   end
 
   # GET /teams/new
@@ -25,16 +27,23 @@ class TeamsController < ApplicationController
   # POST /teams.json
   def create
     @team = Team.new(team_params)
-
+    @user = current_user
     respond_to do |format|
-      if @team.save
-        format.html { redirect_to @team, notice: 'Team was successfully created.' }
-        format.json { render :show, status: :created, location: @team }
-      else
-        format.html { render :new }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
+      if(@team.password != @team.passwordconfirmation)
+        format.html { render :new, notice: 'Password Confirmation Failed.' }
+      elsif (@team.password == '' || @team.passwordconfirmation == '')
+        format.html { render :new, notice: 'Password field empty' }
+      else 
+        if @team.save
+          format.html { redirect_to @team, notice: 'Team was successfully created.' }
+          format.json { render :show, status: :created, location: @team }
+        else
+          format.html { render :new }
+          format.json { render json: @team.errors, status: :unprocessable_entity }
+        end
       end
     end
+
   end
 
   # PATCH/PUT /teams/1
@@ -67,7 +76,7 @@ class TeamsController < ApplicationController
     @user.team_id = @team.id
     respond_to do |format|
       if(@user.save)
-        format.html { redirect_to @team, notice: 'Added to team' + @team.name }
+        format.html { redirect_to teams_url, notice: 'Added to team ' + @team.name }
       end
     end
   end
@@ -76,9 +85,12 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
     @user = current_user;
     @user.team_id = nil
+    if(@team.users.count == 1)
+        @team.destroy
+    end
     respond_to do |format|
       if(@user.save)
-        format.html { redirect_to teams_url, notice: 'Remvoed from team '+ @team.name }
+        format.html { redirect_to teams_url, notice: 'Removed from team '+ @team.name }
       end
     end
   end
@@ -91,6 +103,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :points)
+      params.require(:team).permit(:name, :description, :password, :passwordconfirmation, :points)
     end
 end
