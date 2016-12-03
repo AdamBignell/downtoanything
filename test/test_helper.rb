@@ -8,6 +8,7 @@ require 'capybara/rails'
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  config.include Capybara::DSL
   #include Devise::Test::ControllerHelpers
 
   # Add more helper methods to be used by all tests here...
