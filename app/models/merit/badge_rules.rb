@@ -23,18 +23,23 @@ module Merit
     def initialize
 
 
-      grant_on 'profile', badge: 'FirstPoint', to: :action_user do |user|
+      grant_on 'users#profile', badge: 'FirstPoint', to: :action_user do |user|
         user.userscore > 0
       end
 
-      grant_on 'profile', band_id: 6, badge: 'NegativeNancy', temporary: true, to: :itself do |user|
+      grant_on 'users#profile', badge_id: 6, badge: 'NegativeNancy', to: :action_user do |user|
         user.userscore < 0
       end
 
       grant_on 'search#results', badge_id: 4, badge: 'LayOfTheLand', to: :action_user
  
 
-      grant_on 'users#edit', badge_id: 3, badge: 'TimeForChange', to: :itself
+      grant_on 'users#edit', badge_id: 3, badge: 'Chameleon', to: :itself
+
+      grant_on 'users#profile', badge_id: 7, badge: 'BestProf', temporary: true, to: :itself do |user|
+        user.username == 'BobbyChan'
+      end
+
 
       # If it creates user, grant badge
       # Should be "current_user" after registration for badge to be granted.

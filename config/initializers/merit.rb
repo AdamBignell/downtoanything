@@ -46,8 +46,8 @@ Merit::Badge.create!(
 
 Merit::Badge.create!(
   id: 3,
-  name: 'TimeForChange',
-  description: 'Made an account on DTA!'
+  name: 'Chameleon',
+  description: 'Editted information!'
 )
 
 Merit::Badge.create!(
@@ -66,4 +66,10 @@ Merit::Badge.create!(
   id: 6,
   name: 'NegativeNancy',
   description: 'Dropped below 0 Challenger Points!'
+)
+
+Merit::Badge.create!(
+  id: 7,
+  name: 'BestProf',
+  description: 'Changes username to that of a legendary professor!'
 )
