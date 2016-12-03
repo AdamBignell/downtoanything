@@ -8,11 +8,14 @@
           <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
           <% end %></div>
             <p class="card-text">Email: <%= @user.email %></p>
-            <p class="card-text">Challenger Points: <%= @user.points %></p>
+            <p class="card-text">Challenger Points: <%= @user.userscore %></p>
             <p class="card-text">Team: <% if @user.team_id %>
               <%= @user.team_id %>
               <% else %> None <% end %></p>
-            <!--<p class="card-text">Achievements:</p>-->
+            <p class="card-text">Badges:
+              <% @user.badges.each do |badge| %>
+              <%= badge.name %> |
+              <% end %>
           </div>
       </div>
   </div>

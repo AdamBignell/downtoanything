@@ -23,8 +23,12 @@ module Merit
     def initialize
 
 
-      grant_on 'users#update', badge: 'FirstPoint', model_name: 'User' do |user|
-        user.points > 0
+      grant_on 'profile', badge: 'FirstPoint', to: :action_user do |user|
+        user.userscore > 0
+      end
+
+      grant_on 'profile', band_id: 6, badge: 'NegativeNancy', temporary: true, to: :itself do |user|
+        user.userscore < 0
       end
 
       grant_on 'search#results', badge_id: 4, badge: 'LayOfTheLand', to: :action_user

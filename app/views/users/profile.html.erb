@@ -42,7 +42,7 @@
             <% end %>
         </div>
               <p class="card-text">Email: <%= @user.email %></p>
-              <p class="card-text">Challenger Points: <%= @user.points %></p>
+              <p class="card-text">Challenger Points: <%= @user.userscore %></p>
               <p class="card-text">Team: <% if @user.team_id %>
                 <%= @user.team_id %>
                 <% else %> None <% end %></p>

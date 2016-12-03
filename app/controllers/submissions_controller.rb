@@ -125,21 +125,21 @@ class SubmissionsController < ApplicationController
       @user.user_interactions << @interaction
       @submission.user_interactions << @interaction
       @submission.update_attributes(:score => @submission.score + 1)
-      @cre_user.update_attributes(:points => @cre_user.points + 1)
+      @cre_user.update_attributes(:userscore => @cre_user.userscore + 1)
     else
       @interaction = @submission.user_interactions.where(:user_id => @user.id).first
       if params[:st] == 'neither'
         @interaction.update_attributes(:interaction => 'liked')
         @submission.update_attributes(:score => @submission.score + 1)
-        @cre_user.update_attributes(:points => @cre_user.points + 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore + 1)
       elsif params[:st] == 'like'
         @interaction.update_attributes(:interaction => 'neutral')
         @submission.update_attributes(:score => @submission.score - 1)
-        @cre_user.update_attributes(:points => @cre_user.points - 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore - 1)
       else
         @interaction.update_attributes(:interaction => 'liked')
-        @submission.update_attributes(:score => @submission.score + 1)
-        @cre_user.update_attributes(:points => @cre_user.points + 1)
+        @submission.update_attributes(:score => @submission.score + 2)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore + 2)
       end
     end
     redirect_to(:action => 'show')
@@ -154,21 +154,21 @@ class SubmissionsController < ApplicationController
       @user.user_interactions << @interaction
       @submission.user_interactions << @interaction
       @submission.update_attributes(:score => @submission.score - 1)
-      @cre_user.update_attributes(:points => @cre_user.points - 1)
+      @cre_user.update_attributes(:userscore => @cre_user.userscore - 1)
     else
       @interaction = @submission.user_interactions.where(:user_id => @user.id).first
       if params[:st] == 'neither'
         @interaction.update_attributes(:interaction => 'disliked')
         @submission.update_attributes(:score => @submission.score - 1)
-        @cre_user.update_attributes(:points => @cre_user.points - 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore - 1)
       elsif params[:st] == 'like'
         @interaction.update_attributes(:interaction => 'disliked')
         @submission.update_attributes(:score => @submission.score - 2)
-        @cre_user.update_attributes(:points => @cre_user.points - 2)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore - 2)
       else
         @interaction.update_attributes(:interaction => 'neutral')
         @submission.update_attributes(:score => @submission.score + 1)
-        @cre_user.update_attributes(:points => @cre_user.points + 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore + 1)
       end
     end
     redirect_to(:action => 'show')

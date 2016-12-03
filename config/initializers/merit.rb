@@ -61,3 +61,9 @@ Merit::Badge.create!(
   name: 'Rumpelstiltskin',
   description: 'Updated to a username over 10 characters!'
 )
+
+Merit::Badge.create!(
+  id: 6,
+  name: 'NegativeNancy',
+  description: 'Dropped below 0 Challenger Points!'
+)
