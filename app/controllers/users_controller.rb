@@ -20,9 +20,19 @@ class UsersController < ApplicationController
 
   def profile
      @user = current_user
-     @mysubmissions = @user.submissions
+     @mysubmissions = []
+     @user.submissions.each do |submission|
+       if submission.user_interactions.where(:user_id => @user.id).first.interaction == "created"
+         @mysubmissions << submission
+       end
+     end
      @challenges = Challenge.all
-     @mychallenges = @user.challenges
+     @mychallenges = []
+     @user.challenges.each do |challenge|
+       if challenge.us_chal_interactions.where(:user_id => @user.id).first.interaction == "created"
+         @mychallenges << challenge
+       end
+     end
   end
   # GET /users/1
   # GET /users/1.json
