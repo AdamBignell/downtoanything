@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
-  get 'search/results'
-
   resources :teams
+  get 'search/results'
 
   resources :comments, only: [:index, :new, :create]
 
@@ -23,6 +22,10 @@ Rails.application.routes.draw do
   post '/challenges/upvote/:id' => 'challenges#upvote'
   get '/challenges/downvote/:id' => 'challenges#downvote'
   post '/challenges/downvote/:id' => 'challenges#downvote'
+
+  post '/teams/join/:id' => 'teams#join'
+  post '/teams/leave/:id' => 'teams#leave'
+  post '/teams/:id' => 'teams#show'
 
   resources :submissions do
     resources :users do
@@ -101,4 +104,6 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  match ':controller(/:action(/:id))', :via => :get
+  #match ':controller(/:action(/:id))', :via => :post
 end

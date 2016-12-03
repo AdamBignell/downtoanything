@@ -1,0 +1,30 @@
+<h1>Listing Teams</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Points</th>
+      <th>Members</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.name %></td>
+        <td><%= team.description %></td>
+        <td><%= team.points %></td>
+        <td><%= team.users.count %></td>
+        <td><%= button_to 'Join',  {:controller => "teams", :action => "join", :id => team.id}, form_class: "inline ", class: "btn btn-success" %></td>
+        <td><%= button_to 'Leave', {:controller => "teams", :action => "leave", :id => team.id}, method: :leave, form_class: "inline ", class: "btn btn-danger" %></td>
+        <td><%= button_to 'View', {:controller => "teams", :action => "show", :id => team.id}, method: :show, form_class: "inline ", class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to 'New Team', new_team_path, class: "btn btn-primary" %>
