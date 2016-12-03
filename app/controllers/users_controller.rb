@@ -11,9 +11,9 @@ class UsersController < ApplicationController
       redirect_to '/profile'
     end
     if params[:search]
-      @users = User.search(params[:search]).order("points DESC")
+      @users = User.search(params[:search]).order("userscore DESC")
     else
-      @users = User.all.order("points DESC")
+      @users = User.all.order("userscore DESC")
     end
   end
 
@@ -137,6 +137,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :username, :points, :team, :admin, :image)
+      params.require(:user).permit(:email, :password, :username, :userscore, :team, :admin, :image)
     end
 end

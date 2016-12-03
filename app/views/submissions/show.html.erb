@@ -1,6 +1,6 @@
 <div class="container">
 <h1>
-  <%= @submission.title %>
+  <%= @submission.name %>
 </h1>
 
 <% if @submission.embed %>
@@ -49,7 +49,7 @@
 <% @comments.each do |comment|  %>
 <hr>
 <p> <strong> <%= @users.find(comment.user_id).username %> | <%= comment.created_at %> </strong> </p>
-<p> <%= comment.body %> </p>
+<p> <%= comment.bodytext %> </p>
 <% end %>
 <h6> Add a comment!: </h6>
   <%= render "comments/form" %>

@@ -48,7 +48,7 @@ class SubmissionsController < ApplicationController
       @payload = {
               :multipart => true,
               :filedata => params[:submission][:filedata],
-              :title => @submission.title,
+              :title => @submission.name,
               :description => @submission.description
             }
 
@@ -192,6 +192,6 @@ class SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:score, :challenge_id, :url, :description, :title, :embed, :thumbnail, :duration)
+      params.require(:submission).permit(:score, :challenge_id, :url, :description, :name, :embed, :thumbnail, :duration)
     end
 end
