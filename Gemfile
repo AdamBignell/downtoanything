@@ -50,7 +50,7 @@ gem 'closure_tree'
 gem 'dotenv-rails', :groups => [:development, :test]
 
 # HTTP client library for API calls in rails
-gem 'faraday'
+gem 'rest-client'
 
 gem 'merit'
 

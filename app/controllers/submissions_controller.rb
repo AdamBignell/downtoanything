@@ -39,8 +39,49 @@ class SubmissionsController < ApplicationController
   # POST /challenges/:challenge_id/submissions.json
   def create
     @submission = Submission.new(submission_params)
-
     @user = User.find(current_user.id)
+
+    if params[:submission][:filedata]
+      @upload_url = "https://api.vid.me/video/upload"
+      
+      # Call vidme API to upload video
+      @payload = {
+              :multipart => true,
+              :filedata => params[:submission][:filedata],
+              :title => @submission.title,
+              :description => @submission.description
+            }
+
+      request = RestClient::Request.new({
+            :method => 'post',
+            :url => @upload_url,
+            :payload => @payload
+      })
+
+      # Catch Errors
+      begin
+        response = request.execute
+      rescue RestClient::ExceptionWithResponse => e
+        response = JSON.parse(e.response)
+        flash[:alert] = response['error']
+        redirect_to(:back) and return
+      end
+
+      # Update submission with data
+      response = JSON.parse(response)
+      @video_id =  response['video']['video_id']
+      @submission.url = response['video']['full_url']
+      @submission.embed = response['video']['embed_url']
+      @submission.duration = response['video']['duration']
+
+      # Get Thumbnail for video
+      @get_url = 'https://api.vid.me/video/' + @video_id
+      response = RestClient.get(@get_url)
+      response = JSON.parse(response)
+      @submission.thumbnail = response['video']['thumbnail_url']
+    end
+
+    # Add User Interaction
     @interaction = UserInteraction.create(:interaction => "created")
     @user.user_interactions << @interaction
     @submission.user_interactions << @interaction
@@ -54,7 +95,8 @@ class SubmissionsController < ApplicationController
         format.json { render json: @submission.errors, status: :unprocessable_entity }
       end
     end
-    @user = @submission.user_interactions.where(:interaction => "created").first.user
+
+    @user = current_user
 
     @challenge = Challenge.find(params[:challenge_id])
     @challenge.submissions << @submission
