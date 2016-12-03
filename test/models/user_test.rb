@@ -21,26 +21,26 @@ class UserTest < ActiveSupport::TestCase
   test 'no email' do
     user = User.new(username: "BadGuy")
     refute user.valid?
-    assert_not_nil user.errors[:email]
+    assert_not_nil user.errors
   end
 
   test 'no username' do
     user = User.new(email: "joe@example.com")
     refute user.valid?
-    assert_not_nil user.errors(:username)
+    assert_not_nil user.errors
   end
 
   test 'unique username' do
     user1 = User.new(username: "joe", email: "joe@example.com")
     user2 = User.new(username: "joe", email: "joe2@example.com")
-    refute user.valid?
-    assert_not_nil user.errors(:username)
+    refute user2.valid?
+    assert_not_nil user2.errors
   end
 
   test 'unique email' do
     user1 = User.new(username: "joe", email: "joe@example.com")
     user2 = User.new(username: "joe2", email: "joe@example.com")
-    refute user.valid?
-    assert_not_nil user.errors(:email)
+    refute user2.valid?
+    assert_not_nil user2.errors
   end
 end
