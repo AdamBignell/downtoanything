@@ -1,7 +1,7 @@
 <div class="card-columns mt-2">
   <div class="card-deck-wrapper">
     <div class="card-deck">
-      <% @challenges.reverse.each do |challenge| %>
+      <% challenges.reverse.each do |challenge| %>
         <div class="card challenge mb-1" data-url="<%= challenge_path(challenge)%>">
           <div class="card-block">
             <div class="card-title">
