@@ -49,12 +49,13 @@
               <% if not @user.badges.blank? %>
               <p class="card-text">Badges:
                 <% @user.badges.each do |badge| %>
-                <%= badge.name %> |
+                  <span data-toggle="tooltip" title="<%= badge.description %>"><%= badge.name %></span> |
                 <% end %>
               <% end %>
+              </p>
               <p class="card-text">Birthday: <%= @user.birthdate %></p>
               <p class="card-text">Location: <%= @user.location %></p>
-              <p class="card-text">Bio: <%= @user.birthdate %></p>
+              <p class="card-text">Bio: <%= @user.bio %></p>
               <!--<p class="card-text">Achievements:</p>-->
             </div>
           </div>
@@ -71,3 +72,9 @@
 <%= render partial: "challenges/cards", locals: {challenges: @mychallenges} %>
 
 </div>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
