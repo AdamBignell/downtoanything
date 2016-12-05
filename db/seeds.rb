@@ -31,7 +31,7 @@ u6 = User.create(email: 'rosanna@fleur.com', username: 'RoseyGirl', userscore: 0
 u6.skip_confirmation!
 u6.save!
 
-c = Challenge.create(name: "Film a mythical beast!", description: 'Film an animal that nobody has every filmed before!')
+c = Challenge.create(name: "Film a mythical beast!", description: 'Film an animal that nobody has ever filmed before!')
 ui = UsChalInteraction.create(interaction: "created")
 c.us_chal_interactions << ui
 u2.us_chal_interactions << ui
