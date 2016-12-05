@@ -7,15 +7,15 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 include Devise
 
-u = User.create(email: 'admin@dta.ca', username: 'admin', userscore: 500, team_id: 1, password: 'adminpass', admin: true)
+u = User.create(email: 'admin@dta.ca', username: 'admin', userscore: 500, team_id: 2, password: 'adminpass', admin: true)
 u.skip_confirmation!
 u.save!
 
-u2 = User.create(email: 'abignell@sfu.ca', username: 'malign_blade', userscore: 0, team_id: 1, password: 'gandalf18', admin: true)
+u2 = User.create(email: 'abignell@sfu.ca', username: 'malign_blade', userscore: 0, team_id: 2, password: 'gandalf18', admin: true)
 u2.skip_confirmation!
 u2.save!
 
-u3 = User.create(email: 'tommyp@gravity.net', username: 'TommyP', userscore: -500, team_id: 1, password: 'slothrop', admin: true)
+u3 = User.create(email: 'tommyp@gravity.net', username: 'TommyP', userscore: -500, team_id: 2, password: 'slothrop', admin: true)
 u3.skip_confirmation!
 u3.save!
 
@@ -44,7 +44,7 @@ u5.us_chal_interactions << ui2
 c2.save!
 
 t1 = Team.create( id:1, name: "Lightning", description: "We're fast and furious like lightning bolts!")
-t2 = Team.create( id:2, name: "Darkness", description: "!")
+t2 = Team.create( id:2, name: "Darkness", description: "We strike from the shadOOo00ooOo0o0ows!")
 
 u6.team = t1
 u5.team = t1

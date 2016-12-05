@@ -52,22 +52,31 @@
                 <%= badge.name %> |
                 <% end %>
               <% end %>
+              <% if not @user.birthdate.blank? %>
               <p class="card-text">Birthday: <%= @user.birthdate %></p>
+              <% end %>
+              <% if not @user.location.blank? %>
               <p class="card-text">Location: <%= @user.location %></p>
+              <% end %>
+              <% if not @user.bio.blank? %>              
               <p class="card-text">Bio: <%= @user.birthdate %></p>
+              <% end %>
               <!--<p class="card-text">Achievements:</p>-->
             </div>
           </div>
         </div>
       </div>
   </div>
-
+<% if not @mysubmissions.blank? %>
 <h2>My Submissions</h2>
 <hr>
 <%= render partial: "submissions/cards", locals: {submissions: @mysubmissions} %>
+<% end %>
 
+<% if not @mychallenges.blank? %>
 <h2>My Challenges</h2>
 <hr>
 <%= render partial: "challenges/cards", locals: {challenges: @mychallenges} %>
+<% end %>
 
 </div>

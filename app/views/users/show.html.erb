@@ -36,14 +36,17 @@
   </div>
 
 <br>
+<% if not @mysubmissions %>
 <h2><%= @user.username %> Submissions</h2>
 <hr>
 <%= render partial: "submissions/cards", locals: {submissions: @mysubmissions} %>
+<% end %>
 
+<% if not @challenges.blank? %
 <h2><%= @user.username %> Challenges</h2>
 <hr>
 <%= render partial: "challenges/cards", locals: {challenges: @mychallenges} %>
-
+<% end %>
 <!--<p>
   <strong>Email:</strong>
   <%= @user.email %>
