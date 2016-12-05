@@ -40,10 +40,13 @@ class SubmissionsController < ApplicationController
   def create
     @submission = Submission.new(submission_params)
     @user = User.find(current_user.id)
+    @interaction = UserInteraction.create(:interaction => "created")
+    @user.user_interactions << @interaction
+    @submission.user_interactions << @interaction
 
     if params[:submission][:filedata]
       @upload_url = "https://api.vid.me/video/upload"
-      
+
       # Call vidme API to upload video
       @payload = {
               :multipart => true,
@@ -92,9 +95,6 @@ class SubmissionsController < ApplicationController
     end
 
     # Add User Interaction # Matt I moved this after save because it was failing
-    @interaction = UserInteraction.create(:interaction => "created")
-    @user.user_interactions << @interaction
-    @submission.user_interactions << @interaction
 
     @user = current_user
 
