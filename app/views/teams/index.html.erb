@@ -22,7 +22,9 @@
           <% if current_user.team_id != team.id %>
           <td><%= button_to 'Join',  {:controller => "teams", :action => "join", :id => team.id}, form_class: "inline ", class: "btn btn-success" %></td>
           <% end %>
+          <% if current_user.team_id == team.id %>
           <td><%= button_to 'Leave', {:controller => "teams", :action => "leave", :id => team.id}, method: :leave, form_class: "inline ", class: "btn btn-danger" %></td>
+          <% end %>
           <td><%= button_to 'View', {:controller => "teams", :action => "show", :id => team.id}, method: :show, form_class: "inline ", class: "btn btn-secondary" %></td>
         </tr>
       <% end %>
