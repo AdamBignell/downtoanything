@@ -27,14 +27,14 @@ class TeamsController < ApplicationController
   # POST /teams.json
   def create
     @team = Team.new(team_params)
-    @user = current_user
+    
     respond_to do |format|
       if(@team.password != @team.passwordconfirmation)
         format.html { render :new, notice: 'Password Confirmation Failed.' }
       elsif (@team.password == '' || @team.passwordconfirmation == '')
         format.html { render :new, notice: 'Password field empty' }
       else 
-        if @team.save
+        if (@team.save)
           format.html { redirect_to @team, notice: 'Team was successfully created.' }
           format.json { render :show, status: :created, location: @team }
         else
@@ -42,6 +42,16 @@ class TeamsController < ApplicationController
           format.json { render json: @team.errors, status: :unprocessable_entity }
         end
       end
+      @user = current_user
+      if @user.team_id != nil
+        @previousTeam = Team.find(@user.team_id);
+        if (@previousTeam.users.count == 1)
+          @previousTeam.destroy
+        end
+      end
+      @user.team_id = @team.id
+      @user.save
+
     end
 
   end
@@ -73,6 +83,14 @@ class TeamsController < ApplicationController
   def join
     @team = Team.find(params[:id])
     @user = current_user;
+      if @user.team_id != nil
+        @previousTeam = Team.find(@user.team_id);
+        if (@previousTeam.users.count == 1)
+          @previousTeam.destroy
+        end
+      end
+      @user.team_id = @team.id
+      @user.save
     @user.team_id = @team.id
     respond_to do |format|
       if(@user.save)

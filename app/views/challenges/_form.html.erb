@@ -22,7 +22,11 @@
     Challenge Description<br>
     <%= f.text_field :description, class: "form-control" %>
   </div>
+  <div class="field">
+    Team Challenge <br>
+    <%= f.check_box :team%>
+  </div>
   <div class="actions">
-    <%= f.submit class: "btn btn-secondary" %>
+    <%= f.submit class: "btn btn-secondary" %><br>
   </div>
 <% end %>
