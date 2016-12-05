@@ -19,9 +19,7 @@
   <p>
     <strong>Members:</strong>
     <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to user.username, user %></td> 
-      </tr>
+      <%= link_to user.username, user %> | 
   <% end %>
   </p>
 

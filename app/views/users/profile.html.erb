@@ -49,19 +49,20 @@
               <% if not @user.badges.blank? %>
               <p class="card-text">Badges:
                 <% @user.badges.each do |badge| %>
-                <%= badge.name %> |
+                  <span data-toggle="tooltip" title="<%= badge.description %>"><%= badge.name %></span> |
                 <% end %>
               <% end %>
               <% if not @user.birthdate.blank? %>
+              </p>
               <p class="card-text">Birthday: <%= @user.birthdate %></p>
               <% end %>
               <% if not @user.location.blank? %>
               <p class="card-text">Location: <%= @user.location %></p>
               <% end %>
               <% if not @user.bio.blank? %>              
-              <p class="card-text">Bio: <%= @user.birthdate %></p>
-              <% end %>
+              <p class="card-text">Bio: <%= @user.bio %></p>
               <!--<p class="card-text">Achievements:</p>-->
+              <% end %>
             </div>
           </div>
         </div>
@@ -80,3 +81,9 @@
 <% end %>
 
 </div>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
