@@ -89,9 +89,12 @@ class TeamsController < ApplicationController
           @previousTeam.destroy
         end
       end
-      @user.team_id = @team.id
-      @user.save
-    @user.team_id = @team.id
+    if(@team.valid?)
+      @user.team = @team
+    else
+      redirect_to teams_url, alert: @team.errors.full_messages.to_sentence
+      return
+    end
     respond_to do |format|
       if(@user.save)
         format.html { redirect_to teams_url, notice: 'Added to team ' + @team.name }
