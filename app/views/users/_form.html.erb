@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+<div class="container" >
   <div class="form-group row">
     <%= f.label :email, class: "col-xs-2 col-form-label" %>
      <div class="col-xs-10">
@@ -28,12 +29,6 @@
      <div class="col-xs-10">
     <%= f.file_field :image, class: "form-control" %>
     </div>
-  </div>
-  <div class="form-group row">
-  <%= f.label :team, class: "col-xs-2 col-form-label" %>
-   <div class="col-xs-10">
-   <%= f.collection_select(:team_id, Team.all, :id, :name, {}, {class: "form-control"}) %>
-   </div>
   </div>
   <div class="form-group row">
     <%= f.label :birthdate, class: "col-xs-2 col-form-label" %>
@@ -57,3 +52,4 @@
     <%= f.submit class: "btn btn-secondary" %>
   </div>
 <% end %>
+</div>
