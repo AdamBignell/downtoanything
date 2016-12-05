@@ -1,5 +1,9 @@
 <div class="container">
-<h1> <%= @team.name %> </h1>
+<h1> <%= @team.name %> 
+  <% if current_user.team_id == @team.id %>
+    <%= link_to 'Edit', edit_team_path(@team), class: "btn btn-primary" %>
+  <% end %>
+  </h1>  
   <p class="lead">
     <%= @team.description %>
   </p>
@@ -20,9 +24,5 @@
       </tr>
   <% end %>
   </p>
-  <%= link_to 'Back', teams_path, class: "btn btn-secondary" %>
-  <% if current_user.team_id == @team.id %>
-  <%= link_to 'Edit', edit_team_path(@team), class: "btn btn-primary" %>
-  <% end %>
 
 </div>
