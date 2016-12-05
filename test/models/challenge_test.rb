@@ -13,7 +13,9 @@ test "challenge attributed properly" do
   c = Challenge.create(name: 'Make the funniest face!', description: 'Make the most hilarious face you can possibly make!')
 	c.save
 	u = User.first
-	u.challenges << c
+  uci = UsChalInteraction.create(interaction: "created")
+	u.us_chal_interactions << uci
+  c.us_chal_interactions << uci
 	assert_includes(u.challenges, c, "Challenges are not attributed correctly!")
 	end
 end

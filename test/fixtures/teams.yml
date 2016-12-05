@@ -3,9 +3,7 @@
 one:
   name: MyString
   points: 1
-  members: 1
 
 two:
   name: MyString
   points: 1
-  members: 1

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
-  include Devise::TestHelpers                          
+  include Devise::Test::ControllerHelpers                         
   include Warden::Test::Helpers                        
   Warden.test_mode!                                    
 
@@ -10,7 +10,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   setup do
-    @user = users(:one)
+    @user = users(:userone)
+    sign_in @user
   end
 
   test "should get index" do
@@ -24,14 +25,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create user" do
-    assert_difference('User.count') do
-      post :create, user: { email: @user.email, password: @user.password, points: @user.points, team: @user.team, username: @user.username }
-    end
-
-    assert_redirected_to user_path(assigns(:user))
-  end
-
   test "should show user" do
     get :show, id: @user
     assert_response :success
@@ -43,7 +36,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    patch :update, id: @user, user: { email: @user.email, password: @user.password, points: @user.points, team: @user.team, username: @user.username }
+    patch :update, id: @user, user: { email: @user.email, password: @user.password, points: @user.userscore, team: @user.team, username: @user.username }
     assert_redirected_to user_path(assigns(:user))
   end
 

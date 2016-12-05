@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class TeamsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers                         
+  include Warden::Test::Helpers                        
+  Warden.test_mode!  
+
   setup do
     @team = teams(:one)
   end

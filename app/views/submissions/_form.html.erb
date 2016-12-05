@@ -17,22 +17,16 @@
 
  <!-- TODO: Temporary until handeld in backend -->
   <div class="form-group">
-    <%= f.label "Submission Url" %><br>
-    <%= f.text_field :url %>
+    <%= f.file_field :filedata %>
   </div>
   <div class="form-group">
-    <%= f.label "Embed" %><br>
-    <%= f.text_field :embed, class: "form-control" %>
+    <%= f.label "Title" %><br>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
    <div class="form-group">
-    <%= f.label "Duration" %><br>
-    <%= f.text_field :duration, class: "form-control" %>
+    <%= f.label "Description" %><br>
+    <%= f.text_field :description, class: "form-control" %>
   </div>
-   <div class="form-group">
-    <%= f.label "Thumbnail" %><br>
-    <%= f.text_field :thumbnail, class: "form-control" %>
-  </div>
-  <div class="actions">
-    <%= f.submit class: "btn btn-secondary" %>
-  </div>
+   
+  <%= f.submit class: "btn btn-secondary" %>
 <% end %>

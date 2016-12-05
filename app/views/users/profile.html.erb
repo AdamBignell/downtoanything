@@ -1,6 +1,6 @@
 <%#= link_to("Back", {:action => 'index'}) %>
 
-<p>
+<!--<p>
   <strong>Email:</strong>
   <%= @user.email %>
 </p>
@@ -17,46 +17,52 @@
 
 <p>
   <strong>Team:</strong>
+  <% if @user.team_id %>
   <%= @user.team_id %>
+  <% else %> None <% end %>
 </p>
 
-<% if @user == current_user %>
-    <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary' %>
-<% end%>
+<p>
+  <strong>Achievements:</strong>
+</p>-->
 
-<br><br>
-<h4 class="card-title">Submissions:</h4>
+<!--<h1 class="card-title"><%= @user.username %></h1>-->
+<div class="container">
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
-  <% @mysubmissions.each do |submission| %>
-      <div class="card submission" data-url="<%= challenge_submission_path(@challenges.find(submission.challenge_id).id, submission)%>">
-          <div class="card-block">
-            <small class="h6"><p class="floatright"><%= link_to 'Edit', edit_challenge_submission_path(@challenges.find(submission.challenge_id).id, submission.id) %></p></small>
-            <h3 class="card-title"><%= @challenges.find(submission.challenge_id).name %> Challenge </h3>
-            <p class="card-text"><a href="<%= submission.url %>"> <%=submission.url %></a></p>
-            <p class="card-text">Score: <%= submission.score %></p>
-            <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
+   <div class="card">
+    <div class="card-block">
+    <div class="col-sm-2">
+      <img src="<%= @user.image %>" style="width:100%">
+    </div>
+     <div class="col-sm-10">
+        <div class="card-title"><span class="h1"><%= @user.username %></span>
+            <% if @user == current_user %>
+            <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' %>
+            <% end %>
+        </div>
+              <p class="card-text">Email: <%= @user.email %></p>
+              <p class="card-text">Challenger Points: <%= @user.userscore %></p>
+              <p class="card-text">Team: <% if @user.team_id %>
+                <%= @user.team_id %>
+                <% else %> None <% end %></p>
+              <p class="card-text">Badges:
+                <% @user.badges.each do |badge| %>
+                <%= badge.name %> |
+                <% end %>
+              <!--<p class="card-text">Achievements:</p>-->
+            </div>
           </div>
-        </a>
+        </div>
       </div>
-    <% end %>
   </div>
-</div>
 
-<h3> Challenges: </h3>
-<table>
-<tbody>
-  <thead>
-    <tr>
-      <th>Challenge Name</th>
-      <th>Score</th>
-    </tr>
-  </thead>
-  <% @mychallenges.each do |challenge| %>
-  <tr>
-    <td><%= challenge.name %></td>
-    <td><%= challenge.score %></td>
-  </tr>
-  <% end %>
-</tbody>
-</table>
+<h2>My Submissions</h2>
+<hr>
+<%= render partial: "submissions/cards", locals: {submissions: @mysubmissions} %>
+
+<h2>My Challenges</h2>
+<hr>
+<%= render partial: "challenges/cards", locals: {challenges: @mychallenges} %>
+
+</div>

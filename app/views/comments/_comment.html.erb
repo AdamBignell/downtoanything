@@ -3,7 +3,7 @@
     <%= l(comment.created_at, format: '%B, %d %Y %H:%M:%S') %></p>
 
   <blockquote>
-    <p><%= comment.body %></p>
+    <p><%= comment.bodytext %></p>
   </blockquote>
   <%= link_to "Del", [comment.post, comment], :confirm => 'Are you sure?', :method => :delete %>
 </div>

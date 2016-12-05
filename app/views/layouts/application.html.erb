@@ -17,12 +17,6 @@
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <a class="nav-item nav-link" href="/profile">Profile</a>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Account', edit_user_registration_path, :class => 'nav-link' %>
-          </li>
-          <li class="nav-item">
             <%= link_to "Challenges", challenges_path, :class => 'nav-link' %>
           </li>
            <li class="nav-item">
@@ -31,8 +25,16 @@
           <li class="nav-item">
             <%= link_to "Teams", teams_path, :class => 'nav-link' %>
           </li>
-          <li class="nav-item float-xs-right">
-            <%= link_to "Logout", destroy_user_session_path, :class => 'nav-link'  %>
+          <li class="nav-item dropdown float-xs-right">
+            <a class="nav-link dropdown-toggle pt-0 pb-0" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="<%= current_user.image %>" style="height:45px">
+              <%=current_user.username%>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/profile">Profile</a>
+              <%= link_to 'Account', edit_user_registration_path, :class => 'dropdown-item' %>
+              <%= link_to "Logout", destroy_user_session_path, :class => 'dropdown-item'  %>
+            </div>
           </li>
           <% if is_admin? %>
            <li class="nav-item">
@@ -49,14 +51,14 @@
         <% end %>
       </ul>
       <form class="form-inline float-xs-left ml-2" method="GET" action="/search/results">
-        <input class="form-control" type="text" name="search" placeholder="Search">
-        <button class="btn btn-outline-info" type="submit">Search</button>
+        <input class="form-control" type="text" name="search" id="searchform" placeholder="Search">
+        <button class="btn btn-outline-info" type="submit" id="searchbutton">Search</button>
       </form>
     </nav>
     </div>
   </div>
 
-<div class="container">
+<div class="container-fluid">
   <% if notice %>
     <div class="alert alert-info mt-1 alert-dismissible fade in" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -79,6 +81,5 @@
     </div>
   </div>
 </div>
-
 </body>
 </html>

@@ -1,7 +1,11 @@
+<div class="container">
+<h1>
+  <%= @submission.name %>
+</h1>
 
-
-<iframe src="<%= @submission.embed %>" width="100%" height="500" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen scrolling="no"></iframe>
-
+<% if @submission.embed %>
+  <iframe src="<%= @submission.embed %>" width="100%" height="500" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen scrolling="no"></iframe>
+<% end%>
 
 <div class="card-deck-wrapper mt-2">
   <div class="card-deck">
@@ -40,16 +44,14 @@
           </div>
       </div>
   </div>
-      <h4> Comments </h4>
-      <% @comments.each do |comment|  %>
-      <hr>
-      <p> <strong> <%= @users.find(comment.user_id).username %> | <%= comment.created_at %> </strong> </p>
-      <p> <%= comment.body %> </p>
-      <% end %>
 </div>
-
+<h4> Comments </h4>
+<% @comments.each do |comment|  %>
+<hr>
+<p> <strong> <%= @users.find(comment.user_id).username %> | <%= comment.created_at %> </strong> </p>
+<p> <%= comment.bodytext %> </p>
+<% end %>
 <h6> Add a comment!: </h6>
   <%= render "comments/form" %>
-
-<%= link_to 'Edit', edit_submission_path(@submission) %> |
-<%= link_to 'Back', submissions_path %>
+  
+</div>

@@ -23,7 +23,7 @@ class ChallengesController < ApplicationController
     @user = User.find(current_user.id)
     @cre_user = @challenge.us_chal_interactions.where(:interaction => "created").first.user
     @interaction = UsChalInteraction.where(:user_id => current_user.id, :challenge_id => @challenge.id).first
-    @challsubmissions = @challenge.submissions
+    @submissions = @challenge.submissions
   end
 
   # GET /challenges/new
@@ -91,21 +91,21 @@ class ChallengesController < ApplicationController
       @user.us_chal_interactions << @interaction
       @challenge.us_chal_interactions << @interaction
       @challenge.update_attributes(:score => @challenge.score + 1)
-      @cre_user.update_attributes(:points => @cre_user.points + 1)
+      @cre_user.update_attributes(:userscore => @cre_user.userscore + 1)
     else
       @interaction = @challenge.us_chal_interactions.where(:user_id => @user.id).first
       if params[:st] == 'neither'
         @interaction.update_attributes(:interaction => 'liked')
         @challenge.update_attributes(:score => @challenge.score + 1)
-        @cre_user.update_attributes(:points => @cre_user.points + 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore + 1)
       elsif params[:st] == 'like'
         @interaction.update_attributes(:interaction => 'neutral')
         @challenge.update_attributes(:score => @challenge.score - 1)
-        @cre_user.update_attributes(:points => @cre_user.points - 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore - 1)
       else
         @interaction.update_attributes(:interaction => 'liked')
         @challenge.update_attributes(:score => @challenge.score + 2)
-        @cre_user.update_attributes(:points => @cre_user.points + 2)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore + 2)
       end
     end
     redirect_to(:action => 'show')
@@ -120,21 +120,21 @@ class ChallengesController < ApplicationController
       @user.us_chal_interactions << @interaction
       @challenge.us_chal_interactions << @interaction
       @challenge.update_attributes(:score => @challenge.score - 1)
-      @cre_user.update_attributes(:points => @cre_user.points - 1)
+      @cre_user.update_attributes(:userscore => @cre_user.userscore - 1)
     else
       @interaction = @challenge.us_chal_interactions.where(:user_id => @user.id).first
       if params[:st] == 'neither'
         @interaction.update_attributes(:interaction => 'disliked')
         @challenge.update_attributes(:score => @challenge.score - 1)
-        @cre_user.update_attributes(:points => @cre_user.points - 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore - 1)
       elsif params[:st] == 'like'
         @interaction.update_attributes(:interaction => 'disliked')
         @challenge.update_attributes(:score => @challenge.score - 2)
-        @cre_user.update_attributes(:points => @cre_user.points - 2)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore - 2)
       else
         @interaction.update_attributes(:interaction => 'neutral')
         @challenge.update_attributes(:score => @challenge.score + 1)
-        @cre_user.update_attributes(:points => @cre_user.points + 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore + 1)
       end
     end
     redirect_to(:action => 'show')

@@ -39,8 +39,49 @@ class SubmissionsController < ApplicationController
   # POST /challenges/:challenge_id/submissions.json
   def create
     @submission = Submission.new(submission_params)
-
     @user = User.find(current_user.id)
+
+    if params[:submission][:filedata]
+      @upload_url = "https://api.vid.me/video/upload"
+      
+      # Call vidme API to upload video
+      @payload = {
+              :multipart => true,
+              :filedata => params[:submission][:filedata],
+              :title => @submission.name,
+              :description => @submission.description
+            }
+
+      request = RestClient::Request.new({
+            :method => 'post',
+            :url => @upload_url,
+            :payload => @payload
+      })
+
+      # Catch Errors
+      begin
+        response = request.execute
+      rescue RestClient::ExceptionWithResponse => e
+        response = JSON.parse(e.response)
+        flash[:alert] = response['error']
+        redirect_to(:back) and return
+      end
+
+      # Update submission with data
+      response = JSON.parse(response)
+      @video_id =  response['video']['video_id']
+      @submission.url = response['video']['full_url']
+      @submission.embed = response['video']['embed_url']
+      @submission.duration = response['video']['duration']
+
+      # Get Thumbnail for video
+      @get_url = 'https://api.vid.me/video/' + @video_id
+      response = RestClient.get(@get_url)
+      response = JSON.parse(response)
+      @submission.thumbnail = response['video']['thumbnail_url']
+    end
+
+    # Add User Interaction
     @interaction = UserInteraction.create(:interaction => "created")
     @user.user_interactions << @interaction
     @submission.user_interactions << @interaction
@@ -54,7 +95,8 @@ class SubmissionsController < ApplicationController
         format.json { render json: @submission.errors, status: :unprocessable_entity }
       end
     end
-    @user = @submission.user_interactions.where(:interaction => "created").first.user
+
+    @user = current_user
 
     @challenge = Challenge.find(params[:challenge_id])
     @challenge.submissions << @submission
@@ -83,21 +125,21 @@ class SubmissionsController < ApplicationController
       @user.user_interactions << @interaction
       @submission.user_interactions << @interaction
       @submission.update_attributes(:score => @submission.score + 1)
-      @cre_user.update_attributes(:points => @cre_user.points + 1)
+      @cre_user.update_attributes(:userscore => @cre_user.userscore + 1)
     else
       @interaction = @submission.user_interactions.where(:user_id => @user.id).first
       if params[:st] == 'neither'
         @interaction.update_attributes(:interaction => 'liked')
         @submission.update_attributes(:score => @submission.score + 1)
-        @cre_user.update_attributes(:points => @cre_user.points + 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore + 1)
       elsif params[:st] == 'like'
         @interaction.update_attributes(:interaction => 'neutral')
         @submission.update_attributes(:score => @submission.score - 1)
-        @cre_user.update_attributes(:points => @cre_user.points - 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore - 1)
       else
         @interaction.update_attributes(:interaction => 'liked')
         @submission.update_attributes(:score => @submission.score + 2)
-        @cre_user.update_attributes(:points => @cre_user.points + 2)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore + 2)
       end
     end
     redirect_to(:action => 'show')
@@ -112,21 +154,21 @@ class SubmissionsController < ApplicationController
       @user.user_interactions << @interaction
       @submission.user_interactions << @interaction
       @submission.update_attributes(:score => @submission.score - 1)
-      @cre_user.update_attributes(:points => @cre_user.points - 1)
+      @cre_user.update_attributes(:userscore => @cre_user.userscore - 1)
     else
       @interaction = @submission.user_interactions.where(:user_id => @user.id).first
       if params[:st] == 'neither'
         @interaction.update_attributes(:interaction => 'disliked')
         @submission.update_attributes(:score => @submission.score - 1)
-        @cre_user.update_attributes(:points => @cre_user.points - 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore - 1)
       elsif params[:st] == 'like'
         @interaction.update_attributes(:interaction => 'disliked')
         @submission.update_attributes(:score => @submission.score - 2)
-        @cre_user.update_attributes(:points => @cre_user.points - 2)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore - 2)
       else
         @interaction.update_attributes(:interaction => 'neutral')
         @submission.update_attributes(:score => @submission.score + 1)
-        @cre_user.update_attributes(:points => @cre_user.points + 1)
+        @cre_user.update_attributes(:userscore => @cre_user.userscore + 1)
       end
     end
     redirect_to(:action => 'show')
@@ -150,6 +192,6 @@ class SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:score, :challenge_id, :url, :description, :title, :embed, :thumbnail, :duration)
+      params.require(:submission).permit(:score, :challenge_id, :url, :description, :name, :embed, :thumbnail, :duration)
     end
 end

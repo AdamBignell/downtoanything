@@ -11,17 +11,29 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :email %><br>
+  <div class="form-group row">
+    <%= f.label :email, class: "col-xs-2 col-form-label" %>
+     <div class="col-xs-10">
     <%= f.text_field :email, class: "form-control" %>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.label :username %><br>
+  <div class="form-group row">
+    <%= f.label :username, class: "col-xs-2 col-form-label" %>
+     <div class="col-xs-10">
     <%= f.text_field :username, class: "form-control" %>
+    </div>
   </div>
-  <div class="form-group">
-  <%= f.label :team%><br>
-   <%= f.collection_select(:team_id, Team.all, :id, :name) %>
+  <div class="form-group row">
+    <%= f.label :image, class: "col-xs-2 col-form-label" %>
+     <div class="col-xs-10">
+    <%= f.file_field :image, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group row">
+  <%= f.label :team, class: "col-xs-2 col-form-label" %>
+   <div class="col-xs-10">
+   <%= f.collection_select(:team_id, Team.all, :id, :name, {}, {class: "form-control"}) %>
+   </div>
   </div>
   <div class="actions">
     <%= f.submit class: "btn btn-secondary" %>
