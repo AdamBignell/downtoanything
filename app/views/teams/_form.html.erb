@@ -10,24 +10,25 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :Team_Password %><br>
-    <%= f.password_field :password %>
+    <%= f.password_field :password, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :Team_Password_Confirmation %><br>
-    <%= f.password_field :passwordconfirmation %>
+    <%= f.password_field :passwordconfirmation, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
+
+</form>
 <% end %>
