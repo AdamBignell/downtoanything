@@ -40,10 +40,19 @@ class UsersController < ApplicationController
   def show
     if user_signed_in?
       @user = User.find(params[:id])
-      # For whatever reason this line doesn't work
-      @mysubmissions = @user.submissions
-      @challenges = Challenge.all
-      @mychallenges = @user.challenges
+    @mysubmissions = []
+     @user.submissions.each do |submission|
+       if submission.user_interactions.where(:user_id => @user.id).first.interaction == "created"
+         @mysubmissions << submission
+       end
+     end
+     @challenges = Challenge.all
+     @mychallenges = []
+     @user.challenges.each do |challenge|
+       if challenge.us_chal_interactions.where(:user_id => @user.id).first.interaction == "created"
+         @mychallenges << challenge
+       end
+     end
     end
   end
 

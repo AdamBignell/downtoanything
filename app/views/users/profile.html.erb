@@ -44,7 +44,7 @@
               <p class="card-text">Email: <%= @user.email %></p>
               <p class="card-text">Challenger Points: <%= @user.userscore %></p>
               <p class="card-text">Team: <% if @user.team_id %>
-                <%= @user.team_id %>
+                <%= @user.team.name %>
                 <% else %> None <% end %></p>
               <p class="card-text">Badges:
                 <% @user.badges.each do |badge| %>
