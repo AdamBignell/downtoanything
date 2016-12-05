@@ -1,32 +1,28 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+<h1> <%= @team.name %> </h1>
+  <p class="lead">
+    <%= @team.description %>
+  </p>
+  <p>
+    <strong>Points:</strong>
+    <%= @team.points %>
+  </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @team.name %>
-</p>
+  <p>
+    <strong>Number of Members:</strong>
+    <%= @team.users.count %>
+  </p>
+  <p>
+    <strong>Members:</strong>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.username, user %></td> 
+      </tr>
+  <% end %>
+  </p>
+  <%= link_to 'Back', teams_path, class: "btn btn-secondary" %>
+  <% if current_user.team_id == @team.id %>
+  <%= link_to 'Edit', edit_team_path(@team), class: "btn btn-primary" %>
+  <% end %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @team.description %>
-</p>
-
-<p>
-  <strong>Points:</strong>
-  <%= @team.points %>
-</p>
-
-<p>
-  <strong>Number of Members:</strong>
-  <%= @team.users.count %>
-</p>
-<p>
-  <strong>Members:</strong>
-  <% @users.each do |user| %>
-    <tr>
-      <td><%= user.username %></td> 
-    </tr>
-<% end %>
-</p>
-
-<%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'Back', teams_path %>
+</div>
