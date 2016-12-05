@@ -42,3 +42,14 @@ ui2 = UsChalInteraction.create(interaction: "created")
 c2.us_chal_interactions << ui2
 u5.us_chal_interactions << ui2
 c2.save!
+
+t1 = Team.create( id:1, name: "Lightning", description: "We're fast and furious like lightning bolts!")
+t2 = Team.create( id:2, name: "Darkness", description: "!")
+
+u6.team = t1
+u5.team = t1
+u4.team = t1
+
+u3.team = t2
+u2.team = t2
+u.team = t2
