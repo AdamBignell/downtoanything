@@ -34,6 +34,21 @@
    <div class="col-xs-10">
    <%= f.collection_select(:team_id, Team.all, :id, :name, {}, {class: "form-control"}) %>
    </div>
+  <div class="form-group row">
+    <%= f.label :birthdate, class: "col-xs-2 col-form-label" %>
+     <div class="col-xs-10">
+    <%= f.text_field :birthdate, class: "form-control" %>
+    </div>
+    <div class="form-group row">
+    <%= f.label :location, class: "col-xs-2 col-form-label" %>
+     <div class="col-xs-10">
+    <%= f.text_field :location, class: "form-control" %>
+    </div>
+    <div class="form-group row">
+    <%= f.label :bio, class: "col-xs-2 col-form-label" %>
+     <div class="col-xs-10">
+    <%= f.text_field :bio, class: "form-control" %>
+    </div>
   </div>
   <div class="actions">
     <%= f.submit class: "btn btn-secondary" %>
