@@ -81,11 +81,6 @@ class SubmissionsController < ApplicationController
       @submission.thumbnail = response['video']['thumbnail_url']
     end
 
-    # Add User Interaction
-    @interaction = UserInteraction.create(:interaction => "created")
-    @user.user_interactions << @interaction
-    @submission.user_interactions << @interaction
-
     respond_to do |format|
       if @submission.save
         format.html { redirect_to @submission, notice: 'Submission was successfully created.' }
@@ -95,6 +90,11 @@ class SubmissionsController < ApplicationController
         format.json { render json: @submission.errors, status: :unprocessable_entity }
       end
     end
+
+    # Add User Interaction # Matt I moved this after save because it was failing
+    @interaction = UserInteraction.create(:interaction => "created")
+    @user.user_interactions << @interaction
+    @submission.user_interactions << @interaction
 
     @user = current_user
 

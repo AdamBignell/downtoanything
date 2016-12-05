@@ -55,7 +55,7 @@ class ChallengesController < ApplicationController
         format.json { render json: @challenge.errors, status: :unprocessable_entity }
       end
     end
-    @user = @challenge.us_chal_interactions.where(:interaction => "created").first.user
+    # @user = @challenge.us_chal_interactions.where(:interaction => "created").first.user  # Matt - what is this for?
   end
 
   # PATCH/PUT /challenges/1
