@@ -41,6 +41,9 @@
               <% end %>
             </p>
             <p class="card-text"><small class="text-muted"><!-- TODO: submission uploaded --></small></p>
+          <% if (@submission.user_interactions.where(:interaction => "created").first.user == current_user) %>
+          <%= button_to 'Destroy', @submission, method: :delete, data: { confirm: 'Are you sure?' }, form_class: "inline ", class: "btn btn-danger" %>
+          <% end%>
           </div>
       </div>
   </div>
@@ -48,7 +51,7 @@
 <h4> Comments </h4>
 <% @comments.each do |comment|  %>
 <hr>
-<p> <strong> <%= @users.find(comment.user_id).username %> | <%= comment.created_at %> </strong> </p>
+<p> <strong> <%= @users.find(comment.user_id).username %> | <%= comment.created_at.to_formatted_s(:short) %> </strong> </p>
 <p> <%= comment.bodytext %> </p>
 <% end %>
 <h6> Add a comment!: </h6>
