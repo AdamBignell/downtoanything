@@ -6,7 +6,7 @@
         <td><%= user.team_id %></td>
         <td><%= user.admin ? "Yes" : "No" %></td>
         <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to("Destroy", {:action => "destroy", :id => user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :delete, data: {confirm: "Are you sure?"}) %></td>
         <td>
         <% if !user.admin? %> <%= link_to("Make Admin", {:action => "make_admin", :id => user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> <% end %>
         <% if user.admin? %> <%= link_to("Demote Admin", {:action => "demote_admin", :id => user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> <% end %>
