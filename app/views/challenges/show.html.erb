@@ -15,42 +15,23 @@
 <p class="card-text">
   <% if !@interaction || @interaction.interaction != "created" %>
     <% if !@interaction %>
-      <%= link_to("+1", {:action => 'upvote', :id => @challenge.id, :st => 'none', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> /
-      <%= link_to("-1", {:action => 'downvote', :id => @challenge.id, :st => 'none', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %>
+      <%= link_to("+1", {:action => 'upvote', :id => @challenge.id, :st => 'none', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post, class: 'btn btn-success') %>
+      <%= link_to("-1", {:action => 'downvote', :id => @challenge.id, :st => 'none', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post, class: 'btn btn-danger') %>
     <% else %>
       <% case @interaction.interaction %>
       <% when "neutral" %>
-        <%= link_to("+1", {:action => 'upvote', :id => @challenge.id, :st => 'neither', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> /
-        <%= link_to("-1", {:action => 'downvote', :id => @challenge.id, :st => 'neither', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %>
+        <%= link_to("+1", {:action => 'upvote', :id => @challenge.id, :st => 'neither', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post, class: 'btn btn-success') %> /
+        <%= link_to("-1", {:action => 'downvote', :id => @challenge.id, :st => 'neither', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post, class: 'btn btn-danger') %>
       <% when "liked" %>
-        <%= link_to("cancel", {:action => 'upvote', :id => @challenge.id, :st => 'like', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> /
-        <%= link_to("-1", {:action => 'downvote', :id => @challenge.id, :st => 'like', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %>
+        <%= link_to("cancel", {:action => 'upvote', :id => @challenge.id, :st => 'like', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post, class: 'btn btn-secondary') %> /
+        <%= link_to("-1", {:action => 'downvote', :id => @challenge.id, :st => 'like', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post, class: 'btn btn-danger') %>
       <% else %>
-        <%= link_to("+1", {:action => 'upvote', :id => @challenge.id, :st => 'dislike', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %> /
-        <%= link_to("-cancel", {:action => 'downvote', :id => @challenge.id, :st => 'dislike', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post) %>
+        <%= link_to("+1", {:action => 'upvote', :id => @challenge.id, :st => 'dislike', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post, class: 'btn btn-sucess') %> /
+        <%= link_to("-cancel", {:action => 'downvote', :id => @challenge.id, :st => 'dislike', :user => @user.id, :authenticity_token => form_authenticity_token()}, remote: true, method: :post, class: 'btn btn-danger') %>
       <% end %>
     <% end %>
   <% end %>
 </p>
-
-
-<div class="card-deck-wrapper mt-2">
-  <div class="card-deck">
-  <% @challenge.submissions.sort_by { |submission| submission.score}.each do |submission| %>
-      <div class="card submission" data-url="<%= challenge_submission_path(@challenge, submission)%>">
-          <div class="card-block">
-            <h4 class="card-title">Submission <small class="h6">By: <%= submission.user_interactions.where(:interaction => "created").first.user.username %></h4>
-          </div>
-          <% if submission.thumbnail? %>
-            <img height="100px" src="<%= submission.thumbnail %>" alt="Card image">
-          <% end%>
-          <div class="card-block">
-            <p class="card-text">Score: <%= submission.score %></p>
-          </div>
-      </div>
-    <% end %>
-  </div>
-</div>
 
 <%= link_to 'New Submission', new_challenge_submission_path(@challenge), class: "btn btn-primary" %>
 
